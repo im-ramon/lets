@@ -10,7 +10,9 @@ export const styles = StyleSheet.create({
     text: {
         color: THEME.COLORS.TEXT
     },
-    contadorArea: {},
+    contadorArea: {
+        alignItems: 'center'
+    },
     contadorHeader: {
 
     },
@@ -23,30 +25,19 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 8
     },
-    contadorBodyItem: {
+    contadorLegend: {
+        backgroundColor: THEME.COLORS.PRIMARY,
         justifyContent: 'center',
         alignItems: 'center',
-        marginHorizontal: 8
+        paddingVertical: 16,
+        width: '80%',
     },
-    contadorBodyItemTextContainer: {
-        borderWidth: 2,
-        borderColor: THEME.COLORS.PRIMARY,
-        width: 64,
-        height: 64,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: THEME.COLORS.BACKGROUND_1,
+    contadorLegendText: {
+        fontSize: THEME.FONT_SIZE.MD,
+        fontFamily: THEME.FONT_FAMILY.REGULAR
     },
-    contadorBodyItemText: {
-        fontFamily: THEME.FONT_FAMILY.BOLD,
-        fontSize: THEME.FONT_SIZE.LG,
-        color: THEME.COLORS.PRIMARY
+    chart: {
+        height: 220,
+        marginVertical: 16
     },
-    contadorBodyItemTextLegend: {
-        fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
-        fontSize: THEME.FONT_SIZE.SM,
-        color: THEME.COLORS.TEXT
-    },
-    metasArea: {},
-    calendarioArea: {},
 });

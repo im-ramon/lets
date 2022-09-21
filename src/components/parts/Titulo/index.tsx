@@ -19,10 +19,11 @@ export function Titulo(props: TituloProps) {
 export const styles = StyleSheet.create({
     container: {
         width: '100%',
-        backgroundColor: 'grey',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16
+        padding: 16,
+        borderBottomColor: THEME.COLORS.PRIMARY,
+        borderBottomWidth: 2
     },
     text: {
         color: THEME.COLORS.TEXT,
