@@ -3,7 +3,7 @@ import { THEME } from '../../../theme/index'
 
 export function Loading() {
     return (
-        <View>
+        <View style={styles.container}>
             <ActivityIndicator
                 color={THEME.COLORS.PRIMARY}
                 size={32}
@@ -11,3 +11,12 @@ export function Loading() {
         </View>
     )
 }
+
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: THEME.COLORS.BACKGROUND_1
+    }
+});

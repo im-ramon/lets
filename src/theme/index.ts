@@ -13,7 +13,7 @@ export const THEME = {
         SEMANTIC_2: '#6C6A6A',
         SEMANTIC_3: '#F9F8FD',
 
-        BLACK: '#171717',
+        BLACK: '#000000',
         SUCCESS: '#28A745',
         WARNING: '#FFC107',
         DANGER: '#DC3545',
