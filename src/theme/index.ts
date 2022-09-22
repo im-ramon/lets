@@ -10,6 +10,7 @@ export const THEME = {
         NEUTRAL_1: '#FFFFFF',
         NEUTRAL_2: '#969696',
         NEUTRAL_3: '#464646',
+        NEUTRAL_4: '#2A2A2A',
         SEMANTIC_1: '#FFC107',
         SEMANTIC_2: '#6C6A6A',
         SEMANTIC_3: '#F9F8FD',

@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, Dimensions, Image } from 'react-native';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { ContributionGraph } from "react-native-chart-kit";
 
-import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import { Titulo } from '../../parts/Titulo';
 import { ButtonMedium } from '../../parts/ButtonMedium';
+import { BlocoConteudo } from '../../parts/BlocoConteudo';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
@@ -52,104 +53,124 @@ const handleToolTip: any = {}
 
 export function Home() {
     return (
-        <View style={styles.container}>
-            <View style={styles.navMenu}>
-                <View style={styles.logoContainer}>
-                    <Image source={logo} style={styles.logoImg} />
-                    <Text style={styles.logoText}>Let's</Text>
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={styles.container}>
+                <View style={styles.navMenu}>
+                    <View style={styles.logoContainer}>
+                        <Image source={logo} style={styles.logoImg} />
+                        <Text style={styles.logoText}>Let's</Text>
+                    </View>
+
+                    <View style={styles.pontosContainer}>
+                        <Text style={styles.pontosText}>00 pontos</Text>
+                    </View>
                 </View>
 
-                <View style={styles.pontosContainer}>
-                    <Text style={styles.pontosText}>00 pontos</Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.boasvindasTextH1}>Olá, usuário!</Text>
                 </View>
-            </View>
 
-            <View style={styles.apresentacaoApp}>
-                <Text style={styles.boasvindasTextH1}>Olá, usuário,</Text>
-                <Text style={styles.boasvindasTextP}>Bem vindo ao app Let's. Por aqui você pode acompanhar o resumo do andamento da sua jornada longe do consumo de conteúdo explícito.</Text>
-            </View>
+                <View style={[styles.graficoEvolucao, styles.bloco]}>
+                    <TouchableOpacity style={styles.shareButton} >
+                        <Ionicons name="ios-share-social-outline" size={24} color={THEME.COLORS.TEXT} />
+                    </TouchableOpacity>
 
-            <View style={styles.contadorEvolucao}>
-                <Titulo content='Seu progresso'>
-                    <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color="white" />
-                </Titulo>
+                    <Titulo title='Evolução' subtitle='Esse é gráfico do seu progresso nos últimos noventa dias, tente mantê-lo o mais limpo possível.'>
+                        <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.PRIMARY} />
+                    </Titulo>
 
-                <View style={styles.contadorEvolucao}></View>
+                    <ContributionGraph
+                        // LEMBRAR: Configurar com atenção as propiedades do gráfico
+                        tooltipDataAttrs={(value) => handleToolTip}
+                        values={commitsData}
+                        endDate={new Date()}
+                        numDays={93}
+                        width={screenWidth}
+                        height={260}
+                        chartConfig={chartConfig}
+                        style={styles.chart}
+                        getMonthLabel={(monthIndex: number) => {
+                            switch (monthIndex) {
+                                case 0: {
+                                    return 'Jan'
+                                    break;
+                                }
+                                case 1: {
+                                    return 'Fev'
+                                    break;
+                                }
+                                case 2: {
+                                    return 'Mar'
+                                    break;
+                                }
+                                case 3: {
+                                    return 'Abr'
+                                    break;
+                                }
+                                case 4: {
+                                    return 'Mai'
+                                    break;
+                                }
+                                case 5: {
+                                    return 'Jun'
+                                    break;
+                                }
+                                case 6: {
+                                    return 'Jul'
+                                    break;
+                                }
+                                case 7: {
+                                    return 'Ago'
+                                    break;
+                                }
+                                case 8: {
+                                    return 'Set'
+                                    break;
+                                }
+                                case 9: {
+                                    return 'Out'
+                                    break;
+                                }
+                                case 10: {
+                                    return 'Nov'
+                                    break;
+                                }
+                                case 11: {
+                                    return 'Dez'
+                                    break;
+                                }
+                                default: {
+                                    return 'Month'
+                                    break;
+                                }
+                            }
+                        }}
+                        squareSize={24}
+                        onDayPress={(day) => { console.log(day.date) }} // LEMBRAR: Colocar alert aqui para avisar a data.
+                    />
+                </View>
 
-                <ContributionGraph
-                    // LEMBRAR: Configurar com atenção as propiedades do gráfico
-                    tooltipDataAttrs={(value) => handleToolTip}
-                    values={commitsData}
-                    endDate={new Date()}
-                    numDays={90}
-                    width={screenWidth}
-                    height={260}
-                    chartConfig={chartConfig}
-                    style={styles.chart}
-                    getMonthLabel={(monthIndex: number) => {
-                        switch (monthIndex) {
-                            case 0: {
-                                return 'Jan'
-                                break;
-                            }
-                            case 1: {
-                                return 'Fev'
-                                break;
-                            }
-                            case 2: {
-                                return 'Mar'
-                                break;
-                            }
-                            case 3: {
-                                return 'Abr'
-                                break;
-                            }
-                            case 4: {
-                                return 'Mai'
-                                break;
-                            }
-                            case 5: {
-                                return 'Jun'
-                                break;
-                            }
-                            case 6: {
-                                return 'Jul'
-                                break;
-                            }
-                            case 7: {
-                                return 'Ago'
-                                break;
-                            }
-                            case 8: {
-                                return 'Set'
-                                break;
-                            }
-                            case 9: {
-                                return 'Out'
-                                break;
-                            }
-                            case 10: {
-                                return 'Nov'
-                                break;
-                            }
-                            case 11: {
-                                return 'Dez'
-                                break;
-                            }
-                            default: {
-                                return 'Month'
-                                break;
-                            }
-                        }
-                    }}
-                    squareSize={24}
-                    onDayPress={(day) => { console.log(day.date) }} // LEMBRAR: Colocar alert aqui para avisar a data.
-                />
+                <View style={[styles.contadorEvolucao, styles.bloco]}>
+                    {/* LEMBRAR: Colocar aqui um texto dinâminco, entre as "aspas" */}
+                    <Text style={styles.contadorEvolucaoHeader}>Tempo "em liberdade"</Text>
+                    <Text style={styles.contadorEvolucaoText}>
+                        <Text style={styles.contadorEvolucaoTextbold}>00</Text> a <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
+                        <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
+                        <Text style={styles.contadorEvolucaoTextbold}> 00</Text> d <Text style={styles.contadorEvolucaoTextGrey}> . </Text>
+                        <Text style={styles.contadorEvolucaoTextbold}> 00</Text> h <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
+                        <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
+                        <Text style={styles.contadorEvolucaoTextbold}> 00</Text> s
+                    </Text>
+                </View>
+
+
                 <ButtonMedium value='Reiniciar contador' onPress={() => console.log('ButtonMedium')}>
                     <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
                 </ButtonMedium>
             </View>
-        </View >
+        </ScrollView>
     );
 }
 

@@ -23,7 +23,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: 250,
+        marginVertical: 8
     },
     text: {
         color: THEME.COLORS.TEXT,
