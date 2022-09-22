@@ -13,12 +13,12 @@ const TabNavigator = createBottomTabNavigator();
 export default function AuthRoutes() {
     return (
         <TabNavigator.Navigator
+            initialRouteName='Home'
             screenOptions={{
                 headerShown: false,
                 tabBarHideOnKeyboard: true,
                 tabBarActiveBackgroundColor: THEME.COLORS.PRIMARY,
                 tabBarActiveTintColor: THEME.COLORS.NEUTRAL_1,
-                // tabBarBadge: '1',
                 tabBarStyle: {
                     backgroundColor: THEME.COLORS.BACKGROUND_1,
                     borderTopWidth: 0,

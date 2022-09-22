@@ -3,7 +3,7 @@ import { styles } from './styles'
 import ButtonLarge from '../../parts/ButtonLarge';
 
 export function Welcome() {
-    const background = require('../../../assets/background-welcome.jpg');
+    const background = require('../../../assets/img/background-welcome.jpg');
 
     return (
         <ImageBackground

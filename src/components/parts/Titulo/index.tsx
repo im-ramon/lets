@@ -4,13 +4,14 @@ import { THEME } from '../../../theme';
 
 interface TituloProps extends ViewProps {
     content: string;
+    children: React.ReactNode;
 }
 
 export function Titulo(props: TituloProps) {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>
-                {props.content}
+                {props.children}  {props.content}
             </Text>
         </View>
     );
@@ -18,15 +19,16 @@ export function Titulo(props: TituloProps) {
 
 export const styles = StyleSheet.create({
     container: {
-        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
+        paddingVertical: 8,
+        paddingHorizontal: 24,
         borderBottomColor: THEME.COLORS.PRIMARY,
-        borderBottomWidth: 2
+        borderBottomWidth: 1,
+        marginVertical: 16
     },
     text: {
         color: THEME.COLORS.TEXT,
-        fontSize: THEME.FONT_SIZE.MD
+        fontSize: THEME.FONT_SIZE.LG
     }
 });

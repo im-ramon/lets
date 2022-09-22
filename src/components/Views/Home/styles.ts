@@ -5,39 +5,63 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        paddingTop: 32
+        paddingTop: 32,
+        paddingHorizontal: 16
     },
     text: {
         color: THEME.COLORS.TEXT
     },
-    contadorArea: {
+    navMenu: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 16
+    },
+    logoContainer: {
+        flexDirection: 'row',
         alignItems: 'center'
     },
-    contadorHeader: {
-
+    logoImg: {
+        width: 30,
+        height: 30,
+        marginRight: 8
     },
-    contadorHeaderH1: {
-        color: 'red'
+    logoText: {
+        fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+        fontSize: THEME.FONT_SIZE.MD,
+        color: THEME.COLORS.TEXT
     },
-    contadorBody: {
+    pontosContainer: {
+        justifyContent: 'center'
+    },
+    pontosText: {
+        fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+        fontSize: THEME.FONT_SIZE.SM,
+        color: THEME.COLORS.TEXT
+    },
+    apresentacaoApp: {
+        borderBottomColor: THEME.COLORS.PRIMARY_SOFT,
+        borderBottomWidth: 1,
+        paddingBottom: 24
+    },
+    boasvindasTextH1: {
+        fontSize: THEME.FONT_SIZE.LG,
+        fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+        color: THEME.COLORS.TEXT,
+        marginVertical: 12
+    },
+    boasvindasTextP: {
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        color: THEME.COLORS.TEXT,
+        fontSize: THEME.FONT_SIZE.SM,
+    },
+    contadorEvolucao: {
         width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        paddingVertical: 8
-    },
-    contadorLegend: {
-        backgroundColor: THEME.COLORS.PRIMARY,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 16,
-        width: '80%',
-    },
-    contadorLegendText: {
-        fontSize: THEME.FONT_SIZE.MD,
-        fontFamily: THEME.FONT_FAMILY.REGULAR
+        paddingVertical: 8,
     },
     chart: {
-        height: 220,
-        marginVertical: 16
+        height: 260,
+        marginVertical: 16,
     },
 });

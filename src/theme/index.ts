@@ -6,6 +6,7 @@ export const THEME = {
         TEXT: '#FFFFFF',
 
         PRIMARY: '#C15147',
+        PRIMARY_SOFT: '#C15147' + '50',
         NEUTRAL_1: '#FFFFFF',
         NEUTRAL_2: '#969696',
         NEUTRAL_3: '#464646',
