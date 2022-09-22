@@ -49,6 +49,7 @@ export function Home() {
                 </View>
                 <View style={styles.contadorBody}>
                     <ContributionGraph
+                        // LEMBRAR: Configurar com atenção as propiedades do gráfico
                         tooltipDataAttrs={(value) => handleToolTip}
                         values={commitsData}
                         endDate={new Date()}

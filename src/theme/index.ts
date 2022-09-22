@@ -33,5 +33,9 @@ export const THEME = {
         LG: 24,
         XL: 32,
         XXL: 48,
+    },
+    SPACING: {
+        MARGIN: 16,
+        PADDING: 12
     }
 }

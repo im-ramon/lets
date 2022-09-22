@@ -8,5 +8,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         // backgroundColor: THEME.COLORS.SEMANTIC_2,
         backgroundColor: THEME.COLORS.BACKGROUND_1,
+        paddingTop: 32,
     }
 });
