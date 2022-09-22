@@ -6,7 +6,6 @@ import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-ico
 
 import { Titulo } from '../../parts/Titulo';
 import { ButtonMedium } from '../../parts/ButtonMedium';
-import { BlocoConteudo } from '../../parts/BlocoConteudo';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
