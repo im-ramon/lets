@@ -1,11 +1,12 @@
-import React from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { ContributionGraph } from "react-native-chart-kit";
 
 import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import { Titulo } from '../../parts/Titulo';
 import { ButtonMedium } from '../../parts/ButtonMedium';
+import { ModalShort } from '../../parts/ModalShort';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
@@ -49,21 +50,46 @@ const commitsData = [
 
 // Skiping no erro de tipagem no gráfico
 const handleToolTip: any = {}
+// --- End
 
 export function Home() {
+
+    const [showChartSubtitle, setShowChartSubtitle] = useState<boolean>(false);
+    const [dedicationShortPress, setDedicationShortPress] = useState<number>(0);
+    const [dedicationLongPress, setDedicationLongPress] = useState<number>(0);
+    const [showDedicationModal, setShowDedicationModal] = useState<boolean>(false);
+
+    // Controla a exibição do modal de dedicatória
+    useEffect(() => {
+        if (dedicationLongPress == 4 && dedicationShortPress == 4) {
+            setShowDedicationModal(true)
+        }
+    }, [dedicationLongPress, dedicationShortPress])
+
+    const handleDedication = (modalActive: boolean) => {
+        setDedicationShortPress(0);
+        setDedicationLongPress(0);
+        setShowDedicationModal(modalActive);
+    }
+    // --- End
+
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
         >
             <View style={styles.container}>
                 <View style={styles.navMenu}>
-                    <View style={styles.logoContainer}>
+                    <TouchableOpacity
+                        onPress={() => setDedicationShortPress(dedicationShortPress + 1)}
+                        onLongPress={() => setDedicationLongPress(dedicationLongPress + 1)}
+                        style={styles.logoContainer}
+                    >
                         <Image source={logo} style={styles.logoImg} />
                         <Text style={styles.logoText}>Let's</Text>
-                    </View>
+                    </TouchableOpacity>
 
                     <View style={styles.pontosContainer}>
-                        <Text style={styles.pontosText}>00 pontos</Text>
+                        <Text style={styles.pontosText}> 0 pontos</Text>
                     </View>
                 </View>
 
@@ -149,6 +175,33 @@ export function Home() {
                         squareSize={24}
                         onDayPress={(day) => { console.log(day.date) }} // LEMBRAR: Colocar alert aqui para avisar a data.
                     />
+
+                    {showChartSubtitle && (
+                        <TouchableOpacity
+                            onPress={() => setShowChartSubtitle(false)}
+                            style={styles.graficoEvolucaoSubtitleArea}
+                        >
+                            <View style={[styles.graficoEvolucaoSubtitleItem, { marginRight: 32 }]}>
+                                <FontAwesome5 name="square-full" size={18} color={THEME.COLORS.PRIMARY + 50} />
+                                <Text style={styles.graficoEvolucaoText}>Período sem consumo</Text>
+                            </View>
+                            <View style={styles.graficoEvolucaoSubtitleItem}>
+                                <FontAwesome5 name="square-full" size={18} color={THEME.COLORS.PRIMARY} />
+                                <Text style={styles.graficoEvolucaoText}>Recaídas</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+
+                    {!showChartSubtitle && (
+                        <TouchableOpacity
+                            style={styles.helpArea}
+                            onPress={() => setShowChartSubtitle(true)}
+                        >
+                            <FontAwesome5 name="question-circle" size={18} color={THEME.COLORS.PRIMARY} />
+                            <Text style={styles.helpAreaText}>Exibir legenda</Text>
+                        </TouchableOpacity>
+                    )}
+
                 </View>
 
                 <View style={[styles.contadorEvolucao, styles.bloco]}>
@@ -169,6 +222,16 @@ export function Home() {
                     <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
                 </ButtonMedium>
             </View>
+
+            <ModalShort
+                header='Dedicatória'
+                modalVisible={showDedicationModal}
+                handleModal={handleDedication}
+            >
+                <Text style={styles.textDedicatoria}>
+                    Esse App é um presente de um fã que admira muito o seu trabalho.
+                </Text>
+            </ModalShort>
         </ScrollView>
     );
 }

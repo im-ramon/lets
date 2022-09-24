@@ -30,6 +30,7 @@ export const THEME = {
         DANCINGSCRIPT_BOLD: 'DancingScript_600SemiBold'
     },
     FONT_SIZE: {
+        DT: 10,
         SM: 14,
         MD: 16,
         LG: 24,

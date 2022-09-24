@@ -5,7 +5,7 @@ import { THEME } from '../../../theme';
 interface TituloProps extends ViewProps {
     title: string;
     subtitle?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export function Titulo(props: TituloProps) {

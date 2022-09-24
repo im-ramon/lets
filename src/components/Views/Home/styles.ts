@@ -5,9 +5,9 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        paddingTop: 32,
         paddingHorizontal: 16,
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 32
     },
     bloco: {
         borderBottomColor: THEME.COLORS.NEUTRAL_4,
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
         fontSize: THEME.FONT_SIZE.LG,
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         color: THEME.COLORS.TEXT,
-        marginVertical: 12,
+        marginVertical: 4,
     },
     boasvindasTextP: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
@@ -63,6 +63,37 @@ export const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    graficoEvolucaoSubtitleArea: {
+        flexDirection: 'row',
+        width: '100%',
+        marginBottom: 16,
+        justifyContent: 'center',
+    },
+    graficoEvolucaoSubtitleItem: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    graficoEvolucaoText: {
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        color: THEME.COLORS.TEXT,
+        fontSize: THEME.FONT_SIZE.DT,
+        marginLeft: 8
+    },
+    helpArea: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        opacity: .7,
+        marginBottom: 16,
+        // backgroundColor: 'red'
+    },
+    helpAreaText: {
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        color: THEME.COLORS.TEXT,
+        fontSize: THEME.FONT_SIZE.DT,
+        marginLeft: 4
     },
     contadorEvolucao: {
         alignItems: 'center',
@@ -79,7 +110,7 @@ export const styles = StyleSheet.create({
         color: THEME.COLORS.TEXT,
     },
     chart: {
-        height: 260,
+        height: 245,
     },
     contadorEvolucaoTextbold: {
         fontFamily: THEME.FONT_FAMILY.BLACK,
@@ -91,7 +122,13 @@ export const styles = StyleSheet.create({
     shareButton: {
         position: 'absolute',
         top: 24,
-        right: 16,
+        right: 0,
         zIndex: 99,
+    },
+    textDedicatoria: {
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        color: THEME.COLORS.TEXT,
+        textAlign: 'center',
+        paddingBottom: 16
     }
 });
