@@ -52,21 +52,25 @@ export const styles = StyleSheet.create({
     developerAreaText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
         color: THEME.COLORS.SEMANTIC_2,
-        fontSize: THEME.FONT_SIZE.SM - 2
+        fontSize: THEME.FONT_SIZE.SM - 2,
+        marginBottom: 4
     },
     logoArea: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 8
     },
     developerLogoText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
         color: THEME.COLORS.SEMANTIC_2,
-        fontSize: THEME.FONT_SIZE.SM
+        fontSize: THEME.FONT_SIZE.SM,
+        lineHeight: 16,
     },
     logoRamonoliveira: {
         width: 16,
         height: 16,
-        marginRight: 8,
+        marginRight: 4,
         opacity: .5
     }
 });
