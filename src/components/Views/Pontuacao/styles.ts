@@ -6,10 +6,15 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingTop: 32,
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: 16,
+    },
+    scrollViewContainer: {
+        flex: 1,
+        width: '100%',
+        paddingTop: 16
     },
     text: {
         color: THEME.COLORS.TEXT
-    }
+    },
 });
