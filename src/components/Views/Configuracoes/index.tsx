@@ -4,27 +4,11 @@ import { View, Text, TouchableOpacity, ScrollView, Share, TouchableOpacityProps,
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { Titulo } from '../../parts/Titulo';
+import { CardInfo } from '../../parts/CardInfo';
+
 import { styles } from './styles';
 import { THEME } from '../../../theme';
 import logoRamonoliveira from '../../../assets/img/logoRamonoliveira.png'
-
-interface CardConfiguracoesProps extends TouchableOpacityProps {
-    title: string,
-    description: string
-    children: React.ReactNode,
-}
-
-function CardConfiguracoes({ title, description, children, ...rest }: CardConfiguracoesProps) {
-    return (
-        <TouchableOpacity style={styles.cardConfiguracoes} {...rest}>
-            <View style={styles.cardConfiguracoesIcon}>{children}</View>
-            <View style={styles.cardConfiguracoesTextContainer}>
-                <Text style={styles.cardConfiguracoesTextTitle}>{title}</Text>
-                <Text style={styles.cardConfiguracoesTextDescription}>{description}</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
 
 // Configuração do texto para convidar amigos
 const onShare = async () => {
@@ -66,36 +50,36 @@ export function Configuracoes() {
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
-                <CardConfiguracoes
+                <CardInfo
                     title='Cadastrar PIN'
                     description='Cadastre um PIN para abrir o aplicativo'
                 >
                     <Ionicons name="ios-key-outline" size={32} color={THEME.COLORS.TEXT} />
-                </CardConfiguracoes>
+                </CardInfo>
 
-                <CardConfiguracoes
+                <CardInfo
                     title='Apagar meus dados'
                     description='Solicite que todos os seus dados sejam apagados permanentemente'
                 >
                     <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS.TEXT} />
-                </CardConfiguracoes>
+                </CardInfo>
 
 
-                <CardConfiguracoes
+                <CardInfo
                     title='Convidadar amigos'
                     description="Compartilhe o App Let's com seus amigos"
                     onPress={() => { onShare() }}
                 >
                     <Ionicons name="people-outline" size={32} color={THEME.COLORS.TEXT} />
-                </CardConfiguracoes>
+                </CardInfo>
 
-                <CardConfiguracoes
+                <CardInfo
                     title='Tema'
                     description="Alterne entre os temas 'Light' e 'Dark'"
                     onPress={() => { alertaFuncionalidadeIndisponivel() }}
                 >
                     <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS.TEXT} />
-                </CardConfiguracoes>
+                </CardInfo>
             </ScrollView>
 
             <TouchableOpacity style={styles.developerArea} onPress={() => {

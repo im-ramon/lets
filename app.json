@@ -1,40 +1,40 @@
 {
-  "expo": {
-    "name": "lets",
-    "slug": "lets",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#171717"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "package": "com.app.lets",
-      "versionCode": 1,
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#171717"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "59ca0597-67b8-4cb6-9403-6e13cf5aa007"
-      }
+    "expo": {
+        "name": "Let's",
+        "slug": "lets",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "dark",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#171717"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "package": "com.app.lets",
+            "versionCode": 1,
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#171717"
+            }
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "59ca0597-67b8-4cb6-9403-6e13cf5aa007"
+            }
+        }
     }
-  }
 }

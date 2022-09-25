@@ -17,9 +17,10 @@ export function Titulo(props: TituloProps) {
     );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         alignSelf: 'flex-start',
+        width: '100%'
     },
     title: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
@@ -31,6 +32,6 @@ const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         color: THEME.COLORS.SEMANTIC_2,
         fontSize: THEME.FONT_SIZE.SM,
-        textAlign: 'justify'
+        textAlign: 'justify',
     }
 });

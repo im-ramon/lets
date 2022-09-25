@@ -102,7 +102,7 @@ export function Home() {
                         <Ionicons name="ios-share-social-outline" size={24} color={THEME.COLORS.TEXT} />
                     </TouchableOpacity>
 
-                    <Titulo title='Evolução' subtitle='Esse é gráfico do seu progresso nos últimos noventa dias, tente mantê-lo o mais limpo possível.'>
+                    <Titulo title='Evolução' subtitle='Esse é o gráfico do seu progresso nos últimos noventa dias, tente mantê-lo o mais limpo possível.'>
                         <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.PRIMARY} />
                     </Titulo>
 

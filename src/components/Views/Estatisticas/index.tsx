@@ -41,7 +41,7 @@ export function Estatisticas() {
                 </CardInfo>
 
                 <CardInfo
-                    title='Motivos que levaram a recair'
+                    title='Motivos que te levaram a recair'
                     description='> Clique para visualizar'
                 >
                     <AntDesign name="questioncircleo" size={32} color={THEME.COLORS.TEXT} />
