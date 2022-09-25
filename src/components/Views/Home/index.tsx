@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { ContributionGraph } from "react-native-chart-kit";
 
 import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
@@ -26,31 +26,21 @@ const chartConfig = {
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
 };
+// --- Fim
 
 const commitsData = [
-    { date: "2022-01-02", count: 0 },
-    { date: "2022-01-03", count: 0 },
-    { date: "2022-01-04", count: 0 },
-    { date: "2022-01-05", count: 0 },
-    { date: "2022-01-06", count: 5 },
-    { date: "2022-01-30", count: 2 },
-    { date: "2022-07-31", count: 3 },
-    { date: "2022-07-01", count: 2 },
-    { date: "2022-07-02", count: 4 },
-    { date: "2022-03-05", count: 2 },
-    { date: "2022-08-02", count: 2 },
-    { date: "2022-08-03", count: 3 },
-    { date: "2022-08-04", count: 2 },
-    { date: "2022-02-30", count: 4 },
-    { date: "2022-09-20", count: 4 },
-    { date: "2022-09-01", count: 4 },
-    { date: "2021-10-10", count: 4 },
+    { date: "2022-09-01", count: 1 },
+    { date: "2022-08-01", count: 1 },
+    { date: "2022-07-01", count: 1 },
+    { date: "2022-07-05", count: 1 },
+    { date: "2022-06-30", count: 1 },
+    { date: "2022-06-26", count: 1 },
 ];
 
 
 // Skiping no erro de tipagem no gráfico
 const handleToolTip: any = {}
-// --- End
+// --- Fim
 
 export function Home() {
 
@@ -71,8 +61,26 @@ export function Home() {
         setDedicationLongPress(0);
         setShowDedicationModal(modalActive);
     }
-    // --- End
+    // --- Fim
 
+    // Criar o alerta ao clicar em uma data
+    interface AlertPros {
+        count: number | string;
+        date: Date;
+    }
+    const alertaDataClicada = (ocorrencia: AlertPros) => {
+        const data = new Date(ocorrencia.date)
+        const dataFormatada = `${data.getUTCDate().toString().padStart(2, '0')}/${(data.getUTCMonth() + 1).toString().padStart(2, '0')}/${data.getUTCFullYear()}`;
+
+        Alert.alert(`Dia ${dataFormatada}`,
+            `Nessa data você fez o consumo de conteúdo explíto.`, [
+            {
+                text: 'Fechar', style: 'cancel',
+            }
+        ]);
+    }
+
+    // --- Fim1
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -107,11 +115,10 @@ export function Home() {
                     </Titulo>
 
                     <ContributionGraph
-                        // LEMBRAR: Configurar com atenção as propiedades do gráfico
                         tooltipDataAttrs={(value) => handleToolTip}
                         values={commitsData}
                         endDate={new Date()}
-                        numDays={93}
+                        numDays={96}
                         width={screenWidth}
                         height={260}
                         chartConfig={chartConfig}
@@ -173,7 +180,7 @@ export function Home() {
                             }
                         }}
                         squareSize={24}
-                        onDayPress={(day) => { console.log(day.date) }} // LEMBRAR: Colocar alert aqui para avisar a data.
+                        onDayPress={(info) => { alertaDataClicada(info); }}
                     />
 
                     {showChartSubtitle && (

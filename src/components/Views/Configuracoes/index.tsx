@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Share, TouchableOpacityProps, Image, Linking, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert } from 'react-native';
 
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
