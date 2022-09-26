@@ -39,3 +39,18 @@ export const FormStyled = styled.View`
     padding-left: 16px;
     padding-right: 16px;
 `
+
+export const PageContainerView = styled.View`
+        flex: 1;
+        width: 100%;
+        padding-top: 32px;
+        align-items: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        `
+
+export const PageScrollViewContainer = styled.View`
+        flex: 1;
+        width: 100%;
+        padding-top: 32px;
+`

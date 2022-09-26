@@ -1,7 +1,7 @@
 import { Pontuacao } from '../components/Views/Pontuacao'
 import { Estatisticas } from '../components/Views/Estatisticas'
 import { Home } from '../components/Views/Home'
-import { Utilidades } from '../components/Views/Utilidades'
+import { Ajuda } from '../components/Views/Ajuda'
 import { Configuracoes } from '../components/Views/Configuracoes'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -60,11 +60,11 @@ export default function AuthRoutes() {
             />
 
             <TabNavigator.Screen
-                name='Utilidades'
-                component={Utilidades}
+                name='Ajuda'
+                component={Ajuda}
                 options={{
                     tabBarIcon: ({ color, size }) => {
-                        return <Ionicons name="link-outline" size={size} color={color} />
+                        return <Ionicons name="help-buoy-outline" size={size} color={color} />
                     },
                 }}
 

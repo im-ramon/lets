@@ -11,5 +11,16 @@ export const styles = StyleSheet.create({
     },
     text: {
         color: THEME.COLORS.TEXT
+    },
+    socialIconsArea: {
+        marginTop: 64,
+        width: '100%',
+        paddingHorizontal: 32,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    socialIconsIcon: {
+        color: THEME.COLORS.PRIMARY,
     }
 });
