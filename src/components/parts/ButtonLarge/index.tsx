@@ -1,14 +1,14 @@
 import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import { styles } from './styles'
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
     value: string
 }
 
-export function ButtonLarge(props: ButtonProps) {
+export function ButtonLarge({ value, ...rest }: ButtonProps) {
     return (
-        <TouchableOpacity style={styles.container}>
-            <Text style={[styles.text, styles.textButton]}>{props.value}</Text>
+        <TouchableOpacity style={styles.container} {...rest}>
+            <Text style={[styles.text, styles.textButton]}>{value}</Text>
         </TouchableOpacity>
     )
 }
