@@ -13,10 +13,10 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingTop: 16,
+        paddingBottom: 64,
     },
     content: {
         flex: 1,
-        paddingBottom: 64,
         alignItems: 'center'
     },
     text: {
@@ -51,5 +51,10 @@ export const styles = StyleSheet.create({
     },
     pointsArea: {
         marginBottom: 32,
+    },
+    buttonArea: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
