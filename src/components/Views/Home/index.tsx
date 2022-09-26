@@ -80,9 +80,10 @@ export function Home() {
     const alertaDataClicada = (ocorrencia: AlertPros) => {
         const data = new Date(ocorrencia.date)
         const dataFormatada = `${data.getUTCDate().toString().padStart(2, '0')}/${(data.getUTCMonth() + 1).toString().padStart(2, '0')}/${data.getUTCFullYear()}`;
+        const houveConsumo = ocorrencia.count != 0;
 
         Alert.alert(`Dia ${dataFormatada}`,
-            `Nessa data você fez o consumo de conteúdo explíto.`, [
+            houveConsumo ? 'Nessa data você fez o consumo de conteúdo explícito' : 'Não há registro de consumo de conteúdo explícito nessa data. Continue assim!', [
             {
                 text: 'Fechar', style: 'cancel',
             }
@@ -203,7 +204,7 @@ export function Home() {
                             </View>
                             <View style={styles.graficoEvolucaoSubtitleItem}>
                                 <FontAwesome5 name="square-full" size={18} color={THEME.COLORS.PRIMARY} />
-                                <Text style={styles.graficoEvolucaoText}>Recaídas</Text>
+                                <Text style={styles.graficoEvolucaoText}>Recaída</Text>
                             </View>
                         </TouchableOpacity>
                     )}
