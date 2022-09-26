@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: 250,
         borderWidth: 1,
-        borderColor: THEME.COLORS.BLACK,
+        borderColor: THEME.COLORS.PRIMARY,
         marginVertical: 8
     },
     text: {

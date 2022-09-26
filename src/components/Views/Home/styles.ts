@@ -130,5 +130,14 @@ export const styles = StyleSheet.create({
         color: THEME.COLORS.TEXT,
         textAlign: 'center',
         paddingBottom: 16
+    },
+    modalRestartContainer: {
+        marginTop: 24,
+        flex: 1
+    },
+    buttonArea: {
+        width: '100%',
+        paddingHorizontal: 16,
+        alignItems: 'center'
     }
 });

@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { ContributionGraph } from "react-native-chart-kit";
 
 import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import { Titulo } from '../../parts/Titulo';
 import { ButtonMedium } from '../../parts/ButtonMedium';
+import { ButtonLarge } from '../../parts/ButtonLarge';
+import { ModalDedication } from '../../parts/ModalDedication';
 import { ModalShort } from '../../parts/ModalShort';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
+
+import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, TextAreaStyled } from '../../parts/_SytyledComponents'
+import { formRules } from '../../../utils/formRules';
 
 import logo from '../../../assets/img/icon.png';
 
@@ -37,7 +42,6 @@ const commitsData = [
     { date: "2022-06-26", count: 1 },
 ];
 
-
 // Skiping no erro de tipagem no gráfico
 const handleToolTip: any = {}
 // --- Fim
@@ -48,6 +52,11 @@ export function Home() {
     const [dedicationShortPress, setDedicationShortPress] = useState<number>(0);
     const [dedicationLongPress, setDedicationLongPress] = useState<number>(0);
     const [showDedicationModal, setShowDedicationModal] = useState<boolean>(false);
+    const [showQuestionsModal, setShowQuestionsModal] = useState<boolean>(false);
+
+    // Stetes do formulário para reiniciar.
+    const [reiniciarMotivo, setReiniciarMotivo] = useState<string>('');
+    const [reiniciarComentario, setReiniciarComentario] = useState<string>('');
 
     // Controla a exibição do modal de dedicatória
     useEffect(() => {
@@ -97,7 +106,7 @@ export function Home() {
                     </TouchableOpacity>
 
                     <View style={styles.pontosContainer}>
-                        <Text style={styles.pontosText}> 0 pontos</Text>
+                        <Text style={styles.pontosText}> 0 ponto(s)</Text>
                     </View>
                 </View>
 
@@ -213,7 +222,7 @@ export function Home() {
 
                 <View style={[styles.contadorEvolucao, styles.bloco]}>
                     {/* LEMBRAR: Colocar aqui um texto dinâminco, entre as "aspas" */}
-                    <Text style={styles.contadorEvolucaoHeader}>Tempo "em liberdade"</Text>
+                    <Text style={styles.contadorEvolucaoHeader}>Tempo “em liberdade”</Text>
                     <Text style={styles.contadorEvolucaoText}>
                         <Text style={styles.contadorEvolucaoTextbold}>00</Text> a <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
                         <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
@@ -225,12 +234,12 @@ export function Home() {
                 </View>
 
 
-                <ButtonMedium value='Reiniciar contador' onPress={() => console.log('ButtonMedium')}>
+                <ButtonMedium value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
                     <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
                 </ButtonMedium>
             </View>
 
-            <ModalShort
+            <ModalDedication
                 header='Dedicatória'
                 modalVisible={showDedicationModal}
                 handleModal={handleDedication}
@@ -238,6 +247,52 @@ export function Home() {
                 <Text style={styles.textDedicatoria}>
                     Esse App é um presente de um fã que admira muito o seu trabalho.
                 </Text>
+            </ModalDedication>
+
+            <ModalShort modalVisible={showQuestionsModal} handleModal={setShowQuestionsModal}>
+                <Titulo title={'Reiniciar contador'} subtitle="Recaiu? Calma! <colocar pequeno texto aqui para incentivar o usário a continuar>" >
+                    <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                </Titulo>
+
+                <View style={styles.modalRestartContainer}>
+                    <ScrollView>
+                        <FormStyled>
+                            <Titulo title='Fomulário de ajuda' />
+                            <FieldAreaStyled>
+                                <LabelStyled>
+                                    O que te levou a recair?
+                                </LabelStyled>
+                                <InputStyled
+                                    onChangeText={setReiniciarMotivo}
+                                    value={reiniciarMotivo}
+                                    placeholder="Tédio, solidão, fotos..."
+                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                    maxLength={formRules.maxLengthInput}
+                                />
+                            </FieldAreaStyled>
+
+                            <FieldAreaStyled>
+                                <LabelStyled>
+                                    Quer deixar algum comentário?
+                                </LabelStyled>
+                                <TextAreaStyled
+                                    onChangeText={setReiniciarMotivo}
+                                    value={reiniciarMotivo}
+                                    multiline={true}
+                                    numberOfLines={6}
+                                    placeholder="Escreva um pouco como você se sente neste momento..."
+                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                    maxLength={formRules.maxLengthTextArea}
+                                    textAlignVertical='top'
+                                />
+                            </FieldAreaStyled>
+
+                            <View style={styles.buttonArea}>
+                                <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar' />
+                            </View>
+                        </FormStyled>
+                    </ScrollView>
+                </View>
             </ModalShort>
         </ScrollView>
     );

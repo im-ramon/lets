@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity } from 'react-native';
 import { Titulo } from '../Titulo'
 
 import { Ionicons } from '@expo/vector-icons'
 import { THEME } from '../../../theme';
 
-interface ModalShortProps extends ModalProps {
+interface ModalDedicationProps extends ModalProps {
+    header: string;
     modalVisible: boolean;
     children: React.ReactNode;
     handleModal: (arg: boolean) => void;
 }
 
-export function ModalShort({ modalVisible, children, handleModal, ...rest }: ModalShortProps) {
+export function ModalDedication({ header, modalVisible, children, handleModal, ...rest }: ModalDedicationProps) {
     return (
         <Modal
             {...rest}
@@ -24,6 +25,11 @@ export function ModalShort({ modalVisible, children, handleModal, ...rest }: Mod
                     <TouchableOpacity onPress={() => { handleModal(false) }} style={styles.closeButton}>
                         <Ionicons name="ios-close-outline" size={28} color={THEME.COLORS.PRIMARY} />
                     </TouchableOpacity>
+                    <Titulo
+                        title={header}
+                    >
+                        <Ionicons name="heart" size={24} color={THEME.COLORS.PRIMARY} />
+                    </Titulo>
                     {children}
                 </View>
             </View>
@@ -45,9 +51,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         paddingBottom: 16,
         paddingHorizontal: 16,
-        width: '90%',
-        flex: 1,
-        marginVertical: 64
+        width: '80%'
     },
     closeButton: {
         position: 'absolute',
