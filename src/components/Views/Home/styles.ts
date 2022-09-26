@@ -15,7 +15,8 @@ export const styles = StyleSheet.create({
         paddingBottom: 16,
         marginBottom: 24,
         width: '100%',
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: THEME.COLORS.BACKGROUND_1
     },
     text: {
         color: THEME.COLORS.TEXT,
@@ -63,6 +64,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: THEME.COLORS.BACKGROUND_1
     },
     graficoEvolucaoSubtitleArea: {
         flexDirection: 'row',
@@ -87,7 +89,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         opacity: .7,
         marginBottom: 16,
-        // backgroundColor: 'red'
     },
     helpAreaText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
@@ -139,5 +140,10 @@ export const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 16,
         alignItems: 'center'
-    }
+    },
+    viewShotStyle: {
+        marginBottom: 0,
+        borderBottomWidth: 0,
+        paddingBottom: 0
+    },
 });
