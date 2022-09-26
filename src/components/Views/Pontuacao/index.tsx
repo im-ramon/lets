@@ -18,16 +18,18 @@ export function Pontuacao() {
     const ref = useRef<any>(null)
 
     function handleScreenshot() {
+        setShowBorderOnScreenshot(true)
         captureRef(ref)
             .then(async uri => {
                 console.log('Image saved to', uri);
                 await Sharing.shareAsync(uri);
-
-            }, error => console.error('Oops, snapshot failed', error)
-            )
+            })
+            .catch(error => console.error('Oops, snapshot failed', error))
+            .finally(() => { setShowBorderOnScreenshot(false) })
     }
 
     const [nivelNow, setNivelNow] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30>(1)
+    const [showBorderOnScreenshot, setShowBorderOnScreenshot] = useState<boolean>(false)
 
     return (
         <View style={styles.container}>
@@ -40,7 +42,7 @@ export function Pontuacao() {
 
             <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
                 <ViewShot ref={ref} options={{ format: "jpg", quality: 0.9 }}>
-                    <View style={styles.content}>
+                    <View style={[styles.content, (showBorderOnScreenshot && styles.patenteScreenshotStyle)]}>
                         <View
                             style={styles.patenteArea}
                         >
@@ -61,6 +63,10 @@ export function Pontuacao() {
                         </View>
                     </View>
                 </ViewShot>
+
+                <View style={styles.pointsArea}>
+                    <Text style={[styles.text, styles.center]}>Faltam 00 pontos para o próximo nível, continue na batalha para descobir o próximo nível.</Text>
+                </View>
 
                 <View style={styles.buttonArea}>
                     <ButtonTrasnparent value='Compartilhar' onPress={() => handleScreenshot()}>

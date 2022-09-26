@@ -17,14 +17,14 @@ export const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: THEME.COLORS.BACKGROUND_1,
     },
     text: {
         color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR
     },
     bold: {
-        color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.BOLD
     },
     patenteArea: {
@@ -36,11 +36,18 @@ export const styles = StyleSheet.create({
         width: 256,
         height: 256
     },
+    patenteScreenshotStyle: {
+        borderWidth: 4,
+        borderColor: THEME.COLORS.PRIMARY
+    },
     patentSlug: {
         color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.XL,
-        marginTop: 32
+        marginTop: 32,
+        paddingHorizontal: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: THEME.COLORS.PRIMARY
     },
     patenteDescription: {
         color: THEME.COLORS.SEMANTIC_2,
@@ -51,10 +58,14 @@ export const styles = StyleSheet.create({
     },
     pointsArea: {
         marginBottom: 32,
+        alignItems: 'center'
     },
     buttonArea: {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    center: {
+        textAlign: 'center'
     }
 });
