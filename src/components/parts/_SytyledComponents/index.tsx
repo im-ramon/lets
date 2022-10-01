@@ -13,9 +13,10 @@ export const InputStyled = styled.TextInput`
   border-bottom-color: ${THEME.COLORS.PRIMARY};
   height: 40px;
   padding-left: 8px;
-  padding-right: 8px;
+  padding-right: 32px;
   color: ${THEME.COLORS.TEXT};
 `
+
 export const TextAreaStyled = styled.TextInput`
   background-color: ${THEME.COLORS.BACKGROUND_2};
   border-bottom-width: 1px;

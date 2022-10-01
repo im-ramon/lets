@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center',
+        position: 'relative'
     },
     text: {
         color: THEME.COLORS.TEXT,
@@ -27,5 +28,26 @@ export const styles = StyleSheet.create({
         width: '80%',
         justifyContent: 'center',
         marginBottom: 32,
-    }
+    },
+    logoImg: {
+        width: 30,
+        height: 30,
+        marginRight: 8,
+    },
+    logoContainer: {
+        position: 'absolute',
+        top: 48,
+        flexDirection: 'row',
+        // backgroundColor: '#00000033',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 16,
+        paddingVertical: 4
+    },
+    logoText: {
+        fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+        fontSize: THEME.FONT_SIZE.MD,
+        color: THEME.COLORS.TEXT
+    },
 })

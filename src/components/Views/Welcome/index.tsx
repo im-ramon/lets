@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { View, Text, ImageBackground } from 'react-native'
+import { View, Text, Image, ImageBackground } from 'react-native'
 import { styles } from './styles'
 import { ButtonLarge } from '../../parts/ButtonLarge';
 
 import { AuthContext } from '../../../../src/contexts/auth';
+import logo from '../../../assets/img/icon.png';
 
 export function Welcome() {
     const background = require('../../../assets/img/background-welcome.jpg');
@@ -15,6 +16,12 @@ export function Welcome() {
             resizeMode="cover"
             style={styles.container}
         >
+
+            <View style={styles.logoContainer}>
+                <Image source={logo} style={styles.logoImg} />
+                <Text style={styles.logoText}>Let's!</Text>
+            </View>
+
             <View style={styles.main}>
                 <Text style={[styles.text, styles.textBemvindo]}>Bem-vindo!</Text>
                 <Text style={[styles.text, styles.textApresentacao]}>

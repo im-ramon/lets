@@ -133,7 +133,7 @@ export function Home() {
                         style={styles.logoContainer}
                     >
                         <Image source={logo} style={styles.logoImg} />
-                        <Text style={styles.logoText}>Let's</Text>
+                        <Text style={styles.logoText}>Let's!</Text>
                     </TouchableOpacity>
 
                     <View style={styles.pontosContainer}>

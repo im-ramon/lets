@@ -67,7 +67,7 @@ export function Configuracoes() {
 
                 <CardInfo
                     title='Convidadar amigos'
-                    description="Compartilhe o App Let's com seus amigos"
+                    description="Compartilhe o App “Let's!” com seus amigos"
                     onPress={() => { onShare() }}
                 >
                     <Ionicons name="people-outline" size={32} color={THEME.COLORS.TEXT} />
