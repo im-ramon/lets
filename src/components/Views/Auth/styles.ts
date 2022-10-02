@@ -24,18 +24,6 @@ export const styles = StyleSheet.create({
         marginBottom: 40,
         paddingVertical: 8
     },
-    pageTItle: {
-        textAlign: 'center',
-        fontSize: THEME.FONT_SIZE.XL,
-        color: THEME.COLORS.TEXT,
-        fontFamily: THEME.FONT_FAMILY.BOLD,
-    },
-    pageSubtitle: {
-        textAlign: 'center',
-        fontSize: THEME.FONT_SIZE.SM,
-        fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
-        color: THEME.COLORS.SEMANTIC_2,
-    },
     text: {
         color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR
@@ -87,5 +75,35 @@ export const styles = StyleSheet.create({
     strong: {
         color: THEME.COLORS.PRIMARY,
         fontFamily: THEME.FONT_FAMILY.BOLD
-    }
+    },
+    cameraContainer: {
+        flex: 1,
+        width: '100%',
+        paddingVertical: 32,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        backgroundColor: THEME.COLORS.BACKGROUND_1 + 'dd',
+    },
+    titleArea: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    cameraTitle: {
+        fontSize: THEME.FONT_SIZE.MD,
+        color: THEME.COLORS.TEXT,
+        fontFamily: THEME.FONT_FAMILY.BOLD,
+        zIndex: 10,
+    },
+    cameraSubtitle: {
+        fontSize: THEME.FONT_SIZE.MD,
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        color: THEME.COLORS.TEXT,
+        zIndex: 10
+    },
+    cameraButtonArea: {
+        width: '100%',
+        alignItems: 'center',
+        alignSelf: 'flex-end'
+    },
 });
