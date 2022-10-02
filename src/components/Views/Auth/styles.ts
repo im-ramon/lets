@@ -83,5 +83,9 @@ export const styles = StyleSheet.create({
         textAlign: 'right',
         paddingTop: 8,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
+    },
+    strong: {
+        color: THEME.COLORS.PRIMARY,
+        fontFamily: THEME.FONT_FAMILY.BOLD
     }
 });

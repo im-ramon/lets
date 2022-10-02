@@ -5,7 +5,7 @@ export const FieldAreaStyled = styled.View`
     width: 100%;
     margin-bottom: 32px;
     vertical-align: top;
-`
+    `
 
 export const InputStyled = styled.TextInput`
   background-color: ${THEME.COLORS.BACKGROUND_2};
@@ -33,6 +33,7 @@ export const LabelStyled = styled.Text`
     margin-bottom: 8px;
     font-family: ${THEME.FONT_FAMILY.REGULAR};
     padding-left: 8px;
+    text-align: justify;
 `
 
 export const FormStyled = styled.View`

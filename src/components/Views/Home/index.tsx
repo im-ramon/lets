@@ -112,7 +112,7 @@ export function Home() {
         const houveConsumo = ocorrencia.count != 0;
 
         Alert.alert(`Dia ${dataFormatada}`,
-            houveConsumo ? 'Nessa data você fez o consumo de conteúdo explícito' : 'Não há registro de consumo de conteúdo explícito nessa data. Continue assim!', [
+            houveConsumo ? 'Nessa data você fez o consumo de conteúdo explícito.' : 'Não há registro de consumo de conteúdo explícito nessa data. Continue assim!', [
             {
                 text: 'Fechar', style: 'cancel',
             }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 import { styles } from '../styles';
@@ -7,13 +7,25 @@ import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled } from '../../../
 import { ButtonMedium } from '../../../parts/ButtonMedium';
 import { formRules } from '../../../../utils/formRules';
 import { THEME } from '../../../../theme'
-import logo from '../../../assets/img/icon.png'
+import logo from '../../../../assets/img/icon.png'
 
-export function Singin() {
+import { AuthContext } from '../../../../../src/contexts/auth';
 
-    const [accessCod, setAccessCod] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [showPassword, setShowPassword] = useState<boolean>(false)
+import { useNavigation } from '@react-navigation/native';
+
+export function SingIn() {
+
+    const navigation = useNavigation()
+
+    const [codigoAcesso, setCodigoAcesso] = useState<string>('')
+    const [palavraPasse, setPalavraPasse] = useState<string>('')
+
+    const { logged, setLogged }: any = useContext(AuthContext)
+
+    function validaPalavraPasse(value: string) {
+        let palavraPasseVerificada = value.replace(/[^a-z0-9]/gi, '')
+        return palavraPasseVerificada.toUpperCase()
+    }
 
     return (
         <View style={styles.container}>
@@ -31,8 +43,8 @@ export function Singin() {
                                     <Ionicons name="camera-outline" size={16} color={THEME.COLORS.TEXT} />
                                 </TouchableOpacity>
                                 <InputStyled
-                                    onChangeText={setAccessCod}
-                                    value={accessCod}
+                                    onChangeText={setCodigoAcesso}
+                                    value={codigoAcesso}
                                     autoCompleteType='username'
                                     placeholder="Digite seu código de acesso aqui"
                                     placeholderTextColor={THEME.COLORS.SEMANTIC_2}
@@ -44,8 +56,8 @@ export function Singin() {
                         <FieldAreaStyled>
                             <LabelStyled>Palavra passe</LabelStyled>
                             <InputStyled
-                                onChangeText={setPassword}
-                                value={password}
+                                onChangeText={(value: string) => setPalavraPasse(validaPalavraPasse(value))}
+                                value={palavraPasse}
                                 autoCompleteType='password'
                                 placeholder="Digite sua palavra passe aqui"
                                 placeholderTextColor={THEME.COLORS.SEMANTIC_2}
@@ -53,10 +65,10 @@ export function Singin() {
                             />
                         </FieldAreaStyled>
                         <View style={styles.buttonArea}>
-                            <ButtonMedium value='Entrar' />
+                            <ButtonMedium value='Entrar' onPress={() => setLogged(true)} />
                         </View>
                     </FormStyled>
-                    <TouchableOpacity style={styles.registerButton}>
+                    <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('SingUp')}>
                         <Text style={styles.text}>Ainda não tem conta? <Text style={styles.bold}>Cadastre-se!</Text></Text>
                     </TouchableOpacity>
                 </View>

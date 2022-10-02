@@ -6,9 +6,13 @@ import { ButtonLarge } from '../../parts/ButtonLarge';
 import { AuthContext } from '../../../../src/contexts/auth';
 import logo from '../../../assets/img/icon.png';
 
+import { useNavigation } from '@react-navigation/native';
+
 export function Welcome() {
     const background = require('../../../assets/img/background-welcome.jpg');
     const { logged, setLogged }: any = useContext(AuthContext)
+
+    const navigation = useNavigation()
 
     return (
         <ImageBackground
@@ -27,7 +31,7 @@ export function Welcome() {
                 <Text style={[styles.text, styles.textApresentacao]}>
                     Escrever aqui uma breve introdução sobre a idealizadora. Fazer um breve convite para utilizar o App com a descrição de algumas funcionalidades/ benefícios.
                 </Text>
-                <ButtonLarge value="Continuar" onPress={() => setLogged(true)} />
+                <ButtonLarge value="Continuar" onPress={() => navigation.navigate('SingIn')} />
             </View>
 
         </ImageBackground>
