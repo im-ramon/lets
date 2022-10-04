@@ -12,8 +12,7 @@ export const styles = StyleSheet.create({
     scrollViewContainer: {
         flex: 1,
         width: '100%',
-        paddingTop: 16,
-        paddingBottom: 64,
+        paddingVertical: 16,
     },
     content: {
         flex: 1,
@@ -63,7 +62,8 @@ export const styles = StyleSheet.create({
     buttonArea: {
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 64
     },
     center: {
         textAlign: 'center'

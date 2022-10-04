@@ -28,16 +28,15 @@ const styles = StyleSheet.create({
         borderBottomColor: THEME.COLORS.NEUTRAL_4,
         borderBottomWidth: 1,
         marginTop: 8,
-        paddingBottom: 8
+        paddingBottom: 8,
     },
     cardConfiguracoesIcon: {
         width: 56,
-        height: 64,
         justifyContent: 'center',
         alignItems: 'center'
     },
     cardConfiguracoesTextContainer: {
-        height: 64,
+        minHeight: 64,
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 16

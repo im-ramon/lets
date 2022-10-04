@@ -98,17 +98,23 @@ export const styles = StyleSheet.create({
     },
     contadorEvolucao: {
         alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        flexDirection: 'row'
     },
     contadorEvolucaoHeader: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.SM,
+        width: '100%',
+        textAlign: 'center'
     },
     contadorEvolucaoText: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.MD + 2,
         paddingVertical: 8,
         color: THEME.COLORS.TEXT,
+        marginHorizontal: 4,
     },
     chart: {
         height: 245,

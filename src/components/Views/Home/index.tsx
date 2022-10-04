@@ -256,13 +256,14 @@ export function Home() {
                     </View>
 
                     <View style={[styles.contadorEvolucao, styles.bloco]}>
-                        {/* LEMBRAR: Colocar aqui um texto dinâminco, entre as "aspas" */}
                         <Text style={styles.contadorEvolucaoHeader}>Tempo “em liberdade”</Text>
                         <Text style={styles.contadorEvolucaoText}>
                             <Text style={styles.contadorEvolucaoTextbold}>00</Text> a <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
                             <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
-                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> d <Text style={styles.contadorEvolucaoTextGrey}> . </Text>
-                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> h <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
+                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> d <Text style={styles.contadorEvolucaoTextGrey}></Text>
+                        </Text>
+                        <Text style={styles.contadorEvolucaoText}>
+                            <Text style={styles.contadorEvolucaoTextbold}>00</Text> h <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
                             <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
                             <Text style={styles.contadorEvolucaoTextbold}> 00</Text> s
                         </Text>

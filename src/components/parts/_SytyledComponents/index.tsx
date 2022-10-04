@@ -11,6 +11,7 @@ export const InputStyled = styled.TextInput`
   background-color: ${THEME.COLORS.BACKGROUND_2};
   border-bottom-width: 1px;
   border-bottom-color: ${THEME.COLORS.PRIMARY};
+  font-family: ${THEME.FONT_FAMILY.REGULAR};
   height: 40px;
   padding-left: 8px;
   padding-right: 32px;
@@ -21,6 +22,7 @@ export const TextAreaStyled = styled.TextInput`
   background-color: ${THEME.COLORS.BACKGROUND_2};
   border-bottom-width: 1px;
   border-bottom-color: ${THEME.COLORS.PRIMARY};
+  font-family: ${THEME.FONT_FAMILY.REGULAR};
   height: 40px;
   padding-left: 8px;
   padding-right: 8px;
