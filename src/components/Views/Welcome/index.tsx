@@ -6,13 +6,13 @@ import { ButtonLarge } from '../../parts/ButtonLarge';
 import { AuthContext } from '../../../../src/contexts/auth';
 import logo from '../../../assets/img/icon.png';
 
-import { useNavigation } from '@react-navigation/native';
+interface ModalWelcomeProps {
+    handleModal: (arg: boolean) => void;
+}
 
-export function Welcome() {
+export function Welcome({ handleModal }: ModalWelcomeProps) {
     const background = require('../../../assets/img/background-welcome.jpg');
     const { logged, setLogged }: any = useContext(AuthContext)
-
-    const navigation = useNavigation()
 
     return (
         <ImageBackground
@@ -31,7 +31,7 @@ export function Welcome() {
                 <Text style={[styles.text, styles.textApresentacao]}>
                     Escrever aqui uma breve introdução sobre a idealizadora. Fazer um breve convite para utilizar o App com a descrição de algumas funcionalidades/ benefícios.
                 </Text>
-                <ButtonLarge value="Continuar" onPress={() => navigation.navigate('SingIn')} />
+                <ButtonLarge value="Continuar" onPress={() => handleModal(false)} />
             </View>
 
         </ImageBackground>

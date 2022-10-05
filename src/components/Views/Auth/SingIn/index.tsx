@@ -3,6 +3,8 @@ import { View, Text, ScrollView, Image, TouchableOpacity, Button, Modal, StyleSh
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
+import { Welcome } from '../../Welcome';
+
 import { styles } from '../styles';
 import { Ionicons } from '@expo/vector-icons';
 import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled } from '../../../parts/_SytyledComponents'
@@ -23,6 +25,7 @@ export function SingIn() {
 
     const [codigoAcesso, setCodigoAcesso] = useState<string>('')
     const [palavraPasse, setPalavraPasse] = useState<string>('')
+    const [showModalFirsVisit, setShowModalFirsVisit] = useState<boolean>(true)
 
     const { logged, setLogged }: any = useContext(AuthContext)
 
@@ -72,6 +75,10 @@ export function SingIn() {
     function validaPalavraPasse(value: string) {
         let palavraPasseVerificada = value.replace(/[^a-z0-9]/gi, '')
         return palavraPasseVerificada.toUpperCase()
+    }
+
+    function handleModalButton(arg: boolean) {
+        setShowModalFirsVisit(arg)
     }
 
     return (
@@ -144,6 +151,16 @@ export function SingIn() {
                         <ButtonMedium value='Voltar' onPress={() => setShowModalCamera(false)} />
                     </View>
                 </View>
+            </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={showModalFirsVisit}
+            >
+                <Welcome
+                    handleModal={handleModalButton}
+                />
             </Modal>
         </View>
     );

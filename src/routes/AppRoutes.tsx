@@ -1,4 +1,3 @@
-import { Welcome } from '../components/Views/Welcome'
 import { SingIn } from '../components/Views/Auth/SingIn';
 import { SingUp } from '../components/Views/Auth/SingUp';
 
@@ -9,13 +8,11 @@ const Stack = createStackNavigator();
 export default function AppRoutes() {
     return (
         <Stack.Navigator
-            initialRouteName='Welcome'
-            // initialRouteName='Welcome'
+            initialRouteName='SingIn'
             screenOptions={{
                 headerShown: false,
             }}>
 
-            <Stack.Screen name='Welcome' component={Welcome} />
             <Stack.Screen name='SingIn' component={SingIn} />
             <Stack.Screen name='SingUp' component={SingUp} />
         </Stack.Navigator>

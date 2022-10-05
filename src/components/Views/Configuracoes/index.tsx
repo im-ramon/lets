@@ -66,7 +66,7 @@ export function Configuracoes() {
 
 
                 <CardInfo
-                    title='Convidadar amigos'
+                    title='Convidar amigos'
                     description="Compartilhe o App “Let's!” com seus amigos"
                     onPress={() => { onShare() }}
                 >
