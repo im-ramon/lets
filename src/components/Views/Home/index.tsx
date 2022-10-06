@@ -126,6 +126,7 @@ export function Home() {
             showsVerticalScrollIndicator={false}
         >
             <View style={styles.container}>
+
                 <View style={styles.navMenu}>
                     <TouchableOpacity
                         onPress={() => setDedicationShortPress(dedicationShortPress + 1)}
@@ -146,7 +147,7 @@ export function Home() {
                 </View>
 
                 <ViewShot style={{ ...styles.bloco, ...styles.viewShotStyle }} ref={ref} options={{ format: "jpg", quality: 0.9 }}>
-                    <View style={[styles.graficoEvolucao, styles.bloco, waitingScreenshot && { paddingHorizontal: 16 }]}>
+                    <View style={[styles.graficoEvolucao, styles.bloco]}>
 
                         {!waitingScreenshot && (
                             <TouchableOpacity style={styles.shareButton} onPress={() => handleScreenshot()} >
@@ -286,7 +287,7 @@ export function Home() {
             </ModalDedication>
 
             <ModalShort modalVisible={showQuestionsModal} handleModal={setShowQuestionsModal}>
-                <Titulo title={'Reiniciar contador'} subtitle="Recaiu? Calma! <colocar pequeno texto aqui para incentivar o usário a continuar>" >
+                <Titulo title={'Reiniciar contador'} subtitle="Recaiu? Calma! Levanta a cabeça e vamos continuar na luta!" >
                     <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color={THEME.COLORS.PRIMARY} />
                 </Titulo>
 
@@ -301,7 +302,7 @@ export function Home() {
                                 <InputStyled
                                     onChangeText={setReiniciarMotivo}
                                     value={reiniciarMotivo}
-                                    placeholder="Tédio, solidão, fotos..."
+                                    placeholder="Tédio, solidão, fotos antigas, sites..."
                                     placeholderTextColor={THEME.COLORS.SEMANTIC_2}
                                     maxLength={formRules.maxLengthInput}
                                 />

@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        paddingHorizontal: 16,
+        // paddingHorizontal: 16,
         alignItems: 'center',
         paddingVertical: 32
     },
@@ -25,7 +25,8 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginVertical: 16,
-        width: '100%'
+        width: '100%',
+        paddingHorizontal: 16,
     },
     logoContainer: {
         flexDirection: 'row',
@@ -54,6 +55,7 @@ export const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         color: THEME.COLORS.TEXT,
         marginVertical: 4,
+        paddingHorizontal: 16,
     },
     boasvindasTextP: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
@@ -150,6 +152,7 @@ export const styles = StyleSheet.create({
     viewShotStyle: {
         marginBottom: 0,
         borderBottomWidth: 0,
-        paddingBottom: 0
+        paddingBottom: 0,
+        paddingHorizontal: 16,
     },
 });

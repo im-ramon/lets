@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingVertical: 16,
+        position: 'relative'
     },
     content: {
         flex: 1,
@@ -67,5 +68,8 @@ export const styles = StyleSheet.create({
     },
     center: {
         textAlign: 'center'
+    },
+    infoButton: {
+        alignItems: 'flex-end',
     }
 });

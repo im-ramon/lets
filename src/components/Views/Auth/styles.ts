@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
         fontSize: THEME.FONT_SIZE.MD + 4,
         color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        paddingVertical: 8
+        paddingVertical: 16
     },
     buttonArea: {
         width: '100%',

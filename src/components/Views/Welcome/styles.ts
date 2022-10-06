@@ -36,13 +36,12 @@ export const styles = StyleSheet.create({
     },
     logoContainer: {
         position: 'absolute',
-        top: 48,
+        top: 16,
         flexDirection: 'row',
-        // backgroundColor: '#00000033',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        paddingHorizontal: 16,
+        paddingHorizontal: 24,
         paddingVertical: 4
     },
     logoText: {
