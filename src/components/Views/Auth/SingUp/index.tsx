@@ -20,8 +20,8 @@ export function SingUp() {
 
     const { signUp, signIn, loadingAuth, createdUserId } = useContext(AuthContext)
 
-    const [nome, setNome] = useState<string>('ABC')
-    const [palavraPasse, setPalavraPasse] = useState<string>('123')
+    const [nome, setNome] = useState<string>('')
+    const [palavraPasse, setPalavraPasse] = useState<string>('')
     const [showModalCreatedUser, setShowModalCreatedUser] = useState<boolean>(false)
 
     function validaPalavraPasse(value: string) {

@@ -24,8 +24,8 @@ export function SingIn() {
 
     const { signIn, loadingAuth, errorLogin, setErrorLogin } = useContext(AuthContext)
 
-    const [userId, setUserId] = useState<string>('8edd84be-861b-4a2c-9aa2-452a66d8c644')
-    const [userPassword, setUserPassword] = useState<string>('1234')
+    const [userId, setUserId] = useState<string>('')
+    const [userPassword, setUserPassword] = useState<string>('')
     const [showModalFirsVisit, setShowModalFirsVisit] = useState<boolean>(true)
 
     // Configurações do Scanner
