@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
-import { Text, TouchableOpacity } from 'react-native'
 
 import 'react-native-gesture-handler';
-
+import { Loading } from '../components/Views/Loading';
 import AuthRoutes from '../../src/routes/AuthRoutes'
 import AppRoutes from '../../src/routes/AppRoutes'
 
@@ -10,7 +9,11 @@ import { AuthContext } from '../contexts/auth';
 
 export default function Routes() {
 
-    const { logged }: any = useContext(AuthContext)
+    const { isAuthenticated, loading } = useContext(AuthContext)
 
-    return (logged ? <AuthRoutes /> : <AppRoutes />);
+    if (loading) {
+        return <Loading />
+    }
+
+    return (isAuthenticated ? <AuthRoutes /> : <AppRoutes />);
 }

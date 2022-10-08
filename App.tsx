@@ -35,8 +35,8 @@ export default function App() {
 
     return (
         <NavigationContainer theme={generalThemeRoutes} >
-            <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
             <AuthProvider>
+                <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
                 {fontsLoaded ? <Routes /> : <Loading />}
             </AuthProvider>
         </NavigationContainer>

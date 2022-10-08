@@ -106,4 +106,37 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'flex-end'
     },
+    modalContent: {
+        marginBottom: 32
+    },
+    copyIdArea: {
+        backgroundColor: THEME.COLORS.BLACK,
+        flexDirection: 'row'
+    },
+    copyIdTextArea: {
+        backgroundColor: THEME.COLORS.BLACK,
+        padding: 16,
+    },
+    iconArea: {
+        paddingHorizontal: 16,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textModal: {
+        color: THEME.COLORS.TEXT,
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+        marginBottom: 8,
+    },
+    qrCodeArea: {
+        backgroundColor: THEME.COLORS.BLACK,
+        flexDirection: 'row',
+        padding: 16,
+        justifyContent: 'center'
+    },
+    buttonAreaModal: {
+        width: '100%',
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        alignItems: 'center',
+    },
 });

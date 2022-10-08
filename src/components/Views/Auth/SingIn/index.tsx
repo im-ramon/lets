@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Button, Modal, StyleSheet, Alert } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, Button, Modal, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
@@ -20,15 +20,13 @@ import { useNavigation } from '@react-navigation/native';
 export function SingIn() {
 
     const refInputPalavraPasse: any = useRef()
-
     const navigation = useNavigation()
 
-    const [codigoAcesso, setCodigoAcesso] = useState<string>('')
-    const [palavraPasse, setPalavraPasse] = useState<string>('')
+    const { signIn, loadingAuth, errorLogin, setErrorLogin } = useContext(AuthContext)
+
+    const [userId, setUserId] = useState<string>('8edd84be-861b-4a2c-9aa2-452a66d8c644')
+    const [userPassword, setUserPassword] = useState<string>('1234')
     const [showModalFirsVisit, setShowModalFirsVisit] = useState<boolean>(true)
-
-    const { logged, setLogged }: any = useContext(AuthContext)
-
 
     // Configurações do Scanner
     const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -57,7 +55,7 @@ export function SingIn() {
 
     const handleBarCodeScanned = ({ type, data }: any) => {
         setScanned(true);
-        setCodigoAcesso(data)
+        setUserId(data)
         feedBackScanner()
         setShowModalCamera(false)
         refInputPalavraPasse.current.focus()
@@ -71,7 +69,6 @@ export function SingIn() {
     }
     // --- Fim
 
-
     function validaPalavraPasse(value: string) {
         let palavraPasseVerificada = value.replace(/[^a-z0-9]/gi, '')
         return palavraPasseVerificada.toUpperCase()
@@ -79,6 +76,14 @@ export function SingIn() {
 
     function handleModalButton(arg: boolean) {
         setShowModalFirsVisit(arg)
+    }
+
+    function handleLogin(id: string, password: string) {
+        if (userId === '' || userPassword === '') {
+            return;
+        }
+
+        signIn({ id, password })
     }
 
     return (
@@ -97,8 +102,8 @@ export function SingIn() {
                                     <Ionicons name="camera-outline" size={16} color={THEME.COLORS.TEXT} />
                                 </TouchableOpacity>
                                 <InputStyled
-                                    onChangeText={setCodigoAcesso}
-                                    value={codigoAcesso}
+                                    onChangeText={setUserId}
+                                    value={userId}
                                     autoCompleteType='username'
                                     placeholder="Digite seu código de acesso aqui"
                                     placeholderTextColor={THEME.COLORS.SEMANTIC_2}
@@ -110,8 +115,8 @@ export function SingIn() {
                         <FieldAreaStyled>
                             <LabelStyled>Palavra passe</LabelStyled>
                             <InputStyled
-                                onChangeText={(value: string) => setPalavraPasse(validaPalavraPasse(value))}
-                                value={palavraPasse}
+                                onChangeText={(value: string) => setUserPassword(validaPalavraPasse(value))}
+                                value={userPassword}
                                 ref={refInputPalavraPasse}
                                 autoCompleteType='password'
                                 placeholder="Digite sua palavra passe aqui"
@@ -120,7 +125,9 @@ export function SingIn() {
                             />
                         </FieldAreaStyled>
                         <View style={styles.buttonArea}>
-                            <ButtonMedium value='Entrar' onPress={() => setLogged(true)} />
+                            <ButtonMedium value='Entrar' onPress={() => handleLogin(userId, userPassword)}>
+                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                            </ButtonMedium>
                         </View>
                     </FormStyled>
                     <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('SingUp')}>
@@ -156,7 +163,8 @@ export function SingIn() {
             <Modal
                 animationType="slide"
                 transparent={false}
-                visible={showModalFirsVisit}
+                visible={!showModalFirsVisit}
+            // visible={showModalFirsVisit}
             >
                 <Welcome
                     handleModal={handleModalButton}

@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
+
+import { AuthContext } from '../../../../contexts/auth';
 
 import { styles } from '../styles';
 import { Ionicons } from '@expo/vector-icons';
 import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, PageScrollViewContainer, PageContainerView } from '../../../parts/_SytyledComponents'
+
 import { ButtonMedium } from '../../../parts/ButtonMedium';
 import { formRules } from '../../../../utils/formRules';
-import { THEME } from '../../../../theme'
 import { Titulo } from '../../../parts/Titulo';
+import { ButtonLarge } from '../../../parts/ButtonLarge';
+import { ModalShort } from '../../../parts/ModalShort';
+
+import { THEME } from '../../../../theme'
 
 export function SingUp() {
 
-    const [nome, setNome] = useState<string>('')
-    const [palavraPasse, setPalavraPasse] = useState<string>('')
+    const { signUp, signIn, loadingAuth, createdUserId } = useContext(AuthContext)
+
+    const [nome, setNome] = useState<string>('ABC')
+    const [palavraPasse, setPalavraPasse] = useState<string>('123')
+    const [showModalCreatedUser, setShowModalCreatedUser] = useState<boolean>(false)
 
     function validaPalavraPasse(value: string) {
         let palavraPasseVerificada = value.replace(/[^a-z0-9]/gi, '')
         return palavraPasseVerificada.toUpperCase()
     }
+
+
+    async function handleSignUp(name: string, password: string) {
+        if (nome === '' || palavraPasse === '') {
+            return;
+        }
+
+        await signUp({ name, password })
+        setShowModalCreatedUser(true)
+    }
+
+    async function copyToClipboard() {
+        await Clipboard.setStringAsync(createdUserId);
+    };
 
     return (
         <PageContainerView>
@@ -58,12 +82,51 @@ export function SingUp() {
                         </FieldAreaStyled>
 
                         <View style={styles.buttonArea}>
-                            <ButtonMedium value='Cadastrar' />
+                            <ButtonMedium value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
+                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                            </ButtonMedium>
                         </View>
                     </FormStyled>
 
                 </ScrollView>
             </PageScrollViewContainer>
+
+            <ModalShort
+                modalVisible={showModalCreatedUser}
+                handleModal={setShowModalCreatedUser}
+            >
+                <Titulo title='Cadastro realizado!'>
+                    <Ionicons name="checkmark-circle-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                </Titulo>
+
+                <View style={styles.modalContent}>
+                    <Text style={styles.textModal}>Seu ID para login é:</Text>
+                    <TouchableOpacity style={styles.copyIdArea} onPress={() => copyToClipboard()}>
+                        <ScrollView horizontal={true} style={styles.copyIdTextArea}>
+                            <Text style={styles.text}>{createdUserId || (<ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.PRIMARY} />)}</Text>
+                        </ScrollView>
+                        <View style={styles.iconArea}>
+                            <TouchableOpacity onPress={() => copyToClipboard()}>
+                                <Ionicons name="copy-outline" size={24} color={THEME.COLORS.TEXT} />
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ marginBottom: 32 }}>
+                        <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE: </Text>Guarde bem seu código de acesso. Ele será solcitado quando for realizar login novamente. Sem ele, você perderá seu progresso no App. Esta é uma forma de deixar sua experiência no App totalmente anônima.</Text>
+                    </View>
+                    <Text style={styles.textModal}>Gere um QR Code com seu ID, assim, da próxima vez que acessar o App, basta escaneá-lo:</Text>
+                    <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=177x177&chl=${createdUserId}`); }}>
+                        <Ionicons name="ios-qr-code-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                        <Text style={{ ...styles.text, marginLeft: 8 }}>Gerar QRCode</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.buttonAreaModal}>
+                    <ButtonLarge value='Continuar' onPress={() => signIn({ id: createdUserId, password: palavraPasse })}>
+                        {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                    </ButtonLarge>
+                </View>
+
+            </ModalShort>
         </PageContainerView>
     );
 }
