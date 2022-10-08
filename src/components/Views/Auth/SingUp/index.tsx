@@ -24,11 +24,7 @@ export function SingUp() {
     const [palavraPasse, setPalavraPasse] = useState<string>('')
     const [showModalCreatedUser, setShowModalCreatedUser] = useState<boolean>(false)
 
-    function validaPalavraPasse(value: string) {
-        let palavraPasseVerificada = value.replace(/[^a-z0-9]/gi, '')
-        return palavraPasseVerificada.toUpperCase()
-    }
-
+    const regexValidatorPassword = /[^a-z0-9]/gi;
 
     async function handleSignUp(name: string, password: string) {
         if (nome === '' || palavraPasse === '') {
@@ -70,14 +66,16 @@ export function SingUp() {
                             <LabelStyled>Palavra passe</LabelStyled>
                             <View style={styles.inputCameraArea}>
                                 <InputStyled
-                                    onChangeText={(value: string) => setPalavraPasse(validaPalavraPasse(value))}
+                                    onChangeText={(value: string) => setPalavraPasse(value.replace(regexValidatorPassword, ''))}
                                     value={palavraPasse}
                                     autoCompleteType='username'
                                     placeholder="Escolha uma palavra passe"
                                     placeholderTextColor={THEME.COLORS.SEMANTIC_2}
                                     maxLength={64}
+                                    autoCapitalize='none'
                                 />
                             </View>
+                            <Text style={styles.helpText}>Digite apenas letras e números. Caracteres especiais não são perimitidos</Text>
                             <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE:</Text> na versão atual do aplicativo, <Text style={styles.bold}>não há como recuperar ou redefinir a palavra passe</Text>, portanto, escolha uma palavra passe que possa lembra-se com facilidade.</Text>
                         </FieldAreaStyled>
 

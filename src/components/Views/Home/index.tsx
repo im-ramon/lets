@@ -339,7 +339,7 @@ export function Home() {
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar' />
+                    <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar contador' />
                 </View>
             </ModalShort>
 
