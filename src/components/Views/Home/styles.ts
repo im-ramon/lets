@@ -142,12 +142,13 @@ export const styles = StyleSheet.create({
     },
     modalRestartContainer: {
         marginTop: 24,
-        flex: 1
     },
     buttonArea: {
         width: '100%',
         paddingHorizontal: 16,
-        alignItems: 'center'
+        paddingVertical: 16,
+        alignItems: 'center',
+
     },
     viewShotStyle: {
         marginBottom: 0,

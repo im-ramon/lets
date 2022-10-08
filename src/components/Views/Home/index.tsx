@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, TextInput } from 'react-native';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
 import { ContributionGraph } from "react-native-chart-kit";
 
 import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
@@ -12,6 +12,9 @@ import { ButtonMedium } from '../../parts/ButtonMedium';
 import { ButtonLarge } from '../../parts/ButtonLarge';
 import { ModalDedication } from '../../parts/ModalDedication';
 import { ModalShort } from '../../parts/ModalShort';
+
+
+import { AuthContext } from '../../../contexts/auth';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
@@ -50,6 +53,8 @@ const handleToolTip: any = {}
 // --- Fim
 
 export function Home() {
+
+    const { signOut, user } = useContext(AuthContext)
 
     // Configuração do Screeshot do gráfico
     const ref = useRef<any>(null)
@@ -120,6 +125,11 @@ export function Home() {
     }
     // --- Fim
 
+    const userNameEdited = (userName: string) => {
+        let name = userName.split(' ')
+        return name[0]
+    }
+
 
     return (
         <ScrollView
@@ -143,7 +153,8 @@ export function Home() {
                 </View>
 
                 <View style={styles.bloco}>
-                    <Text style={styles.boasvindasTextH1}>Olá, usuário!</Text>
+                    <Text style={styles.boasvindasTextH1}>Olá, {userNameEdited(user.name)}!</Text>
+                    {/* Futuramente isso pode causara um estouro na memória por renderizar muitas vezes */}
                 </View>
 
                 <ViewShot style={{ ...styles.bloco, ...styles.viewShotStyle }} ref={ref} options={{ format: "jpg", quality: 0.9 }}>
@@ -292,45 +303,46 @@ export function Home() {
                 </Titulo>
 
                 <View style={styles.modalRestartContainer}>
-                    <ScrollView>
-                        <FormStyled>
-                            <Titulo title='Fomulário de ajuda' />
-                            <FieldAreaStyled>
-                                <LabelStyled>
-                                    O que te levou a recair?
-                                </LabelStyled>
-                                <InputStyled
-                                    onChangeText={setReiniciarMotivo}
-                                    value={reiniciarMotivo}
-                                    placeholder="Tédio, solidão, fotos antigas, sites..."
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
-                                    maxLength={formRules.maxLengthInput}
-                                />
-                            </FieldAreaStyled>
+                    <FormStyled>
+                        <Titulo title='Fomulário de ajuda' />
+                        <FieldAreaStyled>
+                            <LabelStyled>
+                                O que te levou a recair?
+                            </LabelStyled>
+                            <InputStyled
+                                onChangeText={setReiniciarMotivo}
+                                value={reiniciarMotivo}
+                                placeholder="Tédio, solidão, fotos antigas, sites..."
+                                placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                maxLength={formRules.maxLengthInput}
+                            />
+                        </FieldAreaStyled>
 
-                            <FieldAreaStyled>
-                                <LabelStyled>
-                                    Quer deixar algum comentário?
-                                </LabelStyled>
-                                <TextAreaStyled
-                                    onChangeText={setReiniciarComentario}
-                                    value={reiniciarComentario}
-                                    multiline={true}
-                                    numberOfLines={6}
-                                    placeholder="Escreva um pouco como você se sente neste momento..."
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
-                                    maxLength={formRules.maxLengthTextArea}
-                                    textAlignVertical='top'
-                                />
-                            </FieldAreaStyled>
+                        <FieldAreaStyled>
+                            <LabelStyled>
+                                Quer deixar algum comentário?
+                            </LabelStyled>
+                            <TextAreaStyled
+                                onChangeText={setReiniciarComentario}
+                                value={reiniciarComentario}
+                                multiline={true}
+                                numberOfLines={6}
+                                placeholder="Escreva um pouco como você se sente neste momento..."
+                                placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                maxLength={formRules.maxLengthTextArea}
+                                textAlignVertical='top'
+                            />
+                        </FieldAreaStyled>
 
-                            <View style={styles.buttonArea}>
-                                <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar' />
-                            </View>
-                        </FormStyled>
-                    </ScrollView>
+
+                    </FormStyled>
+                </View>
+
+                <View style={styles.buttonArea}>
+                    <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar' />
                 </View>
             </ModalShort>
+
         </ScrollView>
     );
 }

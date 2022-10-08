@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Titulo } from '../Titulo'
 
 import { Ionicons } from '@expo/vector-icons'
@@ -20,12 +20,13 @@ export function ModalShort({ modalVisible, children, handleModal, ...rest }: Mod
             visible={modalVisible}
         >
             <View style={styles.containerModal}>
-                <View style={styles.contentModal}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} style={styles.contentModal}>
                     <TouchableOpacity onPress={() => { handleModal(false) }} style={styles.closeButton}>
                         <Ionicons name="ios-close-outline" size={28} color={THEME.COLORS.PRIMARY} />
                     </TouchableOpacity>
                     {children}
-                </View>
+                </KeyboardAvoidingView>
             </View>
 
         </Modal>
@@ -38,16 +39,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000dd',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     contentModal: {
         backgroundColor: THEME.COLORS.BACKGROUND_1,
         position: 'relative',
-        paddingBottom: 16,
         paddingHorizontal: 16,
+        paddingBottom: 160,
         width: '90%',
-        flex: 1,
-        marginVertical: 64
+        // height: '90%',
     },
     closeButton: {
         position: 'absolute',

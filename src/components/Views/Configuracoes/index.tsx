@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert } from 'react-native';
-
+import { AuthContext } from '../../../contexts/auth';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+
+import * as Clipboard from 'expo-clipboard';
 
 import { Titulo } from '../../parts/Titulo';
 import { CardInfo } from '../../parts/CardInfo';
+import { ButtonTrasnparent } from '../../parts/ButtonTrasnparent';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
@@ -41,6 +44,12 @@ const alertaFuncionalidadeIndisponivel = () =>
     ]);
 
 export function Configuracoes() {
+    const { signOut, user } = useContext(AuthContext)
+
+    async function copyToClipboard() {
+        await Clipboard.setStringAsync(user.id);
+    };
+
     return (
         <View style={styles.container}>
             <Titulo
@@ -81,6 +90,11 @@ export function Configuracoes() {
                     <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
             </ScrollView>
+
+            <TouchableOpacity onPress={() => copyToClipboard()} style={{ marginBottom: 16 }}>
+                <Text style={{ color: THEME.COLORS.SEMANTIC_2 }}>Id: {user.id}</Text>
+            </TouchableOpacity>
+            <ButtonTrasnparent value='Sair' onPress={() => signOut()} />
 
             <TouchableOpacity style={styles.developerArea} onPress={() => {
                 Linking.openURL('https://ramonoliveira.dev');
