@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert, ToastAndroid } from 'react-native';
 import { AuthContext } from '../../../contexts/auth';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -46,6 +46,10 @@ const alertaFuncionalidadeIndisponivel = () =>
 export function Configuracoes() {
     const { signOut, user } = useContext(AuthContext)
 
+    function showToastCopied() {
+        ToastAndroid.show('ID copiado!', ToastAndroid.SHORT);
+    }
+
     async function copyToClipboard() {
         await Clipboard.setStringAsync(user.id);
     };
@@ -91,7 +95,7 @@ export function Configuracoes() {
                 </CardInfo>
             </ScrollView>
 
-            <TouchableOpacity onPress={() => copyToClipboard()} style={{ marginBottom: 16 }}>
+            <TouchableOpacity onPress={() => { copyToClipboard(); showToastCopied() }} style={{ marginBottom: 16 }}>
                 <Text style={{ color: THEME.COLORS.SEMANTIC_2 }}>Id: {user.id}</Text>
             </TouchableOpacity>
             <ButtonTrasnparent value='Sair' onPress={() => signOut()} />

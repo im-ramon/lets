@@ -6,6 +6,7 @@ import AuthRoutes from '../../src/routes/AuthRoutes'
 import AppRoutes from '../../src/routes/AppRoutes'
 
 import { AuthContext } from '../contexts/auth';
+import { AppProvider } from '../contexts/app';
 
 export default function Routes() {
 
@@ -15,5 +16,5 @@ export default function Routes() {
         return <Loading />
     }
 
-    return (isAuthenticated ? <AuthRoutes /> : <AppRoutes />);
+    return (isAuthenticated ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
 }

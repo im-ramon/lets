@@ -95,7 +95,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 
         } catch (error) {
-            console.log('Informação do erro: ', error)
+            console.log('Informação do erro (signIn): ', error)
             // Refatorar isso posteriormente - Tirar da camada de context e colocar no component SignIn
             Alert.alert('Falha ao fazer login',
                 'Usuário e/ou senha incorreto(s)!', [
@@ -118,6 +118,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                     token: '',
                 })
             })
+
+        await AsyncStorage.removeItem('@lets:user_data')
     }
 
     async function signUp({ name, password }: SignUpProps) {

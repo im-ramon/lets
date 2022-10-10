@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, TextInput, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { ContributionGraph } from "react-native-chart-kit";
 
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import ViewShot, { captureRef } from 'react-native-view-shot';
@@ -9,17 +10,19 @@ import * as Sharing from 'expo-sharing';
 
 import { Titulo } from '../../parts/Titulo';
 import { ButtonMedium } from '../../parts/ButtonMedium';
-import { ButtonLarge } from '../../parts/ButtonLarge';
 import { ModalDedication } from '../../parts/ModalDedication';
 import { ModalShort } from '../../parts/ModalShort';
+import { ModalFull } from '../../parts/ModalFull';
 
+import { api } from '../../../services/api';
 
 import { AuthContext } from '../../../contexts/auth';
+import { AppContext } from '../../../contexts/app';
 
 import { styles } from './styles';
 import { THEME } from '../../../theme';
 
-import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, TextAreaStyled } from '../../parts/_SytyledComponents'
+import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, TextAreaStyled, DatePickerStyledContainer } from '../../parts/_SytyledComponents'
 import { formRules } from '../../../utils/formRules';
 
 import logo from '../../../assets/img/icon.png';
@@ -55,6 +58,7 @@ const handleToolTip: any = {}
 export function Home() {
 
     const { signOut, user } = useContext(AuthContext)
+    const { firstTimeInApp, setFirstTimeInApp, score } = useContext(AppContext)
 
     // Configuração do Screeshot do gráfico
     const ref = useRef<any>(null)
@@ -82,6 +86,20 @@ export function Home() {
     const [dedicationLongPress, setDedicationLongPress] = useState<number>(0);
     const [showDedicationModal, setShowDedicationModal] = useState<boolean>(false);
     const [showQuestionsModal, setShowQuestionsModal] = useState<boolean>(false);
+    const [firstTimeLastConsumption, setFirstTimeLastConsumption] = useState<Date>(new Date());
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    // --- Fim
+
+
+    // Configurações do Calendário Picker
+    const [date, setDate] = useState(new Date());
+    const [showDateTimePicker, setShowDateTimePicker] = useState(false);
+
+    const onChange = (event: any, selectedDate: any) => {
+        const currentDate = selectedDate;
+        setShowDateTimePicker(false);
+        setDate(currentDate);
+    };
     // --- Fim
 
 
@@ -130,6 +148,28 @@ export function Home() {
         return name[0]
     }
 
+    async function startExternalUserData(data: Date) {
+        setIsLoading(true)
+        try {
+            await api.post('/user_data', {
+                last_consumption: data,
+                record_no_consumption: 0,
+                total_relapse: 0,
+                score: 0,
+                relapse_reasons: '-',
+                relapse_dates: '-'
+            })
+        } catch (e) {
+            console.log('startExternalUserData: ', e)
+        }
+        setIsLoading(false)
+    }
+
+    function handleSetUserExternalData() {
+        startExternalUserData(date)
+        setFirstTimeInApp(false)
+    }
+
 
     return (
         <ScrollView
@@ -148,7 +188,7 @@ export function Home() {
                     </TouchableOpacity>
 
                     <View style={styles.pontosContainer}>
-                        <Text style={styles.pontosText}> 0 ponto(s)</Text>
+                        <Text style={styles.pontosText}> {score} ponto(s)</Text>
                     </View>
                 </View>
 
@@ -342,6 +382,47 @@ export function Home() {
                     <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar contador' />
                 </View>
             </ModalShort>
+
+            <ModalFull modalVisible={firstTimeInApp}>
+                <Titulo title={'Primeira vez no App?'} subtitle="Vamos fazer algumas configurações inicais." >
+                    <Ionicons name="flag-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                </Titulo>
+
+                <View style={styles.modalRestartContainer}>
+                    <FormStyled>
+                        <FieldAreaStyled>
+                            <LabelStyled>
+                                Qual última vez que consumiu conteúdo explícito?
+                            </LabelStyled>
+
+                            <DatePickerStyledContainer onPress={() => { setShowDateTimePicker(true) }}>
+                                <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                <Text style={styles.text}>
+                                    {`${(date.getDate() < 10 ? '0' + date.getDate() : date.getDate())} - ${(date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)} - ${date.getFullYear()}`}
+                                </Text>
+                            </DatePickerStyledContainer>
+
+                            {showDateTimePicker && (
+                                <DateTimePicker
+                                    testID="dateTimePicker"
+                                    value={date}
+                                    mode={'date'}
+                                    is24Hour={true}
+                                    onChange={onChange}
+                                />
+                            )}
+
+                        </FieldAreaStyled>
+
+                    </FormStyled>
+                </View>
+
+                <View style={styles.buttonArea}>
+                    <ButtonMedium onPress={() => handleSetUserExternalData()} value='Continuar'>
+                        {isLoading && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                    </ButtonMedium>
+                </View>
+            </ModalFull>
 
         </ScrollView>
     );

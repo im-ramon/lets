@@ -17,6 +17,18 @@ export const InputStyled = styled.TextInput`
   padding-right: 32px;
   color: ${THEME.COLORS.TEXT};
 `
+export const DatePickerStyledContainer = styled.TouchableOpacity`
+  background-color: ${THEME.COLORS.BACKGROUND_2};
+  border-bottom-width: 1px;
+  border-bottom-color: ${THEME.COLORS.PRIMARY};
+  font-family: ${THEME.FONT_FAMILY.REGULAR};
+  height: 40px;
+  padding-left: 8px;
+  padding-right: 32px;
+  align-items: center;
+  flex-direction: row;
+  color: ${THEME.COLORS.TEXT};
+`
 
 export const TextAreaStyled = styled.TextInput`
   background-color: ${THEME.COLORS.BACKGROUND_2};
