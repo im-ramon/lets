@@ -30,9 +30,8 @@ export function SingUp() {
         if (nome === '' || palavraPasse === '') {
             return;
         }
-
-        await signUp({ name, password })
         setShowModalCreatedUser(true)
+        await signUp({ name, password })
     }
 
     async function copyToClipboard() {
@@ -90,7 +89,7 @@ export function SingUp() {
             </PageScrollViewContainer>
 
             <ModalShort
-                modalVisible={showModalCreatedUser}
+                modalVisible={!!createdUserId && showModalCreatedUser}
                 handleModal={setShowModalCreatedUser}
             >
                 <Titulo title='Cadastro realizado!'>

@@ -129,7 +129,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             const response = await api.post('/create_user', { name, password })
             setCreatedUserId(response.data.id)
         } catch (error) {
-            console.log('Informação do erro: ', error)
+            console.log('Informação do erro (signUp): ', error)
             Alert.alert('Falha ao cadastrar usuário',
                 'Tente novamente mais tarde', [
                 {
