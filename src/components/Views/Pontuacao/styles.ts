@@ -10,10 +10,10 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     scrollViewContainer: {
-        flex: 1,
+        // flex: 1,
         width: '100%',
         paddingVertical: 16,
-        position: 'relative'
+        position: 'relative',
     },
     content: {
         flex: 1,
@@ -71,5 +71,26 @@ export const styles = StyleSheet.create({
     },
     infoButton: {
         alignItems: 'flex-end',
+    },
+    scoreInformationscrollView: {
+        // flex: 1,
+        width: '100%',
+        paddingTop: 16,
+        paddingBottom: 32,
+        position: 'relative',
+    },
+    scoreInformationModalContainer: {
+        backgroundColor: 'purple',
+    },
+    scoreInformationText: {
+        fontSize: THEME.FONT_SIZE.MD,
+        color: THEME.COLORS.TEXT,
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
+    },
+    scoreInformationSubtitle: {
+        marginTop: 32,
+        fontSize: THEME.FONT_SIZE.SM,
+        color: THEME.COLORS.TEXT,
+        fontFamily: THEME.FONT_FAMILY.REGULAR,
     }
 });

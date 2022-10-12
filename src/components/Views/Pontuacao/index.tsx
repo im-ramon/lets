@@ -88,9 +88,19 @@ export function Pontuacao() {
                     <Ionicons name="medal-outline" size={24} color={THEME.COLORS.PRIMARY} />
                 </Titulo>
 
-                <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
-                    <Text style={styles.text}>Escrever aqui como o cálculo da pontação é realizado.</Text>
-                    <Text style={styles.text}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure saepe quos praesentium eos labore cum quam sunt odit tempora. Repellat sed corrupti assumenda laudantium. Asperiores dicta quaerat quibusdam aliquid repudiandae.</Text>
+                <ScrollView style={styles.scoreInformationscrollView}>
+                    <Text style={styles.scoreInformationText}>
+                        <Ionicons name="checkmark-circle-outline" size={THEME.FONT_SIZE.MD} color={THEME.COLORS.SUCCESS} /> 1 dia sem consumo: <Text style={styles.bold}>+ 5 pontos</Text>
+                    </Text>
+
+                    <Text style={styles.scoreInformationText}>
+                        <Ionicons name="md-sad-outline" size={THEME.FONT_SIZE.MD} color={THEME.COLORS.DANGER} /> Recaída: <Text style={styles.bold}>- 40 pontos</Text>
+                    </Text>
+
+                    <Text style={styles.scoreInformationSubtitle}>
+                        <Text style={styles.text}>- Os pontos devem ser resgatados diariamente nesta página.</Text>
+                    </Text>
+                    <Text style={styles.text}>- A pontuação é calculada a partir da data de cadastro do usuário, mesmo que insira uma data passada, os pontos não serão computados.</Text>
                 </ScrollView>
             </ModalShort>
         </View>
