@@ -56,7 +56,7 @@ const handleToolTip: any = {}
 
 export function Home() {
 
-    const { user } = useContext(AuthContext)
+    const { user, vibrate } = useContext(AuthContext)
     const { firstTimeInApp, setFirstTimeInApp, score } = useContext(AppContext)
 
     // Configuração do Screeshot do gráfico
@@ -122,6 +122,7 @@ export function Home() {
     // Controla a exibição do modal de dedicatória
     useEffect(() => {
         if (dedicationLongPress == 4 && dedicationShortPress == 4) {
+            vibrate('success');
             setShowDedicationModal(true)
         }
     }, [dedicationLongPress, dedicationShortPress])

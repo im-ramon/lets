@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext, ReactNode } from 'react';
+import { Vibration } from 'react-native';
 import { Alert } from 'react-native'
 import { api } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,6 +15,7 @@ type AuthContextData = {
     loading: boolean;
     errorLogin: boolean;
     setErrorLogin: React.Dispatch<React.SetStateAction<boolean>>;
+    vibrate: (type: 'click' | 'success' | 'error') => void;
 }
 
 type UserProps = {
@@ -90,12 +92,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 name: response.data.name,
                 token: response.data.token
             })
-
+            vibrate('success');
             setLoadingAuth(false)
 
 
         } catch (error) {
             console.log('Informação do erro (signIn): ', error)
+            vibrate('error');
             // Refatorar isso posteriormente - Tirar da camada de context e colocar no component SignIn
             Alert.alert('Falha ao fazer login',
                 'Usuário e/ou senha incorreto(s)!', [
@@ -110,6 +113,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     async function signOut() {
+        vibrate('click');
         await AsyncStorage.removeItem('@userLogged')
             .then(() => {
                 setUser({
@@ -128,7 +132,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             const response = await api.post('/create_user', { name, password })
             setCreatedUserId(response.data.id)
+            vibrate('success');
         } catch (error) {
+            vibrate('error');
             console.log('Informação do erro (signUp): ', error)
             Alert.alert('Falha ao cadastrar usuário',
                 'Tente novamente mais tarde', [
@@ -146,6 +152,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
 
+    function vibrate(type: 'click' | 'success' | 'error') {
+        switch (type) {
+            case 'click':
+                Vibration.vibrate(125)
+                break;
+
+            case 'success':
+                Vibration.vibrate(250)
+                break;
+
+            case 'error':
+                Vibration.vibrate([0, 150, 50, 150])
+                break;
+
+            default:
+                break;
+        }
+
+
+
+    }
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -157,7 +185,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             signIn,
             signOut,
             signUp,
-            setErrorLogin
+            setErrorLogin,
+            vibrate
         }}>
             {children}
         </AuthContext.Provider>
