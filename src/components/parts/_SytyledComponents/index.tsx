@@ -19,6 +19,7 @@ export const InputStyled = styled.TextInput`
 `
 export const DatePickerStyledContainer = styled.TouchableOpacity`
   background-color: ${THEME.COLORS.BACKGROUND_2};
+  width: 46%;
   border-bottom-width: 1px;
   border-bottom-color: ${THEME.COLORS.PRIMARY};
   font-family: ${THEME.FONT_FAMILY.REGULAR};

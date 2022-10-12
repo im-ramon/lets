@@ -1,31 +1,30 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, TextInput, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
-import { ContributionGraph } from "react-native-chart-kit";
-
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 
+import { ContributionGraph } from "react-native-chart-kit";
+import moment from 'moment';
+
+import { AppContext } from '../../../contexts/app';
+import { AuthContext } from '../../../contexts/auth';
+
+import { api } from '../../../services/api';
+
+import logo from '../../../assets/img/icon.png';
+import { FontAwesome5, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, TextAreaStyled, DatePickerStyledContainer } from '../../parts/_SytyledComponents'
 import { Titulo } from '../../parts/Titulo';
 import { ButtonMedium } from '../../parts/ButtonMedium';
 import { ModalDedication } from '../../parts/ModalDedication';
 import { ModalShort } from '../../parts/ModalShort';
 import { ModalFull } from '../../parts/ModalFull';
-
-import { api } from '../../../services/api';
-
-import { AuthContext } from '../../../contexts/auth';
-import { AppContext } from '../../../contexts/app';
-
 import { styles } from './styles';
-import { THEME } from '../../../theme';
 
-import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, TextAreaStyled, DatePickerStyledContainer } from '../../parts/_SytyledComponents'
+import { THEME } from '../../../theme';
 import { formRules } from '../../../utils/formRules';
 
-import logo from '../../../assets/img/icon.png';
 
 // Cofigurações do gráfico
 const screenWidth = Dimensions.get("window").width;
@@ -40,7 +39,6 @@ const chartConfig = {
     barPercentage: 0.5,
     useShadowColorFromDataset: false // optional
 };
-// --- Fim
 
 const commitsData = [
     { date: "2022-09-01", count: 1 },
@@ -50,6 +48,7 @@ const commitsData = [
     { date: "2022-06-30", count: 1 },
     { date: "2022-06-26", count: 1 },
 ];
+// --- Fim
 
 // Skiping no erro de tipagem no gráfico
 const handleToolTip: any = {}
@@ -57,7 +56,7 @@ const handleToolTip: any = {}
 
 export function Home() {
 
-    const { signOut, user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { firstTimeInApp, setFirstTimeInApp, score } = useContext(AppContext)
 
     // Configuração do Screeshot do gráfico
@@ -80,25 +79,36 @@ export function Home() {
     // --- Fim
 
 
-    // States do componente
+    // States do component
     const [showChartSubtitle, setShowChartSubtitle] = useState<boolean>(false);
     const [dedicationShortPress, setDedicationShortPress] = useState<number>(0);
     const [dedicationLongPress, setDedicationLongPress] = useState<number>(0);
     const [showDedicationModal, setShowDedicationModal] = useState<boolean>(false);
     const [showQuestionsModal, setShowQuestionsModal] = useState<boolean>(false);
-    const [firstTimeLastConsumption, setFirstTimeLastConsumption] = useState<Date>(new Date());
     const [isLoading, setIsLoading] = useState<boolean>(false)
     // --- Fim
 
 
     // Configurações do Calendário Picker
-    const [date, setDate] = useState(new Date());
-    const [showDateTimePicker, setShowDateTimePicker] = useState(false);
+    const [dateLastConsumption, setDateLastConsumption] = useState<Date>(new Date());
+    const [timeLastConsumption, setTimeLastConsumption] = useState<Date>(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [showTimePicker, setShowTimePicker] = useState(false);
 
-    const onChange = (event: any, selectedDate: any) => {
+    const onChangeDate = (event: any, selectedDate: any) => {
         const currentDate = selectedDate;
-        setShowDateTimePicker(false);
-        setDate(currentDate);
+        setShowDatePicker(false);
+        setDateLastConsumption(currentDate);
+
+        console.log(currentDate)
+    };
+
+    const onChangeTime = (event: any, selectedTime: any) => {
+        const currentTime = selectedTime;
+        setShowTimePicker(false);
+        setTimeLastConsumption(currentTime);
+
+        console.log(moment(currentTime).format())
     };
     // --- Fim
 
@@ -148,8 +158,9 @@ export function Home() {
         return name[0]
     }
 
-    async function startExternalUserData(data: Date) {
+    async function startExternalUserData() {
         setIsLoading(true)
+        const data = moment(dateLastConsumption).format('YYYY-MM-DD') + "T" + moment(timeLastConsumption).format('HH:mm:ss') + "-03:00"
         try {
             await api.post('/user_data', {
                 last_consumption: data,
@@ -166,7 +177,7 @@ export function Home() {
     }
 
     function handleSetUserExternalData() {
-        startExternalUserData(date)
+        startExternalUserData()
         setFirstTimeInApp(false)
     }
 
@@ -327,11 +338,7 @@ export function Home() {
                 </ButtonMedium>
             </View>
 
-            <ModalDedication
-                header='Dedicatória'
-                modalVisible={showDedicationModal}
-                handleModal={handleDedication}
-            >
+            <ModalDedication header='Dedicatória' modalVisible={showDedicationModal} handleModal={handleDedication}>
                 <Text style={styles.textDedicatoria}>
                     Esse App é um presente de um fã que admira muito o seu trabalho.
                 </Text>
@@ -395,22 +402,41 @@ export function Home() {
                                 Qual última vez que consumiu conteúdo explícito?
                             </LabelStyled>
 
-                            <DatePickerStyledContainer onPress={() => { setShowDateTimePicker(true) }}>
-                                <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
-                                <Text style={styles.text}>
-                                    {`${(date.getDate() < 10 ? '0' + date.getDate() : date.getDate())} - ${(date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)} - ${date.getFullYear()}`}
-                                </Text>
-                            </DatePickerStyledContainer>
+                            <View style={styles.dateTimePickerArea}>
+                                <DatePickerStyledContainer onPress={() => { setShowDatePicker(true) }}>
+                                    <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                    <Text style={styles.text}>
+                                        {moment(dateLastConsumption).format('DD/MM/YYYY')}
+                                    </Text>
+                                </DatePickerStyledContainer>
 
-                            {showDateTimePicker && (
-                                <DateTimePicker
-                                    testID="dateTimePicker"
-                                    value={date}
-                                    mode={'date'}
-                                    is24Hour={true}
-                                    onChange={onChange}
-                                />
-                            )}
+                                {showDatePicker && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={dateLastConsumption}
+                                        mode={'date'}
+                                        is24Hour={true}
+                                        onChange={onChangeDate}
+                                    />
+                                )}
+
+                                <DatePickerStyledContainer onPress={() => { setShowTimePicker(true) }}>
+                                    <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                    <Text style={styles.text}>
+                                        {moment(timeLastConsumption).format('HH:mm')}
+                                    </Text>
+                                </DatePickerStyledContainer>
+
+                                {showTimePicker && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={timeLastConsumption}
+                                        mode={'time'}
+                                        is24Hour={true}
+                                        onChange={onChangeTime}
+                                    />
+                                )}
+                            </View>
 
                         </FieldAreaStyled>
 

@@ -156,4 +156,8 @@ export const styles = StyleSheet.create({
         paddingBottom: 0,
         paddingHorizontal: 16,
     },
+    dateTimePickerArea: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 });
