@@ -5,7 +5,7 @@ import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 
 import { ContributionGraph } from "react-native-chart-kit";
-import moment from 'moment';
+import moment, { min } from 'moment';
 
 import { AppContext } from '../../../contexts/app';
 import { AuthContext } from '../../../contexts/auth';
@@ -57,7 +57,22 @@ const handleToolTip: any = {}
 export function Home() {
 
     const { user, vibrate } = useContext(AuthContext)
-    const { firstTimeInApp, setFirstTimeInApp, score } = useContext(AppContext)
+    const {
+        lastConsumption,
+        recordNoConsumption,
+        totalRelapse,
+        score,
+        relapseReasons,
+        relapseDates,
+        firstTimeInApp,
+        setLastConsumption,
+        setRecordNoConsumption,
+        setTotalRelapse,
+        setScore,
+        setRelapseReasons,
+        setRelapseDates,
+        setFirstTimeInApp,
+    } = useContext(AppContext)
 
     // Configuração do Screeshot do gráfico
     const ref = useRef<any>(null)
@@ -89,6 +104,51 @@ export function Home() {
     // --- Fim
 
 
+    // Configurações do Cronometro
+    type timerDataProps = {
+        anos: number | string;
+        meses: number | string;
+        dias: number | string;
+        horas: number | string;
+        minutos: number | string;
+        segundos: number | string;
+    }
+
+    const [timerData, setTimerData] = useState<timerDataProps>({ anos: 0, meses: 0, dias: 0, horas: 0, minutos: 0, segundos: 0 })
+
+    function stopwatchCalculations() {
+        const anos = moment().diff(lastConsumption, 'years');
+        const meses = moment().diff(moment(lastConsumption).add(anos, 'years'), 'months')
+        const dias = moment().diff(moment(lastConsumption).add(anos, 'years').add(meses, 'months'), 'days')
+        const horas = moment().diff(moment(lastConsumption).add(anos, 'years').add(meses, 'months').add(dias, 'days'), 'hours')
+        const minutos = moment().diff(moment(lastConsumption).add(anos, 'years').add(meses, 'months').add(dias, 'days').add(horas, 'hours'), 'minutes')
+        const segundos = moment().diff(moment(lastConsumption).add(anos, 'years').add(meses, 'months').add(dias, 'days').add(horas, 'hours').add(minutos, 'minutes'), 'seconds')
+
+        setTimerData({
+            anos,
+            meses,
+            dias,
+            horas,
+            minutos,
+            segundos
+        })
+
+    }
+
+    function startStopwatch() {
+        if (lastConsumption !== 'lastConsumption') {
+            setInterval(() => {
+                stopwatchCalculations()
+            }, 1000)
+        }
+    }
+
+    useEffect(() => {
+        startStopwatch()
+    }, [lastConsumption])
+    // --- Fim
+
+
     // Configurações do Calendário Picker
     const [dateLastConsumption, setDateLastConsumption] = useState<Date>(new Date());
     const [timeLastConsumption, setTimeLastConsumption] = useState<Date>(new Date());
@@ -98,17 +158,27 @@ export function Home() {
     const onChangeDate = (event: any, selectedDate: any) => {
         const currentDate = selectedDate;
         setShowDatePicker(false);
-        setDateLastConsumption(currentDate);
 
-        console.log(currentDate)
+        if (moment(currentDate).isAfter(new Date())) {
+            Alert.alert(
+                'Escolha uma data válida.',
+                `Não são permitidas datas no futuro. \nVocê selecionou a data: ${moment(currentDate).format('DD/MM/YYYY')}`,
+                [{
+                    text: 'Fechar', style: 'cancel',
+                }]
+            )
+
+            setDateLastConsumption(new Date());
+            return
+        }
+
+        setDateLastConsumption(currentDate);
     };
 
     const onChangeTime = (event: any, selectedTime: any) => {
         const currentTime = selectedTime;
         setShowTimePicker(false);
         setTimeLastConsumption(currentTime);
-
-        console.log(moment(currentTime).format())
     };
     // --- Fim
 
@@ -159,7 +229,7 @@ export function Home() {
         return name[0]
     }
 
-    async function startExternalUserData() {
+    async function startExternaladnLocalUserData() {
         setIsLoading(true)
         const data = moment(dateLastConsumption).format('YYYY-MM-DD') + "T" + moment(timeLastConsumption).format('HH:mm:ss') + "-03:00"
         try {
@@ -171,14 +241,21 @@ export function Home() {
                 relapse_reasons: '-',
                 relapse_dates: '-'
             })
+
+            setLastConsumption(data)
+            setRecordNoConsumption(0)
+            setTotalRelapse(0)
+            setScore(0)
+            setRelapseReasons('-')
+            setRelapseDates('-')
         } catch (e) {
-            console.log('startExternalUserData: ', e)
+            console.log('startExternalUserData | Erro: ', e)
         }
         setIsLoading(false)
     }
 
-    function handleSetUserExternalData() {
-        startExternalUserData()
+    function handleSetUserExternalAndLocalData() {
+        startExternaladnLocalUserData()
         setFirstTimeInApp(false)
     }
 
@@ -322,14 +399,14 @@ export function Home() {
                     <View style={[styles.contadorEvolucao, styles.bloco]}>
                         <Text style={styles.contadorEvolucaoHeader}>Tempo “em liberdade”</Text>
                         <Text style={styles.contadorEvolucaoText}>
-                            <Text style={styles.contadorEvolucaoTextbold}>00</Text> a <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
-                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
-                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> d <Text style={styles.contadorEvolucaoTextGrey}></Text>
+                            <Text style={styles.contadorEvolucaoTextbold}>{timerData.anos}</Text> a <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
+                            <Text style={styles.contadorEvolucaoTextbold}> {timerData.meses}</Text> m <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
+                            <Text style={styles.contadorEvolucaoTextbold}> {timerData.dias}</Text> d <Text style={styles.contadorEvolucaoTextGrey}> -</Text>
                         </Text>
                         <Text style={styles.contadorEvolucaoText}>
-                            <Text style={styles.contadorEvolucaoTextbold}>00</Text> h <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
-                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> m <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
-                            <Text style={styles.contadorEvolucaoTextbold}> 00</Text> s
+                            <Text style={styles.contadorEvolucaoTextbold}>{timerData.horas}</Text> h <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
+                            <Text style={styles.contadorEvolucaoTextbold}> {timerData.minutos}</Text> m <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
+                            <Text style={styles.contadorEvolucaoTextbold}> {timerData.segundos}</Text> s <Text style={styles.contadorEvolucaoTextGrey}></Text>
                         </Text>
                     </View>
                 </ViewShot>
@@ -445,7 +522,7 @@ export function Home() {
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonMedium onPress={() => handleSetUserExternalData()} value='Continuar'>
+                    <ButtonMedium onPress={() => handleSetUserExternalAndLocalData()} value='Continuar'>
                         {isLoading && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
                     </ButtonMedium>
                 </View>

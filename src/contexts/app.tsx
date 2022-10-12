@@ -10,6 +10,12 @@ type AppContextData = {
     relapseReasons: string;
     relapseDates: string;
     firstTimeInApp: boolean,
+    setLastConsumption: React.Dispatch<React.SetStateAction<string>>;
+    setRecordNoConsumption: React.Dispatch<React.SetStateAction<number>>;
+    setTotalRelapse: React.Dispatch<React.SetStateAction<number>>;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
+    setRelapseReasons: React.Dispatch<React.SetStateAction<string>>;
+    setRelapseDates: React.Dispatch<React.SetStateAction<string>>;
     setFirstTimeInApp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -80,7 +86,13 @@ export function AppProvider({ children }: AppProviderProps) {
             relapseReasons,
             relapseDates,
             firstTimeInApp,
-            setFirstTimeInApp
+            setLastConsumption,
+            setRecordNoConsumption,
+            setTotalRelapse,
+            setScore,
+            setRelapseReasons,
+            setRelapseDates,
+            setFirstTimeInApp,
         }}>
             {children}
         </AppContext.Provider>
