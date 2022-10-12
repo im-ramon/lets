@@ -63,12 +63,25 @@ export function Configuracoes() {
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
-                <CardInfo
-                    title='Cadastrar PIN'
-                    description='Cadastre um PIN para abrir o aplicativo'
-                >
-                    <Ionicons name="ios-key-outline" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
+                {/* <View style={styles.CardInfoContainer}>
+                    <View style={{ flex: 1 }}>
+                        <CardInfo
+                            title="Solicitar digital"
+                            description='Ative a solicitação de sua digital ao entrar no App'
+                        >
+                            <Ionicons name="finger-print-outline" size={32} color={THEME.COLORS.TEXT} />
+                        </CardInfo>
+                    </View>
+                    <View style={styles.switchContainer}>
+                        <Switch
+                            trackColor={{ false: THEME.COLORS.NEUTRAL_4, true: THEME.COLORS.NEUTRAL_3 }}
+                            thumbColor={isEnabled ? THEME.COLORS.SUCCESS : THEME.COLORS.PRIMARY}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                        />
+                    </View>
+                </View> */}
 
                 <CardInfo
                     title='Apagar meus dados'

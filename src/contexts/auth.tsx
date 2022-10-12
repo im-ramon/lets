@@ -12,9 +12,11 @@ type AuthContextData = {
     signUp: (info: SignUpProps) => Promise<void>;
     loadingAuth: boolean;
     createdUserId: string;
+    isLocalAuthenticationLogged: boolean;
     loading: boolean;
     errorLogin: boolean;
     setErrorLogin: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsLocalAuthenticationLogged: React.Dispatch<React.SetStateAction<boolean>>;
     vibrate: (type: 'click' | 'success' | 'error') => void;
 }
 
@@ -52,6 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState<boolean>(true)
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
     const [createdUserId, setCreatedUserId] = useState<string>('')
+    const [isLocalAuthenticationLogged, setIsLocalAuthenticationLogged] = useState<boolean>(false)
 
     const isAuthenticated = !!user.name;
 
@@ -181,11 +184,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
             loading,
             errorLogin,
             createdUserId,
+            isLocalAuthenticationLogged,
             signIn,
             signOut,
             signUp,
             setErrorLogin,
-            vibrate
+            vibrate,
+            setIsLocalAuthenticationLogged,
         }}>
             {children}
         </AuthContext.Provider>

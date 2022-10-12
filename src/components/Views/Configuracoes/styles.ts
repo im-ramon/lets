@@ -34,6 +34,17 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 16
     },
+    CardInfoContainer: {
+        flexDirection: 'row',
+
+    },
+    switchContainer: {
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomColor: THEME.COLORS.NEUTRAL_4,
+        borderBottomWidth: 1,
+    },
     cardConfiguracoesTextTitle: {
         fontFamily: THEME.FONT_FAMILY.BOLD,
         color: THEME.COLORS.TEXT,
