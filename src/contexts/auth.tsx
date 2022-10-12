@@ -132,7 +132,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             const response = await api.post('/create_user', { name, password })
             setCreatedUserId(response.data.id)
-            vibrate('success');
         } catch (error) {
             vibrate('error');
             console.log('Informação do erro (signUp): ', error)
