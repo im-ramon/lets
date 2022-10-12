@@ -5,7 +5,7 @@ import { THEME } from '../../../theme';
 
 interface CardConfiguracoesProps extends TouchableOpacityProps {
     title: string,
-    description: string
+    description: string | number
     children: React.ReactNode,
 }
 

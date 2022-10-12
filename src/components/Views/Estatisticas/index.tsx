@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
 import { Titulo } from '../../parts/Titulo';
 import { CardInfo } from '../../parts/CardInfo';
 
+import { AppContext } from '../../../contexts/app';
+
 import { Ionicons, MaterialCommunityIcons, AntDesign, FontAwesome5 } from '@expo/vector-icons'
 import { styles } from './styles';
 import { THEME } from '../../../theme';
+import moment from 'moment';
 
 export function Estatisticas() {
+    const { recordNoConsumption, lastConsumption, totalRelapse } = useContext(AppContext)
     return (
         <View style={styles.container}>
             <Titulo
@@ -21,21 +25,21 @@ export function Estatisticas() {
             <ScrollView style={styles.scrollViewContainer}>
                 <CardInfo
                     title='Maior tempo sem consumo'
-                    description='00a 00m 00d 00h 00m 00s'
+                    description={recordNoConsumption}
                 >
                     <MaterialCommunityIcons name="arm-flex-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <CardInfo
                     title='Última recaída'
-                    description='1º de janeiro de 2022'
+                    description={moment(lastConsumption).format("DD/MM/YYYY [às] HH:mm:ss")}
                 >
                     <AntDesign name="exclamation" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <CardInfo
                     title='Número total de recaídas'
-                    description='00'
+                    description={totalRelapse}
                 >
                     <MaterialCommunityIcons name="restart-alert" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
