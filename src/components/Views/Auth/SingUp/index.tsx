@@ -79,7 +79,7 @@ export function SingUp() {
                         </FieldAreaStyled>
 
                         <View style={styles.buttonArea}>
-                            <ButtonMedium value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
+                            <ButtonMedium color={THEME.COLORS.PRIMARY} value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
                                 {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
                             </ButtonMedium>
                         </View>

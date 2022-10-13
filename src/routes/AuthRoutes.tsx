@@ -2,7 +2,7 @@ import { Pontuacao } from '../components/Views/Pontuacao'
 import { Estatisticas } from '../components/Views/Estatisticas'
 import { Home } from '../components/Views/Home'
 import { Ajuda } from '../components/Views/Ajuda'
-import { Configuracoes } from '../components/Views/Configuracoes'
+import Configuracoes from '../components/Views/Configuracoes/index'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons';

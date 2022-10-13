@@ -3,12 +3,13 @@ import { THEME } from "../../../theme"
 
 interface ButtonProps extends TouchableOpacityProps {
     value: string,
+    color: string,
     children?: React.ReactNode;
 }
 
-export function ButtonMedium({ value, children, ...rest }: ButtonProps) {
+export function ButtonMedium({ value, children, color, ...rest }: ButtonProps) {
     return (
-        <TouchableOpacity style={styles.container} {...rest}>
+        <TouchableOpacity style={{ ...styles.container, backgroundColor: color }} {...rest}>
             <Text style={styles.text}>{value}</Text>
             {children ? (<View style={styles.icon}>{children}</View>) : false}
         </TouchableOpacity>
@@ -17,7 +18,6 @@ export function ButtonMedium({ value, children, ...rest }: ButtonProps) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: THEME.COLORS.PRIMARY,
         color: THEME.COLORS.TEXT,
         paddingHorizontal: 32,
         paddingVertical: 12,
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         width: 250,
-        marginVertical: 8
+        marginVertical: 8,
+        alignSelf: 'center'
     },
     text: {
         color: THEME.COLORS.TEXT,

@@ -3,6 +3,7 @@ export declare global {
         interface RootParamList {
             SingIn: undefined
             SingUp: undefined
+            MeusDados: undefined
         }
     }
 }

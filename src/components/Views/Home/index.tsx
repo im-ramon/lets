@@ -411,7 +411,7 @@ export function Home() {
                     </View>
                 </ViewShot>
 
-                <ButtonMedium value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
+                <ButtonMedium color={THEME.COLORS.PRIMARY} value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
                     <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
                 </ButtonMedium>
             </View>
@@ -464,7 +464,7 @@ export function Home() {
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonMedium onPress={() => setShowQuestionsModal(false)} value='Reiniciar contador' />
+                    <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => setShowQuestionsModal(false)} value='Reiniciar contador' />
                 </View>
             </ModalShort>
 
@@ -522,7 +522,7 @@ export function Home() {
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonMedium onPress={() => handleSetUserExternalAndLocalData()} value='Continuar'>
+                    <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => handleSetUserExternalAndLocalData()} value='Continuar'>
                         {isLoading && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
                     </ButtonMedium>
                 </View>

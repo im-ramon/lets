@@ -125,7 +125,7 @@ export function SingIn() {
                             />
                         </FieldAreaStyled>
                         <View style={styles.buttonArea}>
-                            <ButtonMedium value='Entrar' onPress={() => handleLogin(userId, userPassword)}>
+                            <ButtonMedium color={THEME.COLORS.PRIMARY} value='Entrar' onPress={() => handleLogin(userId, userPassword)}>
                                 {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
                             </ButtonMedium>
                         </View>
@@ -155,7 +155,7 @@ export function SingIn() {
 
                     {scanned && <Button title={'Escanear novamente'} onPress={() => setScanned(false)} />}
                     <View style={styles.cameraButtonArea}>
-                        <ButtonMedium value='Voltar' onPress={() => setShowModalCamera(false)} />
+                        <ButtonMedium color={THEME.COLORS.PRIMARY} value='Voltar' onPress={() => setShowModalCamera(false)} />
                     </View>
                 </View>
             </Modal>
