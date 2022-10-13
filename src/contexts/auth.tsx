@@ -95,6 +95,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 name: response.data.name,
                 token: response.data.token
             })
+
+            setIsLocalAuthenticationLogged(true)
             vibrate('success');
             setLoadingAuth(false)
 
