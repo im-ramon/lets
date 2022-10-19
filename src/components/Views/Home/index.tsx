@@ -249,7 +249,7 @@ export function Home() {
             setRelapseReasons('-')
             setRelapseDates('-')
         } catch (e) {
-            console.log('startExternalUserData | Erro: ', e)
+            console.log('startExternaladnLocalUserData | Erro: ', e)
         }
         setIsLoading(false)
     }

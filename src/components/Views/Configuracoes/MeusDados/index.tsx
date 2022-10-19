@@ -31,7 +31,7 @@ export function MeusDados() {
         })
         // JSON.stringify(response.data)
 
-        const user = await AsyncStorage.getItem('@userLogged') || ''
+        const user = await AsyncStorage.getItem('@lets:user_logged') || ''
         const userJSON = JSON.parse(user)
         console.log(userJSON.name = response.data.name)
         // console.log(response.data)

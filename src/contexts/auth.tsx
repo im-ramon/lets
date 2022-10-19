@@ -60,7 +60,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     useEffect(() => {
         async function getUser() {
-            const userInfo = await AsyncStorage.getItem('@userLogged')
+            const userInfo = await AsyncStorage.getItem('@lets:user_logged')
             let hasUser: UserProps = JSON.parse(userInfo || '{}')
 
             if (Object.keys(hasUser).length > 0) {
@@ -86,7 +86,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 id, password
             })
 
-            await AsyncStorage.setItem('@userLogged', JSON.stringify(response.data))
+            await AsyncStorage.setItem('@lets:user_logged', JSON.stringify(response.data))
 
             setTokenToAxios(response.data.token)
 
@@ -119,7 +119,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     async function signOut() {
         vibrate('click');
-        await AsyncStorage.removeItem('@userLogged')
+        await AsyncStorage.removeItem('@lets:user_logged')
             .then(() => {
                 setUser({
                     id: '',
