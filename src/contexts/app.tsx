@@ -53,25 +53,30 @@ export function AppProvider({ children }: AppProviderProps) {
             return
         }
 
-        const externalData = await api.get('/user_data')
+        try {
+            const externalData = await api.get('/user_data')
 
-        if (externalData.data) {
-            setFirstTimeInApp(false)
-            await AsyncStorage.setItem('@lets:user_data', JSON.stringify(externalData.data))
+            if (externalData.data) {
+                setFirstTimeInApp(false)
+                await AsyncStorage.setItem('@lets:user_data', JSON.stringify(externalData.data))
 
-            setLastConsumption(externalData.data.last_consumption)
-            setRecordNoConsumption(externalData.data.record_no_consumption)
-            setTotalRelapse(externalData.data.total_relapse)
-            setScore(externalData.data.score)
-            setRelapseReasons(externalData.data.reason_relapse)
-            setRelapseDates(externalData.data.reason_dates)
+                setLastConsumption(externalData.data.last_consumption)
+                setRecordNoConsumption(externalData.data.record_no_consumption)
+                setTotalRelapse(externalData.data.total_relapse)
+                setScore(externalData.data.score)
+                setRelapseReasons(externalData.data.reason_relapse)
+                setRelapseDates(externalData.data.reason_dates)
 
-            console.log('External data encontrado!')
-        } else {
-            setFirstTimeInApp(true)
+                console.log('External data encontrado!')
+            } else {
+                setFirstTimeInApp(true)
+            }
+
+        } catch (error) {
+            console.log('startLocalUserData:', error)
+            return
         }
     }
-
 
     useEffect(() => {
         startLocalUserData()
