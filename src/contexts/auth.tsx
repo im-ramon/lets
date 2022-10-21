@@ -1,8 +1,9 @@
 import React, { useState, useEffect, createContext, ReactNode } from 'react';
 import { Vibration } from 'react-native';
 import { Alert } from 'react-native'
-import { api } from '../services/api';
+import { client, account, ID } from '../services/appWriteApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
 
 type AuthContextData = {
     user: UserProps;
@@ -28,7 +29,7 @@ type UserProps = {
 }
 
 type SignInProps = {
-    id: string;
+    email: string;
     password: string;
 }
 
@@ -52,109 +53,38 @@ export function AuthProvider({ children }: AuthProviderProps) {
     })
 
     const [loadingAuth, setLoadingAuth] = useState<boolean>(false)
-    const [loading, setLoading] = useState<boolean>(true)
+    // const [loading, setLoading] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
     const [createdUserId, setCreatedUserId] = useState<string>('')
     const [isLocalAuthenticationLogged, setIsLocalAuthenticationLogged] = useState<boolean>(false)
 
     const isAuthenticated = !!user.name;
 
-    useEffect(() => {
-        async function getUser() {
-            const userInfo = await AsyncStorage.getItem('@lets:user_logged')
-            let hasUser: UserProps = JSON.parse(userInfo || '{}')
-
-            if (Object.keys(hasUser).length > 0) {
-                setTokenToAxios(hasUser.token)
-
-                setUser({
-                    id: hasUser.id,
-                    name: hasUser.name,
-                    token: hasUser.token
-                })
-            }
-            setLoading(false)
-        }
-
-        getUser()
-    }, [])
-
-    async function signIn({ id, password }: SignInProps) {
+    async function signIn({ email, password }: SignInProps) {
         setLoadingAuth(true)
-
-        try {
-            const response = await api.post('/auth_user', {
-                id, password
-            })
-
-            await AsyncStorage.setItem('@lets:user_logged', JSON.stringify(response.data))
-
-            setTokenToAxios(response.data.token)
-
-            setUser({
-                id: response.data.id,
-                name: response.data.name,
-                token: response.data.token
-            })
-
-            setIsLocalAuthenticationLogged(true)
-            vibrate('success');
-            setLoadingAuth(false)
-
-
-        } catch (error) {
-            console.log('Informação do erro (signIn): ', error)
-            vibrate('error');
-            // Refatorar isso posteriormente - Tirar da camada de context e colocar no component SignIn
-            Alert.alert('Falha ao fazer login',
-                'Usuário e/ou senha incorreto(s)!', [
-                {
-                    text: 'Tentar novamente', style: 'cancel',
-                    onPress: () => { setErrorLogin(false) }
-                }
-            ]);
-            setErrorLogin(true)
-            setLoadingAuth(false)
-        }
+        await account.createEmailSession(email, password);
+        setLoadingAuth(false)
     }
 
     async function signOut() {
         vibrate('click');
-        await AsyncStorage.removeItem('@lets:user_logged')
-            .then(() => {
-                setUser({
-                    id: '',
-                    name: '',
-                    token: '',
-                })
-            })
-
-        await AsyncStorage.removeItem('@lets:user_data')
     }
+
 
     async function signUp({ name, password }: SignUpProps) {
         setLoadingAuth(true)
 
-        try {
-            const response = await api.post('/create_user', { name, password })
-            setCreatedUserId(response.data.id)
-        } catch (error) {
-            vibrate('error');
-            console.log('Informação do erro (signUp): ', error)
-            Alert.alert('Falha ao cadastrar usuário',
-                'Tente novamente mais tarde', [
-                {
-                    text: 'Entendi', style: 'cancel',
-                    onPress: () => { setErrorLogin(false) }
-                }
-            ]);
-        }
+        await account.create(
+            ID.unique(),
+            `${uuid.v4()}@lets.com`,
+            password,
+            name
+        )
+            .then(console.log)
+            .catch(console.log)
 
         setLoadingAuth(false)
-    }
-
-    function setTokenToAxios(token: string) {
-        api.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
 
     function vibrate(type: 'click' | 'success' | 'error') {

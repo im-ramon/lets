@@ -18,7 +18,7 @@ import { THEME } from '../../../../theme'
 
 export function SingUp() {
 
-    const { signUp, signIn, loadingAuth, createdUserId } = useContext(AuthContext)
+    const { signUp, signIn, loadingAuth, createdUserId: createdUserEmail } = useContext(AuthContext)
 
     const [nome, setNome] = useState<string>('')
     const [palavraPasse, setPalavraPasse] = useState<string>('')
@@ -35,7 +35,7 @@ export function SingUp() {
     }
 
     async function copyToClipboard() {
-        await Clipboard.setStringAsync(createdUserId);
+        await Clipboard.setStringAsync(createdUserEmail);
     };
 
     return (
@@ -89,7 +89,7 @@ export function SingUp() {
             </PageScrollViewContainer>
 
             <ModalShort
-                modalVisible={!!createdUserId && showModalCreatedUser}
+                modalVisible={!!createdUserEmail && showModalCreatedUser}
                 handleModal={setShowModalCreatedUser}
             >
                 <Titulo title='Cadastro realizado!'>
@@ -100,7 +100,7 @@ export function SingUp() {
                     <Text style={styles.textModal}>Seu ID para login é:</Text>
                     <TouchableOpacity style={styles.copyIdArea} onPress={() => copyToClipboard()}>
                         <ScrollView horizontal={true} style={styles.copyIdTextArea}>
-                            <Text style={styles.text}>{createdUserId || (<ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.PRIMARY} />)}</Text>
+                            <Text style={styles.text}>{createdUserEmail || (<ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.PRIMARY} />)}</Text>
                         </ScrollView>
                         <View style={styles.iconArea}>
                             <TouchableOpacity onPress={() => copyToClipboard()}>
@@ -112,13 +112,13 @@ export function SingUp() {
                         <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE: </Text>Guarde bem seu código de acesso. Ele será solcitado quando for realizar login novamente. Sem ele, você perderá seu progresso no App. Esta é uma forma de deixar sua experiência no App totalmente anônima.</Text>
                     </View>
                     <Text style={styles.textModal}>Gere um QR Code com seu ID, assim, da próxima vez que acessar o App, basta escaneá-lo:</Text>
-                    <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=177x177&chl=${createdUserId}`); }}>
+                    <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=177x177&chl=${createdUserEmail}`); }}>
                         <Ionicons name="ios-qr-code-outline" size={24} color={THEME.COLORS.PRIMARY} />
                         <Text style={{ ...styles.text, marginLeft: 8 }}>Gerar QRCode</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonAreaModal}>
-                    <ButtonLarge value='Continuar' onPress={() => signIn({ id: createdUserId, password: palavraPasse })}>
+                    <ButtonLarge value='Continuar' onPress={() => signIn({ email: createdUserEmail, password: palavraPasse })}>
                         {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
                     </ButtonLarge>
                 </View>
