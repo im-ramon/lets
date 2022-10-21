@@ -10,6 +10,7 @@ type AuthContextData = {
     signIn: (info: SignInProps) => Promise<void>;
     signOut: () => Promise<void>;
     signUp: (info: SignUpProps) => Promise<void>;
+    setUser: React.Dispatch<React.SetStateAction<{ id: string; name: string; token: string; }>>
     loadingAuth: boolean;
     createdUserId: string;
     isLocalAuthenticationLogged: boolean;
@@ -187,6 +188,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             errorLogin,
             createdUserId,
             isLocalAuthenticationLogged,
+            setUser,
             signIn,
             signOut,
             signUp,

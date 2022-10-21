@@ -12,6 +12,8 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import Routes from './src/routes'
 
 import { AuthProvider } from './src/contexts/auth';
+import Toast from 'react-native-toast-message';
+
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -38,6 +40,7 @@ export default function App() {
             <AuthProvider>
                 <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
                 {fontsLoaded ? <Routes /> : <Loading />}
+                <Toast />
             </AuthProvider>
         </NavigationContainer>
     );
