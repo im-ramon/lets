@@ -1,5 +1,5 @@
-import React, { useState, useRef, useContext } from 'react';
-import { View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { View, ScrollView, Image, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
@@ -18,7 +18,13 @@ import { api } from '../../../services/api';
 
 export function Pontuacao() {
     const ref = useRef<any>(null)
-    const { score, handleAlterScore } = useContext(AppContext)
+    const { score, handleAlterScore, isLoading } = useContext(AppContext)
+
+    const [nivelNow, setNivelNow] = useState<number>(0)
+    const [diffPointsToNextLevel, setDiffPointsToNextLevel] = useState<number>(0)
+    const [showBorderOnScreenshot, setShowBorderOnScreenshot] = useState<boolean>(false)
+    const [showScoreModal, setShowScoreModal] = useState<boolean>(false)
+
 
     function handleScreenshot() {
         setShowBorderOnScreenshot(true)
@@ -31,9 +37,24 @@ export function Pontuacao() {
             .finally(() => { setShowBorderOnScreenshot(false) })
     }
 
-    const [nivelNow, setNivelNow] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30>(1)
-    const [showBorderOnScreenshot, setShowBorderOnScreenshot] = useState<boolean>(false)
-    const [showScoreModal, setShowScoreModal] = useState<boolean>(false)
+    function checkNivel() {
+        const infoNivelNow = niveis.filter(el => el.pontos <= score).slice(-1)[0]
+        setNivelNow(infoNivelNow.nivel)
+    }
+
+    function searchDiffPointsToNextLevel() {
+        if (nivelNow == 30) {
+            setDiffPointsToNextLevel(0)
+            return;
+        }
+        const diffPoints = (niveis[nivelNow + 1].pontos) - score
+        setDiffPointsToNextLevel(diffPoints)
+    }
+
+    useEffect(() => {
+        checkNivel()
+        searchDiffPointsToNextLevel()
+    }, [score, nivelNow])
 
     return (
         <View style={styles.container}>
@@ -59,15 +80,15 @@ export function Pontuacao() {
                             style={styles.patenteArea}
                         >
                             <Image
-                                source={niveis[`nivel_${nivelNow}`].img}
+                                source={niveis[nivelNow].img}
                                 style={styles.patenteImage}
                             />
                             <Text style={styles.patentSlug}>
-                                {niveis[`nivel_${nivelNow}`].slug}
+                                {niveis[nivelNow].slug}
                             </Text>
 
                             <Text style={styles.patenteDescription}>
-                                {niveis[`nivel_${nivelNow}`].descrition}
+                                {niveis[nivelNow].description}
                             </Text>
                         </View>
                         <View style={styles.pointsArea}>
@@ -77,12 +98,16 @@ export function Pontuacao() {
                 </ViewShot>
 
                 <View style={styles.pointsArea}>
-                    <Text style={[styles.text, styles.center]}>Faltam 00 pontos para o próximo nível, continue na batalha para as próximas conquistas.</Text>
+                    <Text style={[styles.text, styles.center]}>Faltam {diffPointsToNextLevel} pontos para o próximo nível, continue na batalha para as próximas conquistas.</Text>
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonTrasnparent value='Receber pontos' onPress={() => handleAlterScore('sub')}>
-                        <Ionicons name="add-circle-outline" size={24} color={THEME.COLORS.TEXT} />
+                    <ButtonTrasnparent value='Receber pontos' onPress={() => handleAlterScore('add')}>
+                        {isLoading ?
+                            (<ActivityIndicator size={25} color={THEME.COLORS.TEXT} />)
+                            :
+                            (<Ionicons name="add-circle-outline" size={24} color={THEME.COLORS.TEXT} />)
+                        }
                     </ButtonTrasnparent>
                 </View>
             </ScrollView>

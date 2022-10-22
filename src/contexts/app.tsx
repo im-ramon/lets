@@ -11,7 +11,8 @@ type AppContextData = {
     score: number;
     relapseReasons: string;
     relapseDates: string;
-    firstTimeInApp: boolean,
+    firstTimeInApp: boolean;
+    isLoading: boolean;
     setLastConsumption: React.Dispatch<React.SetStateAction<string>>;
     setRecordNoConsumption: React.Dispatch<React.SetStateAction<number>>;
     setTotalRelapse: React.Dispatch<React.SetStateAction<number>>;
@@ -19,7 +20,9 @@ type AppContextData = {
     setRelapseReasons: React.Dispatch<React.SetStateAction<string>>;
     setRelapseDates: React.Dispatch<React.SetStateAction<string>>;
     setFirstTimeInApp: React.Dispatch<React.SetStateAction<boolean>>;
-    handleAlterScore: (handleType: 'add' | 'sub') => Promise<void>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    handleAlterScore: (handleType: 'add' | 'sub') => Promise<void>;
+    updateLocalDataAndStates: (objData: object) => Promise<void>;
 }
 
 interface AppProviderProps {
@@ -38,6 +41,7 @@ export function AppProvider({ children }: AppProviderProps) {
     const [relapseReasons, setRelapseReasons] = useState<string>('reasonRelapse')
     const [relapseDates, setRelapseDates] = useState<string>('reasonDates')
     const [firstTimeInApp, setFirstTimeInApp] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     // Criar um estado de loading no start
 
     async function getLocalData() {
@@ -98,11 +102,20 @@ export function AppProvider({ children }: AppProviderProps) {
     }
 
     async function handleAlterScore(handleType: 'add' | 'sub') {
+        setIsLoading(true)
         const showToastError = () => {
             Toast.show({
                 type: 'error',
                 text1: 'Você já resgatou seus pontos hoje!',
                 text2: 'Você só pode resgatar seus pontos uma vez ao dia.'
+            });
+        }
+
+        const showToastSuccess = () => {
+            Toast.show({
+                type: 'success',
+                text1: '+5 pontos! Continue assim!',
+                text2: 'Volte amanhã para conseguir mais.'
             });
         }
 
@@ -117,6 +130,7 @@ export function AppProvider({ children }: AppProviderProps) {
                         localData.last_score_update = response.data.newScore.last_score_update;
 
                         await updateLocalDataAndStates(localData)
+                        showToastSuccess()
                     })
                     .catch((e) => {
                         console.log('handleAlterScore | add: ', e)
@@ -141,6 +155,8 @@ export function AppProvider({ children }: AppProviderProps) {
                     showToastError()
                 })
         }
+
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -156,6 +172,8 @@ export function AppProvider({ children }: AppProviderProps) {
             relapseReasons,
             relapseDates,
             firstTimeInApp,
+            isLoading,
+            updateLocalDataAndStates,
             handleAlterScore,
             setLastConsumption,
             setRecordNoConsumption,
@@ -164,6 +182,7 @@ export function AppProvider({ children }: AppProviderProps) {
             setRelapseReasons,
             setRelapseDates,
             setFirstTimeInApp,
+            setIsLoading,
         }}>
             {children}
         </AppContext.Provider>

@@ -72,6 +72,7 @@ export function Home() {
         setRelapseReasons,
         setRelapseDates,
         setFirstTimeInApp,
+        updateLocalDataAndStates
     } = useContext(AppContext)
 
     // Configuração do Screeshot do gráfico
@@ -235,19 +236,8 @@ export function Home() {
         try {
             await api.post('/user_data', {
                 last_consumption: data,
-                record_no_consumption: 0,
-                total_relapse: 0,
-                score: 0,
-                relapse_reasons: '-',
-                relapse_dates: '-'
-            })
+            }).then(response => updateLocalDataAndStates(response.data))
 
-            setLastConsumption(data)
-            setRecordNoConsumption(0)
-            setTotalRelapse(0)
-            setScore(0)
-            setRelapseReasons('-')
-            setRelapseDates('-')
         } catch (e) {
             console.log('startExternaladnLocalUserData | Erro: ', e)
         }
