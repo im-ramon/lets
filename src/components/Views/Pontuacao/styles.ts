@@ -69,7 +69,12 @@ export const styles = StyleSheet.create({
     center: {
         textAlign: 'center'
     },
+    buttonsHeader: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
     infoButton: {
+        marginLeft: 24,
         alignItems: 'flex-end',
     },
     scoreInformationscrollView: {

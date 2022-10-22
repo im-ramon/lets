@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext, ReactNode } from 'react';
 import { api } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import moment from 'moment';
 
 type AppContextData = {
     lastConsumption: string;
@@ -17,6 +19,7 @@ type AppContextData = {
     setRelapseReasons: React.Dispatch<React.SetStateAction<string>>;
     setRelapseDates: React.Dispatch<React.SetStateAction<string>>;
     setFirstTimeInApp: React.Dispatch<React.SetStateAction<boolean>>;
+    handleAlterScore: (handleType: 'add' | 'sub') => Promise<void>
 }
 
 interface AppProviderProps {
@@ -31,55 +34,117 @@ export function AppProvider({ children }: AppProviderProps) {
     const [recordNoConsumption, setRecordNoConsumption] = useState<number>(0)
     const [totalRelapse, setTotalRelapse] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
+    const [lastScoreUpdate, setLastScoreUpdate] = useState<string>('lastScoreUpdate')
     const [relapseReasons, setRelapseReasons] = useState<string>('reasonRelapse')
     const [relapseDates, setRelapseDates] = useState<string>('reasonDates')
     const [firstTimeInApp, setFirstTimeInApp] = useState<boolean>(false)
     // Criar um estado de loading no start
 
-    async function startLocalUserData() {
-        const localData = await AsyncStorage.getItem('@lets:user_data')
+    async function getLocalData() {
+        const data = await AsyncStorage.getItem('@lets:user_data')
+
+        if (data) {
+            return JSON.parse(data)
+        }
+    }
+
+    async function setLocalData(objData: object) {
+        await AsyncStorage.setItem('@lets:user_data', JSON.stringify(objData))
+    }
+
+    function refreshStates(data: any /* Corrigir depois a tipagem do parâmetro */) {
+        try {
+            setLastConsumption(data.last_consumption)
+            setRecordNoConsumption(data.record_no_consumption)
+            setTotalRelapse(data.total_relapse)
+            setScore(data.score)
+            setLastScoreUpdate(data.last_score_update)
+            setRelapseReasons(data.relapse_reasons)
+            setRelapseDates(data.relapse_dates)
+        } catch (error) {
+            console.log('refreshStatesWithLocalData: ', error)
+        }
+    }
+
+    async function updateLocalDataAndStates(objData: object) {
+        refreshStates(objData)
+        await setLocalData(objData)
+    }
+
+    async function startAppData() {
+        const localData = await getLocalData();
 
         if (localData) {
-            const localDataJson = JSON.parse(localData)
+            refreshStates(localData)
+            console.log('Local data encontrado!', new Date().getMilliseconds())
+        } else {
+            try {
+                const externalData = await api.get('/user_data')
 
-            setLastConsumption(localDataJson.last_consumption)
-            setRecordNoConsumption(localDataJson.record_no_consumption)
-            setTotalRelapse(localDataJson.total_relapse)
-            setScore(localDataJson.score)
-            setRelapseReasons(localDataJson.reason_relapse)
-            setRelapseDates(localDataJson.reason_dates)
+                if (externalData.data) {
+                    setFirstTimeInApp(false)
+                    updateLocalDataAndStates(externalData.data)
 
-            console.log('Local data encontrado!')
-            return
+                    console.log('External data encontrado!', new Date().getMilliseconds())
+                } else {
+                    setFirstTimeInApp(true)
+                }
+
+            } catch (error) {
+                console.log('startAppData:', error)
+                return
+            }
+        }
+    }
+
+    async function handleAlterScore(handleType: 'add' | 'sub') {
+        const showToastError = () => {
+            Toast.show({
+                type: 'error',
+                text1: 'Você já resgatou seus pontos hoje!',
+                text2: 'Você só pode resgatar seus pontos uma vez ao dia.'
+            });
         }
 
-        try {
-            const externalData = await api.get('/user_data')
+        if (handleType === 'add') {
+            const wasThisRequestOneDayAfterTheLastRequest = moment().isAfter(lastScoreUpdate, 'day');
 
-            if (externalData.data) {
-                setFirstTimeInApp(false)
-                await AsyncStorage.setItem('@lets:user_data', JSON.stringify(externalData.data))
+            if (wasThisRequestOneDayAfterTheLastRequest) {
+                await api.patch('/alter_score', { handleType })
+                    .then(async response => {
+                        const localData = await getLocalData();
+                        localData.score = response.data.newScore.score;
+                        localData.last_score_update = response.data.newScore.last_score_update;
 
-                setLastConsumption(externalData.data.last_consumption)
-                setRecordNoConsumption(externalData.data.record_no_consumption)
-                setTotalRelapse(externalData.data.total_relapse)
-                setScore(externalData.data.score)
-                setRelapseReasons(externalData.data.reason_relapse)
-                setRelapseDates(externalData.data.reason_dates)
-
-                console.log('External data encontrado!')
+                        await updateLocalDataAndStates(localData)
+                    })
+                    .catch((e) => {
+                        console.log('handleAlterScore | add: ', e)
+                        showToastError()
+                    })
             } else {
-                setFirstTimeInApp(true)
+                console.log('Erro: Validação local se o último resgate de pontos foi pelo menos no dia anterior.')
+                showToastError()
             }
+        }
 
-        } catch (error) {
-            console.log('startLocalUserData:', error)
-            return
+        if (handleType === 'sub') {
+            await api.patch('/alter_score', { handleType })
+                .then(async response => {
+                    const localData = await getLocalData();
+                    localData.score = response.data.newScore.score;
+
+                    await updateLocalDataAndStates(localData)
+                })
+                .catch((e) => {
+                    console.log('handleAlterScore | sub: ', e)
+                    showToastError()
+                })
         }
     }
 
     useEffect(() => {
-        startLocalUserData()
+        startAppData()
     }, [])
 
     return (
@@ -91,6 +156,7 @@ export function AppProvider({ children }: AppProviderProps) {
             relapseReasons,
             relapseDates,
             firstTimeInApp,
+            handleAlterScore,
             setLastConsumption,
             setRecordNoConsumption,
             setTotalRelapse,

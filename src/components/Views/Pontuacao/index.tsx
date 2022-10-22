@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
 
 import ViewShot, { captureRef } from 'react-native-view-shot';
@@ -8,15 +8,17 @@ import { Titulo } from '../../parts/Titulo';
 import { ModalShort } from '../../parts/ModalShort';
 import { ButtonMedium } from '../../parts/ButtonMedium';
 import { ButtonTrasnparent } from '../../parts/ButtonTrasnparent';
-
+import { AppContext } from '../../../contexts/app';
 import { Ionicons } from '@expo/vector-icons'
 import { styles } from './styles';
 import { THEME } from '../../../theme';
-
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import niveis from '../../../utils/ranking';
+import { api } from '../../../services/api';
 
 export function Pontuacao() {
     const ref = useRef<any>(null)
+    const { score, handleAlterScore } = useContext(AppContext)
 
     function handleScreenshot() {
         setShowBorderOnScreenshot(true)
@@ -43,9 +45,14 @@ export function Pontuacao() {
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
-                <TouchableOpacity style={styles.infoButton} onPress={() => { setShowScoreModal(true) }}>
-                    <Ionicons name="information-circle-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.SEMANTIC_2} />
-                </TouchableOpacity>
+                <View style={styles.buttonsHeader}>
+                    <TouchableOpacity style={styles.infoButton} onPress={() => { handleScreenshot() }}>
+                        <Ionicons name="ios-share-social-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.SEMANTIC_2} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.infoButton} onPress={() => { setShowScoreModal(true) }}>
+                        <Ionicons name="information-circle-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.SEMANTIC_2} />
+                    </TouchableOpacity>
+                </View>
                 <ViewShot ref={ref} options={{ format: "jpg", quality: 0.9 }}>
                     <View style={[styles.content, (showBorderOnScreenshot && styles.patenteScreenshotStyle)]}>
                         <View
@@ -64,7 +71,7 @@ export function Pontuacao() {
                             </Text>
                         </View>
                         <View style={styles.pointsArea}>
-                            <Text style={[styles.text, { fontSize: THEME.FONT_SIZE.LG }]}><Text style={styles.bold}>00</Text> ponto(s)</Text>
+                            <Text style={[styles.text, { fontSize: THEME.FONT_SIZE.LG }]}><Text style={styles.bold}>{score}</Text> ponto(s)</Text>
                         </View>
                     </View>
                 </ViewShot>
@@ -74,8 +81,8 @@ export function Pontuacao() {
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonTrasnparent value='Compartilhar' onPress={() => handleScreenshot()}>
-                        <Ionicons name="ios-share-social-outline" size={24} color={THEME.COLORS.TEXT} />
+                    <ButtonTrasnparent value='Receber pontos' onPress={() => handleAlterScore('sub')}>
+                        <Ionicons name="add-circle-outline" size={24} color={THEME.COLORS.TEXT} />
                     </ButtonTrasnparent>
                 </View>
             </ScrollView>

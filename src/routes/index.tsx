@@ -23,13 +23,14 @@ export default function Routes() {
         response.success ? setIsLocalAuthenticationLogged(true) : setIsLocalAuthenticationLogged(false)
     }
 
-    useEffect(() => {
-        !firstTimeInApp && checkLocalAuthentication()
-    }, [])
+    // useEffect(() => {
+    //     !firstTimeInApp && checkLocalAuthentication()
+    // }, [])
 
     if (loading) {
         return <Loading />
     }
 
-    return ((isAuthenticated && isLocalAuthenticationLogged) ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
+    return (isAuthenticated ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
+    // return ((isAuthenticated && isLocalAuthenticationLogged) ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
 }
