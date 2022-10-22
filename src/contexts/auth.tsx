@@ -82,6 +82,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function signIn({ id, password }: SignInProps) {
         setLoadingAuth(true)
 
+        await removeLocalData();
+
         try {
             const response = await api.post('/auth_user', {
                 id, password
@@ -119,18 +121,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     async function signOut() {
+        await removeLocalData();
         vibrate('click');
-        await AsyncStorage.removeItem('@lets:user_logged')
-            .then(() => {
-                setUser({
-                    id: '',
-                    name: '',
-                    token: '',
-                })
-            })
-
-        await AsyncStorage.removeItem('@lets:user_data')
     }
+
 
     async function signUp({ name, password }: SignUpProps) {
         setLoadingAuth(true)
@@ -151,6 +145,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
 
         setLoadingAuth(false)
+    }
+
+    async function removeLocalData() {
+        await AsyncStorage.removeItem('@lets:user_logged')
+            .then(() => {
+                setUser({
+                    id: '',
+                    name: '',
+                    token: '',
+                })
+            })
+
+        await AsyncStorage.removeItem('@lets:user_data')
     }
 
     function setTokenToAxios(token: string) {

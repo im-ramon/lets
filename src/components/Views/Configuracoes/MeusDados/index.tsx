@@ -30,6 +30,7 @@ export function MeusDados() {
     }
 
     async function salveNewName() {
+        if (newName === '') return;
         setIsLoading(true)
         try {
             await api.patch('/alter_user_name', { new_name: newName })
