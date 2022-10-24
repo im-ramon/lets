@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Linking, ToastAndroid } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 
 import { AuthContext } from '../../../../contexts/auth';
@@ -36,6 +36,7 @@ export function SingUp() {
 
     async function copyToClipboard() {
         await Clipboard.setStringAsync(createdUserId);
+        ToastAndroid.show('ID copiado!', ToastAndroid.SHORT);
     };
 
     return (

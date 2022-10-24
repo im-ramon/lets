@@ -142,6 +142,7 @@ export const styles = StyleSheet.create({
     },
     modalRestartContainer: {
         marginTop: 24,
+        paddingBottom: 16
     },
     buttonArea: {
         width: '100%',

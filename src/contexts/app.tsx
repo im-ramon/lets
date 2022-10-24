@@ -23,6 +23,7 @@ type AppContextData = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     handleAlterScore: (handleType: 'add' | 'sub') => Promise<void>;
     updateLocalDataAndStates: (objData: object) => Promise<void>;
+    restartStopwatch: (last_consumption: string, relapse_reasons: string | null) => Promise<void>;
 }
 
 interface AppProviderProps {
@@ -33,7 +34,7 @@ export const AppContext = createContext({} as AppContextData)
 
 export function AppProvider({ children }: AppProviderProps) {
 
-    const [lastConsumption, setLastConsumption] = useState<string>('lastConsumption')
+    const [lastConsumption, setLastConsumption] = useState<string>(moment().format())
     const [recordNoConsumption, setRecordNoConsumption] = useState<number>(0)
     const [totalRelapse, setTotalRelapse] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
@@ -52,27 +53,26 @@ export function AppProvider({ children }: AppProviderProps) {
         }
     }
 
-    async function setLocalData(objData: object) {
-        await AsyncStorage.setItem('@lets:user_data', JSON.stringify(objData))
+    async function setLocalData(objData: any /* Corrigir depois a tipagem do parâmetro */) {
+        await AsyncStorage.mergeItem('@lets:user_data', JSON.stringify(objData))
     }
 
     function refreshStates(data: any /* Corrigir depois a tipagem do parâmetro */) {
         try {
-            setLastConsumption(data.last_consumption)
-            setRecordNoConsumption(data.record_no_consumption)
-            setTotalRelapse(data.total_relapse)
-            setScore(data.score)
-            setLastScoreUpdate(data.last_score_update)
-            setRelapseReasons(data.relapse_reasons)
-            setRelapseDates(data.relapse_dates)
+            data.last_consumption && setLastConsumption(data.last_consumption)
+            data.last_score_update && setLastScoreUpdate(data.last_score_update)
+            data.record_no_consumption && setRecordNoConsumption(data.record_no_consumption)
+            data.relapse_dates && setRelapseDates(data.relapse_dates)
+            data.score && setScore(data.score)
+            data.total_relapse && setTotalRelapse(data.total_relapse)
         } catch (error) {
             console.log('refreshStatesWithLocalData: ', error)
         }
     }
 
     async function updateLocalDataAndStates(objData: object) {
-        refreshStates(objData)
         await setLocalData(objData)
+        refreshStates(objData)
     }
 
     async function startAppData() {
@@ -80,7 +80,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
         if (localData) {
             refreshStates(localData)
-            console.log('Local data encontrado!', new Date().getMilliseconds())
+            console.log('Localdata encontrado!', new Date().getMilliseconds())
         } else {
             try {
                 const externalData = await api.get('/user_data')
@@ -159,6 +159,25 @@ export function AppProvider({ children }: AppProviderProps) {
         setIsLoading(false)
     }
 
+    async function restartStopwatch(last_consumption: string, relapse_reasons: string | null) {
+        await api.post('/restart_stopwatch', { last_consumption, relapse_reasons })
+            .then(async response => await updateLocalDataAndStates(response.data))
+            .then(() => {
+                Toast.show({
+                    type: 'info',
+                    text1: 'Contador reiniciado!',
+                })
+            })
+            .catch(err => {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Ops!',
+                    text2: 'Não foi possível reiniciar o contador.',
+                })
+                console.log('restartStopwatch:', err)
+            })
+    }
+
     useEffect(() => {
         startAppData()
     }, [])
@@ -183,6 +202,7 @@ export function AppProvider({ children }: AppProviderProps) {
             setRelapseDates,
             setFirstTimeInApp,
             setIsLoading,
+            restartStopwatch,
         }}>
             {children}
         </AppContext.Provider>
