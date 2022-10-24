@@ -14,7 +14,7 @@ import moment from 'moment';
 export function Estatisticas() {
     const { recordNoConsumption, lastConsumption, totalRelapse, recordNoConsumptionformated } = useContext(AppContext)
 
-    function formatRecordNoConsumption(seconds: number) {
+    function formatRecordNoConsumption() {
         let objRecord = JSON.parse(recordNoConsumptionformated)
         return `${objRecord.anos}a ${objRecord.meses}h ${objRecord.dias}d ${objRecord.horas}h ${objRecord.minutos}m ${objRecord.segundos}s `;
     }
@@ -32,7 +32,7 @@ export function Estatisticas() {
             <ScrollView style={styles.scrollViewContainer}>
                 <CardInfo
                     title='Maior tempo sem consumo'
-                    description={formatRecordNoConsumption(recordNoConsumption)}
+                    description={formatRecordNoConsumption()}
                 >
                     <MaterialCommunityIcons name="arm-flex-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>

@@ -261,7 +261,7 @@ export function Home() {
     // Start first user data
     async function handleStartFirstUserData() {
         setIsLoadingHome(true)
-        const data = formatDateBeforeSave(dateLastConsumption, timeLastConsumption)
+        const data = formatDateBeforeSave(dateRelapse, dateRelapse)
         try {
             await api.post('/user_data', {
                 last_consumption: data,
@@ -524,39 +524,19 @@ export function Home() {
                                 </LabelStyled>
 
                                 <View style={styles.dateTimePickerArea}>
-                                    <DatePickerStyledContainer onPress={() => { setShowDatePicker(true) }}>
+                                    <DatePickerStyledContainer onPress={showDatepicker}>
                                         <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
                                         <Text style={styles.text}>
-                                            {moment(dateLastConsumption).format('DD/MM/YYYY')}
+                                            {moment(dateRelapse).format('DD/MM/YYYY')}
                                         </Text>
                                     </DatePickerStyledContainer>
 
-                                    {showDatePicker && (
-                                        <DateTimePicker
-                                            testID="dateTimePicker"
-                                            value={dateLastConsumption}
-                                            mode={'date'}
-                                            is24Hour={true}
-                                            onChange={onChangeDate}
-                                        />
-                                    )}
-
-                                    <DatePickerStyledContainer onPress={() => { setShowTimePicker(true) }}>
+                                    <DatePickerStyledContainer onPress={showTimepicker}>
                                         <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
                                         <Text style={styles.text}>
-                                            {moment(timeLastConsumption).format('HH:mm')}
+                                            {moment(dateRelapse).format('HH:mm')}
                                         </Text>
                                     </DatePickerStyledContainer>
-
-                                    {showTimePicker && (
-                                        <DateTimePicker
-                                            testID="dateTimePicker"
-                                            value={timeLastConsumption}
-                                            mode={'time'}
-                                            is24Hour={true}
-                                            onChange={onChangeTime}
-                                        />
-                                    )}
                                 </View>
 
                             </FieldAreaStyled>
