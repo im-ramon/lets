@@ -34,7 +34,7 @@ export function Home() {
 
     // Contexts
     const { user, vibrate } = useContext(AuthContext)
-    const { lastConsumption, score, firstTimeInApp, setFirstTimeInApp, updateLocalDataAndStates, restartStopwatch } = useContext(AppContext)
+    const { lastConsumption, score, firstTimeInApp, relapseDates, setFirstTimeInApp, updateLocalDataAndStates, restartStopwatch } = useContext(AppContext)
     // -------------------------------------------------------------- Fim -------------------------------------------------------------- //
 
 
@@ -61,14 +61,16 @@ export function Home() {
         useShadowColorFromDataset: false // optional
     };
 
-    const commitsData = [
-        { date: "2022-09-01", count: 1 },
-        { date: "2022-08-01", count: 1 },
-        { date: "2022-07-01", count: 1 },
-        { date: "2022-07-05", count: 1 },
-        { date: "2022-06-30", count: 1 },
-        { date: "2022-06-26", count: 1 },
-    ];
+    const commitsData = () => {
+        const myarray: [] = JSON.parse(relapseDates)
+        const filtredArray = myarray.map((item) => {
+            return {
+                date: item,
+                count: 1
+            }
+        })
+        return filtredArray
+    }
     // -------------------------------------------------------------- Fim -------------------------------------------------------------- //
 
 
@@ -162,7 +164,7 @@ export function Home() {
         setTimeLastConsumption(currentTime);
     };
 
-    // --------------------------------------------------------- TESTE ------------------------------------------------------------------ //
+    // Relapse picker configurations
     const [dateRelapse, setDateRelapse] = useState(new Date());
 
     const onChange = (event: any, selectedDate: any) => {
@@ -321,7 +323,7 @@ export function Home() {
 
                         <ContributionGraph
                             tooltipDataAttrs={(value) => handleToolTip}
-                            values={commitsData}
+                            values={commitsData()}
                             endDate={new Date()}
                             numDays={90}
                             width={screenWidth}
