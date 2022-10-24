@@ -7,6 +7,7 @@ import moment from 'moment';
 type AppContextData = {
     lastConsumption: string;
     recordNoConsumption: number;
+    recordNoConsumptionformated: string,
     totalRelapse: number;
     score: number;
     relapseReasons: string;
@@ -23,7 +24,7 @@ type AppContextData = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     handleAlterScore: (handleType: 'add' | 'sub') => Promise<void>;
     updateLocalDataAndStates: (objData: object) => Promise<void>;
-    restartStopwatch: (last_consumption: string, relapse_reasons: string | null) => Promise<void>;
+    restartStopwatch: (last_consumption: string, relapse_reasons: string | null, record_no_consumption_formated: string) => Promise<void>;
 }
 
 interface AppProviderProps {
@@ -36,6 +37,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
     const [lastConsumption, setLastConsumption] = useState<string>(moment().format())
     const [recordNoConsumption, setRecordNoConsumption] = useState<number>(0)
+    const [recordNoConsumptionformated, setRecordNoConsumptionformated] = useState<string>('{ anos: 0, meses: 0, dias: 0, horas: 0, minutos: 0, segundos: 0 }')
     const [totalRelapse, setTotalRelapse] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
     const [lastScoreUpdate, setLastScoreUpdate] = useState<string>('lastScoreUpdate')
@@ -62,6 +64,7 @@ export function AppProvider({ children }: AppProviderProps) {
             data.last_consumption && setLastConsumption(data.last_consumption)
             data.last_score_update && setLastScoreUpdate(data.last_score_update)
             data.record_no_consumption && setRecordNoConsumption(data.record_no_consumption)
+            data.record_no_consumption_formated && setRecordNoConsumptionformated(data.record_no_consumption_formated)
             data.relapse_dates && setRelapseDates(data.relapse_dates)
             data.score && setScore(data.score)
             data.total_relapse && setTotalRelapse(data.total_relapse)
@@ -159,8 +162,8 @@ export function AppProvider({ children }: AppProviderProps) {
         setIsLoading(false)
     }
 
-    async function restartStopwatch(last_consumption: string, relapse_reasons: string | null) {
-        await api.post('/restart_stopwatch', { last_consumption, relapse_reasons })
+    async function restartStopwatch(last_consumption: string, relapse_reasons: string | null, record_no_consumption_formated: string) {
+        await api.post('/restart_stopwatch', { last_consumption, relapse_reasons, record_no_consumption_formated })
             .then(async response => await updateLocalDataAndStates(response.data))
             .then(() => {
                 Toast.show({
@@ -186,6 +189,7 @@ export function AppProvider({ children }: AppProviderProps) {
         <AppContext.Provider value={{
             lastConsumption,
             recordNoConsumption,
+            recordNoConsumptionformated,
             totalRelapse,
             score,
             relapseReasons,

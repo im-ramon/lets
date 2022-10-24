@@ -12,7 +12,14 @@ import { THEME } from '../../../theme';
 import moment from 'moment';
 
 export function Estatisticas() {
-    const { recordNoConsumption, lastConsumption, totalRelapse } = useContext(AppContext)
+    const { recordNoConsumption, lastConsumption, totalRelapse, recordNoConsumptionformated } = useContext(AppContext)
+
+    function formatRecordNoConsumption(seconds: number) {
+        let objRecord = JSON.parse(recordNoConsumptionformated)
+        return `${objRecord.anos}a ${objRecord.meses}h ${objRecord.dias}d ${objRecord.horas}h ${objRecord.minutos}m ${objRecord.segundos}s `;
+    }
+
+
     return (
         <View style={styles.container}>
             <Titulo
@@ -25,7 +32,7 @@ export function Estatisticas() {
             <ScrollView style={styles.scrollViewContainer}>
                 <CardInfo
                     title='Maior tempo sem consumo'
-                    description={recordNoConsumption}
+                    description={formatRecordNoConsumption(recordNoConsumption)}
                 >
                     <MaterialCommunityIcons name="arm-flex-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>

@@ -122,7 +122,7 @@ export function Home() {
     async function handleRestartStopWatch(date: Date, time: Date, reasons: string) {
         setIsLoading(true)
 
-        await restartStopwatch(formatDateBeforeSave(date, time), reasons)
+        await restartStopwatch(formatDateBeforeSave(date, time), reasons, JSON.stringify(timerData))
         setShowQuestionsModal(false)
 
         setIsLoading(false)
@@ -223,6 +223,7 @@ export function Home() {
         try {
             await api.post('/user_data', {
                 last_consumption: data,
+                timerData
             })
                 .then(response => updateLocalDataAndStates(response.data))
                 .then(() => {
