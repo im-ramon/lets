@@ -14,6 +14,7 @@ type AppContextData = {
     relapseDates: string;
     firstTimeInApp: boolean;
     isLoading: boolean;
+    isLoadingData: boolean;
     setLastConsumption: React.Dispatch<React.SetStateAction<string>>;
     setRecordNoConsumption: React.Dispatch<React.SetStateAction<number>>;
     setTotalRelapse: React.Dispatch<React.SetStateAction<number>>;
@@ -40,11 +41,12 @@ export function AppProvider({ children }: AppProviderProps) {
     const [recordNoConsumptionformated, setRecordNoConsumptionformated] = useState<string>('{ anos: 0, meses: 0, dias: 0, horas: 0, minutos: 0, segundos: 0 }')
     const [totalRelapse, setTotalRelapse] = useState<number>(0)
     const [score, setScore] = useState<number>(0)
-    const [lastScoreUpdate, setLastScoreUpdate] = useState<string>('lastScoreUpdate')
-    const [relapseReasons, setRelapseReasons] = useState<string>('reasonRelapse')
-    const [relapseDates, setRelapseDates] = useState<string>('reasonDates')
+    const [lastScoreUpdate, setLastScoreUpdate] = useState<string>(moment().format())
+    const [relapseReasons, setRelapseReasons] = useState<string>('{}')
+    const [relapseDates, setRelapseDates] = useState<string>('[]')
     const [firstTimeInApp, setFirstTimeInApp] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoadingData, setIsLoadingData] = useState<boolean>(false)
     // Criar um estado de loading no start
 
     async function getLocalData() {
@@ -79,6 +81,7 @@ export function AppProvider({ children }: AppProviderProps) {
     }
 
     async function startAppData() {
+        setIsLoadingData(true)
         const localData = await getLocalData();
 
         if (localData) {
@@ -102,6 +105,7 @@ export function AppProvider({ children }: AppProviderProps) {
                 return
             }
         }
+        setIsLoadingData(false)
     }
 
     async function handleAlterScore(handleType: 'add' | 'sub') {
@@ -196,6 +200,7 @@ export function AppProvider({ children }: AppProviderProps) {
             relapseDates,
             firstTimeInApp,
             isLoading,
+            isLoadingData,
             updateLocalDataAndStates,
             handleAlterScore,
             setLastConsumption,
