@@ -3,6 +3,7 @@ import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, Act
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import { useInterval } from 'usehooks-ts'
 
 import { ContributionGraph } from "react-native-chart-kit";
 import moment from 'moment';
@@ -114,16 +115,9 @@ export function Home() {
         setTimerData({ anos, meses, dias, horas, minutos, segundos })
     }
 
-    // var watch = setInterval(() => {
-    //     performsStopwatchCalculations()
-    // }, 1000)
-
-    // useEffect(() => {
-    //     clearInterval(watch)
-    //     watch = setInterval(() => {
-    //         performsStopwatchCalculations()
-    //     }, 1000)
-    // }, [lastConsumption])
+    useInterval(() => {
+        performsStopwatchCalculations()
+    }, 1000)
 
     async function handleRestartStopWatch(date: Date, time: Date, reasons: string) {
         setIsLoading(true)
