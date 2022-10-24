@@ -84,12 +84,13 @@ export function Main() {
                 >
                     <Ionicons name="person-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
-                <CardInfo
+
+                {/* <CardInfo
                     title='Apagar meus dados'
                     description='Solicite que todos os seus dados sejam apagados permanentemente'
                 >
                     <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
+                </CardInfo> */}
 
                 <CardInfo
                     title='Tema'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Button } from 'react-native';
+import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { useInterval } from 'usehooks-ts'
@@ -119,10 +119,10 @@ export function Home() {
         performsStopwatchCalculations()
     }, 1000)
 
-    async function handleRestartStopWatch(date: Date, time: Date, reasons: string) {
+    async function handleRestartStopWatch(date: Date, reasons: string) {
         setIsLoading(true)
 
-        await restartStopwatch(formatDateBeforeSave(date, time), reasons, JSON.stringify(timerData))
+        await restartStopwatch(formatDateBeforeSave(date, date), reasons, JSON.stringify(timerData))
         setShowQuestionsModal(false)
 
         setIsLoading(false)
@@ -161,6 +161,45 @@ export function Home() {
         setShowTimePicker(false);
         setTimeLastConsumption(currentTime);
     };
+
+    // --------------------------------------------------------- TESTE ------------------------------------------------------------------ //
+    const [dateRelapse, setDateRelapse] = useState(new Date());
+
+    const onChange = (event: any, selectedDate: any) => {
+        const currentDate = selectedDate;
+
+        if (moment(currentDate).isAfter(new Date())) {
+            Alert.alert(
+                'Escolha uma data válida.',
+                `Não são permitidas datas no futuro. \nVocê selecionou a data: ${moment(currentDate).format('DD/MM/YYYY')}`,
+                [{
+                    text: 'Fechar', style: 'cancel',
+                }]
+            )
+            setDateLastConsumption(new Date());
+        } else {
+            setDateRelapse(currentDate);
+        }
+
+    };
+
+    const showMode = (currentMode: any) => {
+        DateTimePickerAndroid.open({
+            value: dateRelapse,
+            onChange,
+            mode: currentMode,
+            is24Hour: true,
+        });
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const showTimepicker = () => {
+        showMode('time');
+    };
+
     // -------------------------------------------------------------- Fim -------------------------------------------------------------- //
 
 
@@ -443,46 +482,26 @@ export function Home() {
                             Quando aconteceu?
                         </LabelStyled>
                         <View style={styles.dateTimePickerArea}>
-                            <DatePickerStyledContainer onPress={() => { setShowDatePicker(true) }}>
+                            <DatePickerStyledContainer onPress={showDatepicker}>
                                 <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
                                 <Text style={styles.text}>
-                                    {moment(dateLastConsumption).format('DD/MM/YYYY')}
+                                    {moment(dateRelapse).format('DD/MM/YYYY')}
                                 </Text>
                             </DatePickerStyledContainer>
 
-                            {showDatePicker && (
-                                <DateTimePicker
-                                    testID="dateTimePicker"
-                                    value={dateLastConsumption}
-                                    mode={'date'}
-                                    is24Hour={true}
-                                    onChange={onChangeDate}
-                                />
-                            )}
-
-                            <DatePickerStyledContainer onPress={() => { setShowTimePicker(true) }}>
+                            <DatePickerStyledContainer onPress={showTimepicker}>
                                 <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
                                 <Text style={styles.text}>
-                                    {moment(timeLastConsumption).format('HH:mm')}
+                                    {moment(dateRelapse).format('HH:mm')}
                                 </Text>
                             </DatePickerStyledContainer>
-
-                            {showTimePicker && (
-                                <DateTimePicker
-                                    testID="dateTimePicker"
-                                    value={timeLastConsumption}
-                                    mode={'time'}
-                                    is24Hour={true}
-                                    onChange={onChangeTime}
-                                />
-                            )}
                         </View>
 
                     </FormStyled>
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => handleRestartStopWatch(dateLastConsumption, timeLastConsumption, reiniciarMotivo)} value='Reiniciar contador'>
+                    <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => handleRestartStopWatch(dateRelapse, reiniciarMotivo)} value='Reiniciar contador'>
                         {isLoading && <ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.SM} />}
                     </ButtonMedium>
                 </View>
