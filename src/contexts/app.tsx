@@ -66,13 +66,13 @@ export function AppProvider({ children }: AppProviderProps) {
 
     function refreshStates(data: any /* Corrigir depois a tipagem do parâmetro */) {
         try {
-            data.last_consumption && setLastConsumption(data.last_consumption)
-            data.last_score_update && setLastScoreUpdate(data.last_score_update)
-            data.record_no_consumption && setRecordNoConsumption(data.record_no_consumption)
-            data.record_no_consumption_formated && setRecordNoConsumptionformated(data.record_no_consumption_formated)
-            data.relapse_dates && setRelapseDates(data.relapse_dates)
-            data.score && setScore(data.score)
-            data.total_relapse && setTotalRelapse(data.total_relapse)
+            data.last_consumption && setLastConsumption(data.last_consumption);
+            data.last_score_update && setLastScoreUpdate(data.last_score_update);
+            data.record_no_consumption_formated && setRecordNoConsumptionformated(data.record_no_consumption_formated);
+            data.relapse_dates && setRelapseDates(data.relapse_dates);
+            (data.record_no_consumption || data.record_no_consumption === 0) && setRecordNoConsumption(data.record_no_consumption);
+            (data.score || data.score === 0) && setScore(data.score);
+            (data.total_relapse || data.score === 0) && setTotalRelapse(data.total_relapse);
         } catch (error) {
             console.log('refreshStatesWithLocalData: ', error)
         }
@@ -154,17 +154,17 @@ export function AppProvider({ children }: AppProviderProps) {
         }
 
         if (handleType === 'sub') {
-            await api.patch('/alter_score', { handleType })
-                .then(async response => {
-                    const localData = await getLocalData();
-                    localData.score = response.data.newScore.score;
+            // await api.patch('/alter_score', { handleType })
+            //     .then(async response => {
+            //         const localData = await getLocalData();
+            //         localData.score = response.data.newScore.score;
 
-                    await updateLocalDataAndStates(localData)
-                })
-                .catch((e) => {
-                    console.log('handleAlterScore | sub: ', e)
-                    showToastError()
-                })
+            //         await updateLocalDataAndStates(localData)
+            //     })
+            //     .catch((e) => {
+            //         console.log('handleAlterScore | sub: ', e)
+            //         showToastError()
+            //     })
         }
 
         setIsLoading(false)
