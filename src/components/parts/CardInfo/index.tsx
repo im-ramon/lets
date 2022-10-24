@@ -6,13 +6,13 @@ import { THEME } from '../../../theme';
 interface CardConfiguracoesProps extends TouchableOpacityProps {
     title: string,
     description: string | number
-    children: React.ReactNode,
+    children?: React.ReactNode,
 }
 
 export function CardInfo({ title, description, children, ...rest }: CardConfiguracoesProps) {
     return (
         <TouchableOpacity style={styles.cardConfiguracoes} {...rest}>
-            <View style={styles.cardConfiguracoesIcon}>{children}</View>
+            {children && <View style={styles.cardConfiguracoesIcon}>{children}</View>}
             <View style={styles.cardConfiguracoesTextContainer}>
                 <Text style={styles.cardConfiguracoesTextTitle}>{title}</Text>
                 <Text style={styles.cardConfiguracoesTextDescription}>{description}</Text>

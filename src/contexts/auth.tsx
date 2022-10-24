@@ -158,6 +158,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             })
 
         await AsyncStorage.removeItem('@lets:user_data')
+        await AsyncStorage.removeItem('@lets:relapse_reasons')
     }
 
     function setTokenToAxios(token: string) {

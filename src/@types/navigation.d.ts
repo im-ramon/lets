@@ -4,6 +4,7 @@ export declare global {
             SingIn: undefined
             SingUp: undefined
             MeusDados: undefined
+            Recaidas: undefined
         }
     }
 }

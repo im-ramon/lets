@@ -12,6 +12,7 @@ type AppContextData = {
     score: number;
     relapseReasons: string;
     relapseDates: string;
+    userRelapseReasons: string;
     firstTimeInApp: boolean;
     isLoading: boolean;
     isLoadingData: boolean;
@@ -25,6 +26,7 @@ type AppContextData = {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     handleAlterScore: (handleType: 'add' | 'sub') => Promise<void>;
     updateLocalDataAndStates: (objData: object) => Promise<void>;
+    fetchUserRelapseReasons: () => Promise<void>;
     restartStopwatch: (last_consumption: string, relapse_reasons: string | null, record_no_consumption_formated: string) => Promise<void>;
 }
 
@@ -44,6 +46,7 @@ export function AppProvider({ children }: AppProviderProps) {
     const [lastScoreUpdate, setLastScoreUpdate] = useState<string>(moment().format())
     const [relapseReasons, setRelapseReasons] = useState<string>('{}')
     const [relapseDates, setRelapseDates] = useState<string>('[]')
+    const [userRelapseReasons, setUserRelapseReasons] = useState<string>('[]')
     const [firstTimeInApp, setFirstTimeInApp] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isLoadingData, setIsLoadingData] = useState<boolean>(false)
@@ -105,6 +108,7 @@ export function AppProvider({ children }: AppProviderProps) {
                 return
             }
         }
+        await fetchUserRelapseReasons()
         setIsLoadingData(false)
     }
 
@@ -168,7 +172,12 @@ export function AppProvider({ children }: AppProviderProps) {
 
     async function restartStopwatch(last_consumption: string, relapse_reasons: string | null, record_no_consumption_formated: string) {
         await api.post('/restart_stopwatch', { last_consumption, relapse_reasons, record_no_consumption_formated })
-            .then(async response => await updateLocalDataAndStates(response.data))
+            .then(async response => {
+                await updateLocalDataAndStates(response.data);
+                if (relapse_reasons) {
+                    await fetchUserRelapseReasons(true);
+                }
+            })
             .then(() => {
                 Toast.show({
                     type: 'info',
@@ -185,6 +194,26 @@ export function AppProvider({ children }: AppProviderProps) {
             })
     }
 
+    async function fetchUserRelapseReasons(restart?: boolean) {
+        if (restart) {
+            await AsyncStorage.removeItem('@lets:relapse_reasons')
+        }
+        const localData = await AsyncStorage.getItem('@lets:relapse_reasons')
+
+        if (localData) {
+            setUserRelapseReasons(localData)
+            console.log('Local UserRelapseReasons encontrado')
+        } else {
+            await api.get('/relapse_reasons').then(
+                async response => {
+                    await AsyncStorage.setItem('@lets:relapse_reasons', JSON.stringify(response.data))
+                    setUserRelapseReasons(JSON.stringify(response.data))
+                    console.log('External UserRelapseReasons encontrado')
+                }
+            ).catch(error => console.log('fetchUserRelapseReasons:', error))
+        }
+    }
+
     useEffect(() => {
         startAppData()
     }, [])
@@ -197,6 +226,7 @@ export function AppProvider({ children }: AppProviderProps) {
             totalRelapse,
             score,
             relapseReasons,
+            userRelapseReasons,
             relapseDates,
             firstTimeInApp,
             isLoading,
@@ -212,6 +242,7 @@ export function AppProvider({ children }: AppProviderProps) {
             setFirstTimeInApp,
             setIsLoading,
             restartStopwatch,
+            fetchUserRelapseReasons,
         }}>
             {children}
         </AppContext.Provider>

@@ -1,63 +1,45 @@
-import React, { useContext } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { useState } from 'react';
+import { Text } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 
-import { Titulo } from '../../parts/Titulo';
-import { CardInfo } from '../../parts/CardInfo';
+import { THEME } from '../../../theme'
 
-import { AppContext } from '../../../contexts/app';
+import { EstatisticasMain } from './Main'
+import { Recaidas } from './Recaidas'
 
-import { Ionicons, MaterialCommunityIcons, AntDesign, FontAwesome5 } from '@expo/vector-icons'
-import { styles } from './styles';
-import { THEME } from '../../../theme';
-import moment from 'moment';
+const Stack = createStackNavigator();
 
 export function Estatisticas() {
-    const { recordNoConsumption, lastConsumption, totalRelapse, recordNoConsumptionformated } = useContext(AppContext)
-
-    function formatRecordNoConsumption() {
-        let objRecord = JSON.parse(recordNoConsumptionformated)
-        return `${objRecord.anos}a ${objRecord.meses}h ${objRecord.dias}d ${objRecord.horas}h ${objRecord.minutos}m ${objRecord.segundos}s `;
+    const generalThemeRoutes = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            background: THEME.COLORS.BACKGROUND_1,
+        },
     }
 
-
     return (
-        <View style={styles.container}>
-            <Titulo
-                title='Estatísticas'
-                subtitle='Aqui estão suas estatísticas desde o começo da jornada para romper com hábito de consumo de conteúdo explícito.'
-            >
-                <Ionicons name="stats-chart-outline" size={24} color={THEME.COLORS.PRIMARY} />
-            </Titulo>
+        <Stack.Navigator
+            initialRouteName='EstatisticasMain'
+            screenOptions={{
+                headerShown: false,
+                gestureEnabled: true,
+            }}>
 
-            <ScrollView style={styles.scrollViewContainer}>
-                <CardInfo
-                    title='Maior tempo sem consumo'
-                    description={formatRecordNoConsumption()}
-                >
-                    <MaterialCommunityIcons name="arm-flex-outline" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
-
-                <CardInfo
-                    title='Última recaída'
-                    description={moment(lastConsumption).format("DD/MM/YYYY [às] HH:mm:ss")}
-                >
-                    <AntDesign name="exclamation" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
-
-                <CardInfo
-                    title='Número total de recaídas'
-                    description={totalRelapse}
-                >
-                    <MaterialCommunityIcons name="restart-alert" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
-
-                <CardInfo
-                    title='Motivos que te levaram a recair'
-                    description='> Clique para visualizar'
-                >
-                    <AntDesign name="questioncircleo" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
-            </ScrollView>
-        </View>
+            <Stack.Screen name='Main' component={EstatisticasMain} />
+            <Stack.Screen
+                name='Recaidas'
+                component={Recaidas}
+                options={{
+                    headerShown: true,
+                    headerTitle: 'Motivos que te levaram a recair',
+                    headerStyle: {
+                        backgroundColor: THEME.COLORS.BACKGROUND_1,
+                    },
+                    headerTintColor: THEME.COLORS.TEXT,
+                }}
+            />
+        </Stack.Navigator>
     );
 }
