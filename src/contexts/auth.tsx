@@ -7,17 +7,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 type AuthContextData = {
     user: UserProps;
     isAuthenticated: boolean;
-    signIn: (info: SignInProps) => Promise<void>;
-    signOut: () => Promise<void>;
-    signUp: (info: SignUpProps) => Promise<void>;
-    setUser: React.Dispatch<React.SetStateAction<{ id: string; name: string; token: string; }>>
     loadingAuth: boolean;
     createdUserId: string;
-    isLocalAuthenticationLogged: boolean;
+    isLocalAuthenticationRequired: boolean;
     loading: boolean;
     errorLogin: boolean;
+    signIn: (info: SignInProps) => Promise<void>;
+    signOut: () => Promise<void>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    signUp: (info: SignUpProps) => Promise<void>;
+    setUser: React.Dispatch<React.SetStateAction<{ id: string; name: string; token: string; }>>
     setErrorLogin: React.Dispatch<React.SetStateAction<boolean>>;
-    setIsLocalAuthenticationLogged: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsLocalAuthenticationRequired: React.Dispatch<React.SetStateAction<boolean>>;
     vibrate: (type: 'click' | 'success' | 'error') => void;
 }
 
@@ -55,7 +56,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState<boolean>(true)
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
     const [createdUserId, setCreatedUserId] = useState<string>('')
-    const [isLocalAuthenticationLogged, setIsLocalAuthenticationLogged] = useState<boolean>(false)
+    const [isLocalAuthenticationRequired, setIsLocalAuthenticationRequired] = useState<boolean>(false)
 
     const isAuthenticated = !!user.name;
 
@@ -99,7 +100,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 token: response.data.token
             })
 
-            setIsLocalAuthenticationLogged(true)
+            setIsLocalAuthenticationRequired(true)
             vibrate('success');
             setLoadingAuth(false)
 
@@ -159,6 +160,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         await AsyncStorage.removeItem('@lets:user_data')
         await AsyncStorage.removeItem('@lets:relapse_reasons')
+        await AsyncStorage.removeItem('@lets:is_local_authentication_required')
     }
 
     function setTokenToAxios(token: string) {
@@ -195,14 +197,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
             loading,
             errorLogin,
             createdUserId,
-            isLocalAuthenticationLogged,
+            isLocalAuthenticationRequired,
+            setLoading,
             setUser,
             signIn,
             signOut,
             signUp,
             setErrorLogin,
             vibrate,
-            setIsLocalAuthenticationLogged,
+            setIsLocalAuthenticationRequired,
         }}>
             {children}
         </AuthContext.Provider>

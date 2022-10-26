@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert, ToastAndroid } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert, Switch, ActivityIndicator } from 'react-native';
 import { AuthContext } from '../../../../contexts/auth';
 import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -12,6 +12,7 @@ import { THEME } from '../../../../theme';
 import { ButtonMedium } from '../../../parts/ButtonMedium';
 
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Configuração do texto para convidar amigos
 const onShare = async () => {
@@ -44,7 +45,16 @@ const alertaFuncionalidadeIndisponivel = () =>
     ]);
 
 export function Main() {
-    const { signOut, user } = useContext(AuthContext)
+    const { isLocalAuthenticationRequired, signOut, setIsLocalAuthenticationRequired } = useContext(AuthContext)
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    const toggleSwitch = async () => {
+        setIsLoading(true)
+        await AsyncStorage.setItem('@lets:is_local_authentication_required', JSON.stringify(!isLocalAuthenticationRequired))
+        setIsLocalAuthenticationRequired(previousState => !previousState)
+        setIsLoading(false)
+    };
 
     const navigation = useNavigation()
 
@@ -57,25 +67,29 @@ export function Main() {
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
-                {/* <View style={styles.CardInfoContainer}>
+                <View style={styles.CardInfoContainer}>
                     <View style={{ flex: 1 }}>
                         <CardInfo
-                            title="Solicitar digital"
-                            description='Ative a solicitação de sua digital ao entrar no App'
+                            title="Solicitar digital ou PIN"
+                            description='Ative a solicitação de sua digital ou PIN ao entrar no App'
                         >
                             <Ionicons name="finger-print-outline" size={32} color={THEME.COLORS.TEXT} />
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
-                        <Switch
-                            trackColor={{ false: THEME.COLORS.NEUTRAL_4, true: THEME.COLORS.NEUTRAL_3 }}
-                            thumbColor={isEnabled ? THEME.COLORS.SUCCESS : THEME.COLORS.PRIMARY}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                        />
+                        {isLoading ?
+                            (<ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.LG} />)
+                            :
+                            (<Switch
+                                trackColor={{ false: THEME.COLORS.NEUTRAL_4, true: THEME.COLORS.NEUTRAL_3 }}
+                                thumbColor={isLocalAuthenticationRequired ? THEME.COLORS.SUCCESS : THEME.COLORS.NEUTRAL_2}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleSwitch}
+                                value={isLocalAuthenticationRequired}
+                            />)
+                        }
                     </View>
-                </View> */}
+                </View>
 
                 <CardInfo
                     title='Meus dados'

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as LocalAuthentication from 'expo-local-authentication';
 import 'react-native-gesture-handler';
 import { Loading } from '../components/Views/Loading';
@@ -6,13 +6,23 @@ import AuthRoutes from '../../src/routes/AuthRoutes'
 import AppRoutes from '../../src/routes/AppRoutes'
 
 import { AuthContext } from '../contexts/auth';
-import { AppContext } from '../contexts/app';
 import { AppProvider } from '../contexts/app';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Routes() {
 
-    const { isAuthenticated, loading, isLocalAuthenticationLogged, setIsLocalAuthenticationLogged } = useContext(AuthContext)
-    const { firstTimeInApp } = useContext(AppContext)
+    const { isAuthenticated, loading, isLocalAuthenticationRequired, setIsLocalAuthenticationRequired, setLoading } = useContext(AuthContext)
+
+    const [isLocallyAuthenticated, setIsLocallyAuthenticated] = useState<boolean>(false)
+
+    async function checkIfIsLocalAuthenticationRequired() {
+        const authRequired = await AsyncStorage.getItem('@lets:is_local_authentication_required')
+        if (authRequired && authRequired === 'true') {
+            setIsLocalAuthenticationRequired(JSON.parse(authRequired))
+        } else {
+            setIsLocallyAuthenticated(true)
+        }
+    }
 
     async function checkLocalAuthentication() {
         const response = await LocalAuthentication.authenticateAsync({
@@ -20,17 +30,27 @@ export default function Routes() {
             promptMessage: "Autorizar acesso ao App Let's!"
         })
 
-        response.success ? setIsLocalAuthenticationLogged(true) : setIsLocalAuthenticationLogged(false)
+        response.success ? setIsLocallyAuthenticated(true) : setIsLocallyAuthenticated(false)
     }
 
-    // useEffect(() => {
-    //     !firstTimeInApp && checkLocalAuthentication()
-    // }, [])
+    async function startLocalAuthentication() {
+        setLoading(true)
+        await checkIfIsLocalAuthenticationRequired()
+
+        if (isLocalAuthenticationRequired) {
+            await checkLocalAuthentication()
+        }
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        startLocalAuthentication()
+    }, [isLocalAuthenticationRequired])
 
     if (loading) {
         return <Loading />
     }
 
-    return (isAuthenticated ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
-    // return ((isAuthenticated && isLocalAuthenticationLogged) ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
+    // return (isAuthenticated ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
+    return ((isAuthenticated && isLocallyAuthenticated) ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
 }
