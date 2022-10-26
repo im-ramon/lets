@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { View, FlatList } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { View, FlatList, Text } from 'react-native';
 
 import { CardInfo } from '../../../parts/CardInfo';
 
@@ -17,13 +17,17 @@ export function Recaidas() {
 
     return (
         <View style={styles.container}>
-            <FlatList
-                style={styles.flatList}
-                data={DATA}
-                renderItem={renderItem}
-                keyExtractor={item => JSON.stringify(item.id)}
-                showsVerticalScrollIndicator={false}
-            />
+            {userRelapseReasons == '[]' ?
+                (<Text style={styles.text}>Ainda não há nada por aqui!</Text>)
+                :
+                (<FlatList
+                    style={styles.flatList}
+                    data={DATA}
+                    renderItem={renderItem}
+                    keyExtractor={item => JSON.stringify(item.id)}
+                    showsVerticalScrollIndicator={false}
+                />)}
+
         </View>
     );
 }
