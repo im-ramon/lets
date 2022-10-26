@@ -18,6 +18,7 @@
             "**/*"
         ],
         "ios": {
+            "bundleIdentifier": "com.app.lets",
             "supportsTablet": true
         },
         "android": {
