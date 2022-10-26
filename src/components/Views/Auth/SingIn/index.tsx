@@ -4,7 +4,7 @@ import { View, Text, ScrollView, Image, TouchableOpacity, Button, Modal, StyleSh
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import { Welcome } from '../../Welcome';
-
+import Toast from 'react-native-toast-message';
 import { styles } from '../styles';
 import { Ionicons } from '@expo/vector-icons';
 import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled } from '../../../parts/_SytyledComponents'
@@ -16,17 +16,18 @@ import logo from '../../../../assets/img/icon.png'
 import { AuthContext } from '../../../../../src/contexts/auth';
 
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function SingIn() {
 
     const refInputPalavraPasse: any = useRef()
     const navigation = useNavigation()
 
-    const { signIn, loadingAuth, errorLogin, setErrorLogin } = useContext(AuthContext)
+    const { signIn, loadingAuth, errorLogin, setErrorLogin, isAuthenticated } = useContext(AuthContext)
 
     const [userId, setUserId] = useState<string>('')
     const [userPassword, setUserPassword] = useState<string>('')
-    const [showModalFirsVisit, setShowModalFirsVisit] = useState<boolean>(true)
+    const [showModalFirsVisit, setShowModalFirsVisit] = useState<boolean>(false)
 
     // Configurações do Scanner
     const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -44,14 +45,34 @@ export function SingIn() {
 
     const [showModalCamera, setShowModalCamera] = useState<boolean>(false)
 
-    useEffect(() => {
-        const getBarCodeScannerPermissions = async () => {
-            const { status } = await BarCodeScanner.requestPermissionsAsync();
-            setHasPermission(status === 'granted');
-        };
+    const getBarCodeScannerPermissions = async () => {
+        const { status } = await BarCodeScanner.requestPermissionsAsync();
+        setHasPermission(status === 'granted');
+    };
 
+    async function openQRCodeScanCamera() {
+        await getBarCodeScannerPermissions();
+        setShowModalCamera(true)
+    }
+
+    useEffect(() => {
         getBarCodeScannerPermissions();
+        fetchIfIsFirstTimeInApp();
     }, []);
+
+    async function fetchIfIsFirstTimeInApp() {
+        const response = await AsyncStorage.getItem('@lets:is_first_time_in_app')
+        if (response == 'true' || response == null) {
+            setShowModalFirsVisit(true)
+        } else {
+            setShowModalFirsVisit(false)
+        }
+    }
+
+    async function handleSetFirstTimeInAPp() {
+        setShowModalFirsVisit(false)
+        await AsyncStorage.setItem('@lets:is_first_time_in_app', 'false')
+    }
 
     const handleBarCodeScanned = ({ type, data }: any) => {
         setScanned(true);
@@ -74,12 +95,13 @@ export function SingIn() {
         return palavraPasseVerificada.toUpperCase()
     }
 
-    function handleModalButton(arg: boolean) {
-        setShowModalFirsVisit(arg)
-    }
-
     function handleLogin(id: string, password: string) {
         if (userId === '' || userPassword === '') {
+            Toast.show({
+                type: 'error',
+                text1: 'Preencha todos os campos!',
+                text2: 'Alguns campos para login não foram preenchidos corretamente.'
+            });
             return;
         }
 
@@ -98,7 +120,7 @@ export function SingIn() {
                         <FieldAreaStyled>
                             <LabelStyled>Código de acesso</LabelStyled>
                             <View style={styles.inputCameraArea}>
-                                <TouchableOpacity style={styles.inputCameraButton} onPress={() => setShowModalCamera(true)}>
+                                <TouchableOpacity style={styles.inputCameraButton} onPress={() => openQRCodeScanCamera()}>
                                     <Ionicons name="camera-outline" size={16} color={THEME.COLORS.TEXT} />
                                 </TouchableOpacity>
                                 <InputStyled
@@ -163,11 +185,10 @@ export function SingIn() {
             <Modal
                 animationType="slide"
                 transparent={false}
-                visible={!showModalFirsVisit}
-            // visible={showModalFirsVisit}
+                visible={showModalFirsVisit}
             >
                 <Welcome
-                    handleModal={handleModalButton}
+                    handleModal={handleSetFirstTimeInAPp}
                 />
             </Modal>
         </View>
