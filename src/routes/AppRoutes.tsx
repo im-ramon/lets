@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SingIn } from '../components/Views/Auth/SingIn';
 import { SingUp } from '../components/Views/Auth/SingUp';
+import { Scanner } from '../components/Views/Auth/Scanner';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -24,6 +25,7 @@ export default function AppRoutes() {
 
             <Stack.Screen name='SingIn' component={SingIn} />
             <Stack.Screen name='SingUp' component={SingUp} />
+            <Stack.Screen name='Scanner' component={Scanner} />
         </Stack.Navigator>
     );
 }

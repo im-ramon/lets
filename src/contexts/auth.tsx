@@ -12,6 +12,8 @@ type AuthContextData = {
     isLocalAuthenticationRequired: boolean;
     loading: boolean;
     errorLogin: boolean;
+    userIdOnClipboard: string;
+    setUserIdOnClipboard: React.Dispatch<React.SetStateAction<string>>;
     signIn: (info: SignInProps) => Promise<void>;
     signOut: () => Promise<void>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,6 +56,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const [loadingAuth, setLoadingAuth] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true)
+    const [userIdOnClipboard, setUserIdOnClipboard] = useState<string>('')
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
     const [createdUserId, setCreatedUserId] = useState<string>('')
     const [isLocalAuthenticationRequired, setIsLocalAuthenticationRequired] = useState<boolean>(false)
@@ -198,6 +201,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             errorLogin,
             createdUserId,
             isLocalAuthenticationRequired,
+            userIdOnClipboard,
+            setUserIdOnClipboard,
             setLoading,
             setUser,
             signIn,

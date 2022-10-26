@@ -113,7 +113,7 @@ export function SingUp() {
                         <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE: </Text>Guarde bem seu código de acesso. Ele será solcitado quando for realizar login novamente. Sem ele, você perderá seu progresso no App. Esta é uma forma de deixar sua experiência no App totalmente anônima.</Text>
                     </View>
                     <Text style={styles.textModal}>Gere um QR Code com seu ID, assim, da próxima vez que acessar o App, basta escaneá-lo:</Text>
-                    <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=177x177&chl=${createdUserId}`); }}>
+                    <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=512x512&chl=${createdUserId}`); }}>
                         <Ionicons name="ios-qr-code-outline" size={24} color={THEME.COLORS.PRIMARY} />
                         <Text style={{ ...styles.text, marginLeft: 8 }}>Gerar QRCode</Text>
                     </TouchableOpacity>

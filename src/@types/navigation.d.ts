@@ -5,6 +5,7 @@ export declare global {
             SingUp: undefined
             MeusDados: undefined
             Recaidas: undefined
+            Scanner: undefined
         }
     }
 }

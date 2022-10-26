@@ -23,42 +23,15 @@ export function SingIn() {
     const refInputPalavraPasse: any = useRef()
     const navigation = useNavigation()
 
-    const { signIn, loadingAuth, errorLogin, setErrorLogin, isAuthenticated } = useContext(AuthContext)
+    const { signIn, loadingAuth, userIdOnClipboard } = useContext(AuthContext)
 
     const [userId, setUserId] = useState<string>('')
     const [userPassword, setUserPassword] = useState<string>('')
     const [showModalFirsVisit, setShowModalFirsVisit] = useState<boolean>(false)
 
-    // Configurações do Scanner
-    const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-    const [scanned, setScanned] = useState(false);
-
-    const feedBackScanner = () => {
-        Alert.alert('Código copiado!',
-            'Clique em continar para fazer login.', [
-            {
-                text: 'continar', style: 'cancel',
-                onPress: () => { setScanned(false) }
-            }
-        ]);
-    }
-
-    const [showModalCamera, setShowModalCamera] = useState<boolean>(false)
-
-    const getBarCodeScannerPermissions = async () => {
-        const { status } = await BarCodeScanner.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
-    };
-
-    async function openQRCodeScanCamera() {
-        await getBarCodeScannerPermissions();
-        setShowModalCamera(true)
-    }
-
     useEffect(() => {
-        getBarCodeScannerPermissions();
-        fetchIfIsFirstTimeInApp();
-    }, []);
+        setUserId(userIdOnClipboard);
+    }, [userIdOnClipboard]);
 
     async function fetchIfIsFirstTimeInApp() {
         const response = await AsyncStorage.getItem('@lets:is_first_time_in_app')
@@ -73,22 +46,6 @@ export function SingIn() {
         setShowModalFirsVisit(false)
         await AsyncStorage.setItem('@lets:is_first_time_in_app', 'false')
     }
-
-    const handleBarCodeScanned = ({ type, data }: any) => {
-        setScanned(true);
-        setUserId(data)
-        feedBackScanner()
-        setShowModalCamera(false)
-        refInputPalavraPasse.current.focus()
-    };
-
-    if (hasPermission === null) {
-        return <Text>Solicitando permissão da câmera</Text>;
-    }
-    if (hasPermission === false) {
-        return <Text>Sem acesso à câmera</Text>;
-    }
-    // --- Fim
 
     function validaPalavraPasse(value: string) {
         let palavraPasseVerificada = value.replace(/[^a-z0-9]/gi, '')
@@ -108,6 +65,10 @@ export function SingIn() {
         signIn({ id, password })
     }
 
+    useEffect(() => {
+        fetchIfIsFirstTimeInApp();
+    }, []);
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
@@ -120,7 +81,7 @@ export function SingIn() {
                         <FieldAreaStyled>
                             <LabelStyled>Código de acesso</LabelStyled>
                             <View style={styles.inputCameraArea}>
-                                <TouchableOpacity style={styles.inputCameraButton} onPress={() => openQRCodeScanCamera()}>
+                                <TouchableOpacity style={styles.inputCameraButton} onPress={() => navigation.navigate('Scanner')}>
                                     <Ionicons name="camera-outline" size={16} color={THEME.COLORS.TEXT} />
                                 </TouchableOpacity>
                                 <InputStyled
@@ -158,38 +119,8 @@ export function SingIn() {
                 </View>
             </ScrollView>
 
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={showModalCamera}
-                style={{ backgroundColor: 'purple' }}
-            >
-                <View style={styles.cameraContainer}>
-                    <View style={styles.titleArea}>
-                        <Text style={styles.cameraTitle}>Aponte a câmera para seu QR Code.</Text>
-                        <Text style={styles.cameraSubtitle}>O aplicativo fará a leitura automaticamente</Text>
-                    </View>
-
-                    <BarCodeScanner
-                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-                        style={StyleSheet.absoluteFillObject}
-                    />
-
-                    {scanned && <Button title={'Escanear novamente'} onPress={() => setScanned(false)} />}
-                    <View style={styles.cameraButtonArea}>
-                        <ButtonMedium color={THEME.COLORS.PRIMARY} value='Voltar' onPress={() => setShowModalCamera(false)} />
-                    </View>
-                </View>
-            </Modal>
-
-            <Modal
-                animationType="slide"
-                transparent={false}
-                visible={showModalFirsVisit}
-            >
-                <Welcome
-                    handleModal={handleSetFirstTimeInAPp}
-                />
+            <Modal animationType="slide" transparent={false} visible={showModalFirsVisit}>
+                <Welcome handleModal={handleSetFirstTimeInAPp} />
             </Modal>
         </View>
     );
