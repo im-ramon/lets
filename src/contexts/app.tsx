@@ -136,9 +136,10 @@ export function AppProvider({ children }: AppProviderProps) {
             if (wasThisRequestOneDayAfterTheLastRequest) {
                 await api.patch('/alter_score', { handleType })
                     .then(async response => {
+                        console.log(response.data)
                         const localData = await getLocalData();
-                        localData.score = response.data.newScore.score;
-                        localData.last_score_update = response.data.newScore.last_score_update;
+                        localData.score = response.data.score;
+                        localData.last_score_update = response.data.last_score_update;
 
                         await updateLocalDataAndStates(localData)
                         showToastSuccess()
