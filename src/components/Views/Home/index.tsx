@@ -267,6 +267,28 @@ export function Home() {
     // -------------------------------------------------------------- Fim -------------------------------------------------------------- //
 
 
+    // Random mensage stopwatch
+    const [mensageStopwatch, setMensageStopwatch] = useState<string>('desde o último consumo:')
+    const mensages = [
+        '“em liberdade”',
+        '“vivendo plenamente”',
+        '“em batalha”',
+        '“fazendo escolhas conscientes”',
+        '“em equilíbrio”',
+        '“sentido-se mais confiante”',
+    ]
+
+    function randomNumber(max: number) {
+        return Math.trunc(Math.random() * max)
+    }
+
+    function setRandomMensageStopwatch() {
+        const index = randomNumber(mensages.length)
+        const mensage = mensages[index]
+        setMensageStopwatch(mensage)
+    }
+    // -------------------------------------------------------------- Fim -------------------------------------------------------------- //
+
     // Start first user data
     async function handleStartFirstUserData() {
         setIsLoadingHome(true)
@@ -429,7 +451,9 @@ export function Home() {
                         </View>
 
                         <View style={[styles.contadorEvolucao, styles.bloco]}>
-                            <Text style={styles.contadorEvolucaoHeader}>Tempo “em liberdade”</Text>
+                            <TouchableOpacity onPress={() => { setRandomMensageStopwatch() }} style={styles.contadorEvolucaoHeader}>
+                                <Text style={styles.contadorEvolucaoHeader}>Tempo {mensageStopwatch}</Text>
+                            </TouchableOpacity>
                             <Text style={styles.contadorEvolucaoText}>
                                 <Text style={styles.contadorEvolucaoTextbold}>{timerData.anos}</Text> a <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
                                 <Text style={styles.contadorEvolucaoTextbold}> {timerData.meses}</Text> m <Text style={styles.contadorEvolucaoTextGrey}>|</Text>
