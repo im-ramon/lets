@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
     scrollViewContainer: {
         flex: 1,
         width: '100%',
-        paddingTop: 16
     },
     text: {
         color: THEME.COLORS.TEXT
@@ -83,5 +82,21 @@ export const styles = StyleSheet.create({
         height: 16,
         marginRight: 4,
         opacity: .5
+    },
+    toggleThemeButton: {
+        backgroundColor: '#yellow',
+        width: 32,
+        height: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: THEME.COLORS.NEUTRAL_4
+    },
+    toggleThemeButtonDark: {
+        backgroundColor: THEME.COLORS.BLACK,
+        marginBottom: 8
+    },
+    toggleThemeButtonLight: {
+        backgroundColor: THEME.COLORS.NEUTRAL_1
     }
 });

@@ -37,7 +37,7 @@ const onShare = async () => {
 
 // Configuração do alerta de funcionalidade indisponível
 const alertaFuncionalidadeIndisponivel = () =>
-    Alert.alert('Funcionalidade indisponível',
+    Alert.alert('Funcionalidade em desenvolvimento.',
         'Esta funcionalidade ainda não está disponível nesta versão do App, aguarde as próximas atualizações.', [
         {
             text: 'Entendi', style: 'cancel',
@@ -67,7 +67,16 @@ export function Main() {
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
+                <CardInfo
+                    title='Meus dados'
+                    description='Visualize e altere seus dados'
+                    onPress={() => navigation.navigate('MeusDados')}
+                >
+                    <Ionicons name="person-outline" size={32} color={THEME.COLORS.TEXT} />
+                </CardInfo>
+
                 <View style={styles.CardInfoContainer}>
+
                     <View style={{ flex: 1 }}>
                         <CardInfo
                             title="Solicitar digital ou PIN"
@@ -91,28 +100,32 @@ export function Main() {
                     </View>
                 </View>
 
-                <CardInfo
-                    title='Meus dados'
-                    description='Visualize e altere seus dados'
-                    onPress={() => navigation.navigate('MeusDados')}
-                >
-                    <Ionicons name="person-outline" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
 
-                {/* <CardInfo
+
+                {/*
+                <CardInfo
                     title='Apagar meus dados'
                     description='Solicite que todos os seus dados sejam apagados permanentemente'
                 >
                     <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo> */}
+                </CardInfo> 
+                */}
 
-                <CardInfo
-                    title='Tema'
-                    description="Alterne entre os temas 'Light' e 'Dark'"
-                    onPress={() => { alertaFuncionalidadeIndisponivel() }}
-                >
-                    <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS.TEXT} />
-                </CardInfo>
+                <View style={styles.CardInfoContainer}>
+                    <View style={{ flex: 1 }}>
+                        <CardInfo onPress={() => alertaFuncionalidadeIndisponivel()} title='Tema' description="Alterne entre os temas 'Light' e 'Dark'">
+                            <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS.TEXT} />
+                        </CardInfo>
+                    </View>
+                    <View style={styles.switchContainer}>
+                        <TouchableOpacity onPress={() => alertaFuncionalidadeIndisponivel()} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonDark }}>
+                            <Ionicons name="moon-sharp" size={16} color={THEME.COLORS.NEUTRAL_1} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => alertaFuncionalidadeIndisponivel()} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonLight, opacity: .25 }}>
+                            <Ionicons name="sunny-sharp" size={16} color={THEME.COLORS.BLACK} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
                 <CardInfo
                     title='Convidar amigos'
