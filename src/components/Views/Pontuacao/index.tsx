@@ -116,7 +116,7 @@ export function Pontuacao() {
                 handleModal={setShowScoreModal}
                 modalVisible={showScoreModal}
             >
-                <Titulo title='Cálculo da pontuação' subtitle='Veja como os pontos são calculados.'>
+                <Titulo title='Cálculo da pontuação' subtitle='Veja como os pontos são calculados:'>
                     <Ionicons name="medal-outline" size={24} color={THEME.COLORS.PRIMARY} />
                 </Titulo>
 
