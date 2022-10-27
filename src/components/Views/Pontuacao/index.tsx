@@ -92,13 +92,13 @@ export function Pontuacao() {
                             </Text>
                         </View>
                         <View style={styles.pointsArea}>
-                            <Text style={[styles.text, { fontSize: THEME.FONT_SIZE.LG }]}><Text style={styles.bold}>{score}</Text> ponto(s)</Text>
+                            <Text style={[styles.text, { fontSize: THEME.FONT_SIZE.LG }]}><Text style={styles.bold}>{score}</Text> ponto{score === 1 ? '' : 's'}</Text>
                         </View>
                     </View>
                 </ViewShot>
 
                 <View style={styles.pointsArea}>
-                    <Text style={[styles.text, styles.center]}>Faltam {diffPointsToNextLevel} pontos para o próximo nível, continue na batalha para as próximas conquistas.</Text>
+                    <Text style={[styles.text, styles.center]}>Faltam {diffPointsToNextLevel} ponto{diffPointsToNextLevel === 1 ? '' : 's'} para o próximo nível, continue na batalha para alcançar as próximas conquistas.</Text>
                 </View>
 
                 <View style={styles.buttonArea}>

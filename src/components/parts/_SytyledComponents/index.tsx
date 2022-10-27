@@ -70,4 +70,6 @@ export const PageScrollViewContainer = styled.View`
         flex: 1;
         width: 100%;
         padding-top: 32px;
+        padding-left: 16px;
+        padding-right: 16px;
 `

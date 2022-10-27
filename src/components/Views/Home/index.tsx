@@ -247,10 +247,19 @@ export function Home() {
 
 
     // Datas formatations
-    const userNameEdited = (userName: string) => {
-        let name = userName.split(' ')
-        return name[0]
+    const [userNameFormated, setUserNameFormated] = useState('')
+
+    const setUserNameEdited = () => {
+        if (user.name) {
+            let name = user.name.split(' ')
+            setUserNameFormated(name[0])
+        }
     }
+
+    useEffect(() => {
+        setUserNameEdited()
+    }, [user])
+
 
     function formatDateBeforeSave(date: Date, time: Date) {
         return moment(date).format('YYYY-MM-DD') + "T" + moment(time).format('HH:mm:ss') + "-03:00"
@@ -301,13 +310,12 @@ export function Home() {
                         </TouchableOpacity>
 
                         <View style={styles.pontosContainer}>
-                            <Text style={styles.pontosText}> {score} ponto(s)</Text>
+                            <Text style={styles.pontosText}> {score} ponto{score === 1 ? '' : 's'}</Text>
                         </View>
                     </View>
 
                     <View style={styles.bloco}>
-                        <Text style={styles.boasvindasTextH1}>Olá, {userNameEdited(user.name)}!</Text>
-                        {/* Futuramente isso pode causara um estouro na memória por renderizar muitas vezes */}
+                        <Text style={styles.boasvindasTextH1}>Olá, {userNameFormated}!</Text>
                     </View>
 
                     <ViewShot style={{ ...styles.bloco, ...styles.viewShotStyle }} ref={ref} options={{ format: "jpg", quality: 0.9 }}>
@@ -447,7 +455,7 @@ export function Home() {
                 </ModalDedication>
 
                 <ModalShort modalVisible={showQuestionsModal} handleModal={setShowQuestionsModal}>
-                    <Titulo title={'Reiniciar contador'} subtitle="Recaiu? Calma! Levanta a cabeça e vamos continuar na luta!" >
+                    <Titulo title={'Reiniciar contador'} subtitle="Recaiu? Calma! Levanta a cabeça e vamos tentar novamente!" >
                         <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color={THEME.COLORS.PRIMARY} />
                     </Titulo>
 

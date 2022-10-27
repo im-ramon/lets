@@ -56,8 +56,8 @@ export function SingIn() {
         if (userId === '' || userPassword === '') {
             Toast.show({
                 type: 'error',
-                text1: 'Preencha todos os campos!',
-                text2: 'Alguns campos para login não foram preenchidos corretamente.'
+                text1: 'Preencha o formulário corretamente.',
+                text2: 'Todos os campos devem ser preenchidos.'
             });
             return;
         }

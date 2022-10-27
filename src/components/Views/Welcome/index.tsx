@@ -5,6 +5,7 @@ import { ButtonLarge } from '../../parts/ButtonLarge';
 
 import { AuthContext } from '../../../../src/contexts/auth';
 import logo from '../../../assets/img/icon.png';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface ModalWelcomeProps {
     handleModal: (arg: boolean) => void;
@@ -27,11 +28,16 @@ export function Welcome({ handleModal }: ModalWelcomeProps) {
             </View>
 
             <View style={styles.main}>
-                <Text style={[styles.text, styles.textBemvindo]}>Bem-vindo!</Text>
-                <Text style={[styles.text, styles.textApresentacao]}>
-                    Escrever aqui uma breve introdução sobre a idealizadora. Fazer um breve convite para utilizar o App com a descrição de algumas funcionalidades/ benefícios.
-                </Text>
-                <ButtonLarge value="Continuar" onPress={() => handleModal(false)} />
+                <LinearGradient
+                    colors={['transparent', 'rgba(0,0,0,0.9)']}
+                    style={styles.linearGradient}
+                >
+                    <Text style={[styles.text, styles.textBemvindo]}>Bem-vindo!</Text>
+                    <Text style={[styles.text, styles.textApresentacao]}>
+                        Para quem ainda não me conhece, sou <Text style={styles.strong}>Letícia Balducci</Text>, especialista em sexualidade humana. O <Text style={styles.strong}>Let's!</Text> foi desenvolvido para te ajudar no rompimento com o hábito de consumo de conteúdo explícito. Clique em “continuar” e entraremos juntos nessa batalha para te livrar, definitivamente, desse mau hábito.
+                    </Text>
+                    <ButtonLarge value="Continuar" onPress={() => handleModal(false)} />
+                </LinearGradient>
             </View>
 
         </ImageBackground>

@@ -16,12 +16,12 @@ export function Ajuda() {
     const ref = useRef<any>(null)
 
     return (
-        <PageContainerView>
-            <Titulo title='Ajuda' subtitle='Precisando de ajudar para se manter no foco?! Então os itens abaixo são para você.'>
+        <PageScrollViewContainer>
+            <Titulo title='Ajuda' subtitle='Precisando de ajuda para se manter no foco?! Então os itens abaixo são para você.'>
                 <Ionicons name="help-buoy-outline" size={24} color={THEME.COLORS.PRIMARY} />
             </Titulo>
 
-            <PageScrollViewContainer>
+            <View style={{ paddingTop: 16 }}>
                 <CardInfo title='Instagram' description='Conheça meu trabalho no Instagram' onPress={() => Linking.openURL('https://www.instagram.com/especialistax')}>
                     <Ionicons name="logo-instagram" size={24} color={THEME.COLORS.TEXT} />
                 </CardInfo>
@@ -38,7 +38,7 @@ export function Ajuda() {
                     <Ionicons name="people-outline" size={24} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
-                <CardInfo title='Blog' description='Mais um pouco de conteúdo' onPress={() => Linking.openURL('https://www.especialistax.com/blog')}>
+                <CardInfo title='Blog' description='Mais conteúdo para você' onPress={() => Linking.openURL('https://www.especialistax.com/blog')}>
                     <Ionicons name="reader-outline" size={24} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
@@ -63,8 +63,8 @@ export function Ajuda() {
                         <FontAwesome5 name="telegram-plane" size={THEME.FONT_SIZE.XL} />
                     </IconSocial>
                 </View>
-            </PageScrollViewContainer>
-        </PageContainerView>
+            </View>
+        </PageScrollViewContainer>
     );
 }
 

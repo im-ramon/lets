@@ -13,6 +13,10 @@ export const styles = StyleSheet.create({
         color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR
     },
+    strong: {
+        color: THEME.COLORS.TEXT,
+        fontFamily: THEME.FONT_FAMILY.BLACK,
+    },
     textBemvindo: {
         fontSize: THEME.FONT_SIZE.XXL,
         fontFamily: THEME.FONT_FAMILY.DANCINGSCRIPT_BOLD
@@ -25,9 +29,12 @@ export const styles = StyleSheet.create({
         fontSize: THEME.FONT_SIZE.SM
     },
     main: {
-        width: '80%',
+        width: '100%',
         justifyContent: 'center',
-        marginBottom: 32,
+    },
+    linearGradient: {
+        paddingBottom: 32,
+        paddingHorizontal: 32,
     },
     logoImg: {
         width: 30,

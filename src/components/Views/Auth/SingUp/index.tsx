@@ -7,6 +7,7 @@ import { AuthContext } from '../../../../contexts/auth';
 import { styles } from '../styles';
 import { Ionicons } from '@expo/vector-icons';
 import { FieldAreaStyled, FormStyled, InputStyled, LabelStyled, PageScrollViewContainer, PageContainerView } from '../../../parts/_SytyledComponents'
+import Toast from 'react-native-toast-message';
 
 import { ButtonMedium } from '../../../parts/ButtonMedium';
 import { formRules } from '../../../../utils/formRules';
@@ -28,6 +29,11 @@ export function SingUp() {
 
     async function handleSignUp(name: string, password: string) {
         if (nome === '' || palavraPasse === '') {
+            Toast.show({
+                type: 'error',
+                text1: 'Preencha o formulário corretamente.',
+                text2: 'Todos os campos devem ser preenchidos.'
+            });
             return;
         }
         setShowModalCreatedUser(true)
@@ -75,7 +81,7 @@ export function SingUp() {
                                     autoCapitalize='none'
                                 />
                             </View>
-                            <Text style={styles.helpText}>Digite apenas letras e números. Caracteres especiais não são perimitidos</Text>
+                            <Text style={styles.helpText}>Digite apenas letras e números. Caracteres especiais não são permitidos</Text>
                             <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE:</Text> na versão atual do aplicativo, <Text style={styles.bold}>não há como recuperar ou redefinir a palavra passe</Text>, portanto, escolha uma palavra passe que possa lembra-se com facilidade.</Text>
                         </FieldAreaStyled>
 
@@ -110,7 +116,7 @@ export function SingUp() {
                         </View>
                     </TouchableOpacity>
                     <View style={{ marginBottom: 32 }}>
-                        <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE: </Text>Guarde bem seu código de acesso. Ele será solcitado quando for realizar login novamente. Sem ele, você perderá seu progresso no App. Esta é uma forma de deixar sua experiência no App totalmente anônima.</Text>
+                        <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE: </Text>Guarde bem seu código de acesso. Ele será solicitado quando você precisar realizar login novamente. Sem ele, você perderá seu progresso no App. Esta é uma forma de deixar sua experiência no App totalmente anônima.</Text>
                     </View>
                     <Text style={styles.textModal}>Gere um QR Code com seu ID, assim, da próxima vez que acessar o App, basta escaneá-lo:</Text>
                     <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=512x512&chl=${createdUserId}`); }}>
