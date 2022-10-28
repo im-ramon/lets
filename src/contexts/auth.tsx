@@ -3,6 +3,7 @@ import { Vibration } from 'react-native';
 import { Alert } from 'react-native'
 import { api } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import consoleFeedback from '../utils/consoleConfig';
 
 type AuthContextData = {
     user: UserProps;
@@ -108,7 +109,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 
         } catch (error) {
-            console.log('Informação do erro (signIn): ', error)
+            consoleFeedback('error', 'signIn', error)
             vibrate('error');
             // Refatorar isso posteriormente - Tirar da camada de context e colocar no component SignIn
             Alert.alert('Falha ao fazer login',
@@ -137,7 +138,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setCreatedUserId(response.data.id)
         } catch (error) {
             vibrate('error');
-            console.log('Informação do erro (signUp): ', error)
+            consoleFeedback('error', 'signUp', error)
             Alert.alert('Falha ao cadastrar usuário',
                 'Tente novamente mais tarde', [
                 {

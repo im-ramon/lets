@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import moment from 'moment';
+import consoleFeedback from '../utils/consoleConfig';
 
 type AppContextData = {
     lastConsumption: string;
@@ -74,7 +75,7 @@ export function AppProvider({ children }: AppProviderProps) {
             (data.score || data.score === 0) && setScore(data.score);
             (data.total_relapse || data.score === 0) && setTotalRelapse(data.total_relapse);
         } catch (error) {
-            console.log('refreshStatesWithLocalData: ', error)
+            consoleFeedback('error', 'refreshStatesWithLocalData', error)
         }
     }
 
@@ -89,7 +90,7 @@ export function AppProvider({ children }: AppProviderProps) {
 
         if (localData) {
             refreshStates(localData)
-            console.log('Localdata encontrado!', new Date().getMilliseconds())
+            consoleFeedback('info', 'startAppData', 'Dados do LocalStorage carregadas!')
         } else {
             try {
                 const externalData = await api.get('/user_data')
@@ -97,14 +98,13 @@ export function AppProvider({ children }: AppProviderProps) {
                 if (externalData.data) {
                     setFirstTimeInApp(false)
                     updateLocalDataAndStates(externalData.data)
-
-                    console.log('External data encontrado!', new Date().getMilliseconds())
+                    consoleFeedback('info', 'startAppData', 'Dados da API carregados!')
                 } else {
                     setFirstTimeInApp(true)
                 }
 
             } catch (error) {
-                console.log('startAppData:', error)
+                consoleFeedback('error', 'startAppData', error)
                 return
             }
         }
@@ -136,7 +136,6 @@ export function AppProvider({ children }: AppProviderProps) {
             if (wasThisRequestOneDayAfterTheLastRequest) {
                 await api.patch('/alter_score', { handleType })
                     .then(async response => {
-                        console.log(response.data)
                         const localData = await getLocalData();
                         localData.score = response.data.score;
                         localData.last_score_update = response.data.last_score_update;
@@ -144,12 +143,12 @@ export function AppProvider({ children }: AppProviderProps) {
                         await updateLocalDataAndStates(localData)
                         showToastSuccess()
                     })
-                    .catch((e) => {
-                        console.log('handleAlterScore | add: ', e)
+                    .catch((error) => {
+                        consoleFeedback('error', 'handleAlterScore', error)
                         showToastError()
                     })
             } else {
-                console.log('Erro: Validação local se o último resgate de pontos foi pelo menos no dia anterior.')
+                consoleFeedback('info', 'handleAlterScore', 'Não passou pela validação local, que verifica se o último resgate de pontos foi feito, pelo menos, no dia anterior.')
                 showToastError()
             }
         }
@@ -163,7 +162,6 @@ export function AppProvider({ children }: AppProviderProps) {
             //         await updateLocalDataAndStates(localData)
             //     })
             //     .catch((e) => {
-            //         console.log('handleAlterScore | sub: ', e)
             //         showToastError()
             //     })
         }
@@ -191,7 +189,7 @@ export function AppProvider({ children }: AppProviderProps) {
                     text1: 'Ops!',
                     text2: 'Não foi possível reiniciar o contador.',
                 })
-                console.log('restartStopwatch:', err)
+                consoleFeedback('error', 'restartStopwatch', err)
             })
     }
 
@@ -203,15 +201,16 @@ export function AppProvider({ children }: AppProviderProps) {
 
         if (localData) {
             setUserRelapseReasons(localData)
-            console.log('Local UserRelapseReasons encontrado')
+            consoleFeedback('info', 'fetchUserRelapseReasons', 'Dados do LocalStorage do UserRelapseReasons carregados.')
         } else {
             await api.get('/relapse_reasons').then(
                 async response => {
                     await AsyncStorage.setItem('@lets:relapse_reasons', JSON.stringify(response.data))
                     setUserRelapseReasons(JSON.stringify(response.data))
-                    console.log('External UserRelapseReasons encontrado')
+                    consoleFeedback('info', 'fetchUserRelapseReasons', 'Dados externos do UserRelapseReasons carregados.')
                 }
-            ).catch(error => console.log('fetchUserRelapseReasons:', error))
+            ).catch(error => consoleFeedback('error', 'fetchUserRelapseReasons', error))
+
         }
     }
 

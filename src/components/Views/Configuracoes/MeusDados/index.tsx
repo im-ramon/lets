@@ -5,7 +5,7 @@ import Toast from 'react-native-toast-message';
 import { styles } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Clipboard from 'expo-clipboard';
-
+import consoleFeedback from '../../../../utils/consoleConfig';
 import { InputStyled, LabelStyled, FieldAreaStyled, FormStyled } from '../../../parts/_SytyledComponents'
 import { THEME } from '../../../../theme';
 import { ButtonMedium } from '../../../parts/ButtonMedium';
@@ -52,7 +52,7 @@ export function MeusDados() {
                 })
 
         } catch (error) {
-            console.log('salveNewName:', error)
+            consoleFeedback('error', 'salveNewName', error)
             Toast.show({
                 type: 'error',
                 text1: 'Algo deu errado!',

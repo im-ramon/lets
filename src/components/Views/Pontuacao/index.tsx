@@ -12,6 +12,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { styles } from './styles';
 import { THEME } from '../../../theme';
 import niveis from '../../../utils/ranking';
+import consoleFeedback from '../../../utils/consoleConfig';
 
 export function Pontuacao() {
     const ref = useRef<any>(null)
@@ -27,10 +28,10 @@ export function Pontuacao() {
         setShowBorderOnScreenshot(true)
         captureRef(ref)
             .then(async uri => {
-                console.log('Image saved to', uri);
+                consoleFeedback('info', 'handleScreenshot', `Imagem salva no seguinte diretório: ${uri}`)
                 await Sharing.shareAsync(uri);
             })
-            .catch(error => console.error('Oops, snapshot failed', error))
+            .catch(error => consoleFeedback('error', 'handleScreenshot', error))
             .finally(() => { setShowBorderOnScreenshot(false) })
     }
 

@@ -26,6 +26,7 @@ import { styles } from './styles';
 import { THEME } from '../../../theme';
 import { formRules } from '../../../utils/formRules';
 import { Loading } from '../Loading';
+import consoleFeedback from '../../../utils/consoleConfig';
 
 
 // Skiping no erro de tipagem no gráfico
@@ -82,10 +83,10 @@ export function Home() {
         setShowChartSubtitle(true)
         captureRef(ref)
             .then(async uri => {
-                console.log('Image saved to', uri);
+                consoleFeedback('info', 'handleScreenshot', `Imagem salva no seguinte diretório: ${uri}`)
                 await Sharing.shareAsync(uri);
             })
-            .catch(error => console.error('Oops, snapshot failed', error))
+            .catch(error => consoleFeedback('error', 'handleScreenshot', error))
             .finally(() => {
                 setWaitingScreenshot(false)
                 setShowChartSubtitle(false)
@@ -272,7 +273,7 @@ export function Home() {
                 })
 
         } catch (e) {
-            console.log('handleStartFirstUserData | Erro: ', e)
+            consoleFeedback('error', 'handleStartFirstUserData', e)
         }
         setIsLoadingHome(false)
     }
