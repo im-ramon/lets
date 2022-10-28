@@ -103,7 +103,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 token: response.data.token
             })
 
-            setIsLocalAuthenticationRequired(true)
             vibrate('success');
             setLoadingAuth(false)
 

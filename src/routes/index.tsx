@@ -20,6 +20,7 @@ export default function Routes() {
         if (authRequired && authRequired === 'true') {
             setIsLocalAuthenticationRequired(JSON.parse(authRequired))
         } else {
+            setIsLocalAuthenticationRequired(false)
             setIsLocallyAuthenticated(true)
         }
     }
