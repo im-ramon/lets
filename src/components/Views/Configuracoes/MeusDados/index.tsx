@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ToastAndroid, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ToastAndroid, ActivityIndicator } from 'react-native';
 import { AuthContext } from '../../../../contexts/auth';
-import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import { styles } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';

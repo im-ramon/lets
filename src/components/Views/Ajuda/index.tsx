@@ -5,9 +5,8 @@ import { styles } from './styles';
 
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons'
 
-import { ButtonMedium } from '../../parts/ButtonMedium';
 import { Titulo } from '../../parts/Titulo';
-import { PageContainerView, PageScrollViewContainer } from '../../parts/_SytyledComponents';
+import { PageScrollViewContainer } from '../../parts/_SytyledComponents';
 import { THEME } from '../../../theme';
 
 import { CardInfo } from '../../parts/CardInfo';

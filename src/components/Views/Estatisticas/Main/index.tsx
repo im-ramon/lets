@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 import { Titulo } from '../../../parts/Titulo';
 import { CardInfo } from '../../../parts/CardInfo';
 
 import { AppContext } from '../../../../contexts/app';
 
-import { Ionicons, MaterialCommunityIcons, AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'
 import { styles } from './styles';
 import { THEME } from '../../../../theme';
 import moment from 'moment';

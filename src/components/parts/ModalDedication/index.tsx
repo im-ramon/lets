@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Modal, ModalProps, TouchableOpacity } from 'react-native';
 import { Titulo } from '../Titulo'
 
 import { Ionicons } from '@expo/vector-icons'
@@ -14,12 +14,7 @@ interface ModalDedicationProps extends ModalProps {
 
 export function ModalDedication({ header, modalVisible, children, handleModal, ...rest }: ModalDedicationProps) {
     return (
-        <Modal
-            {...rest}
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-        >
+        <Modal {...rest} animationType="slide" transparent={true} visible={modalVisible}>
             <View style={styles.containerModal}>
                 <View style={styles.contentModal}>
                     <TouchableOpacity onPress={() => { handleModal(false) }} style={styles.closeButton}>
@@ -33,7 +28,6 @@ export function ModalDedication({ header, modalVisible, children, handleModal, .
                     {children}
                 </View>
             </View>
-
         </Modal>
     );
 }

@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Button, Modal, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { View, Text, ScrollView, Image, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
 
 import { Welcome } from '../../Welcome';
 import Toast from 'react-native-toast-message';

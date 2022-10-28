@@ -6,15 +6,12 @@ import * as Sharing from 'expo-sharing';
 
 import { Titulo } from '../../parts/Titulo';
 import { ModalShort } from '../../parts/ModalShort';
-import { ButtonMedium } from '../../parts/ButtonMedium';
 import { ButtonTrasnparent } from '../../parts/ButtonTrasnparent';
 import { AppContext } from '../../../contexts/app';
 import { Ionicons } from '@expo/vector-icons'
 import { styles } from './styles';
 import { THEME } from '../../../theme';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import niveis from '../../../utils/ranking';
-import { api } from '../../../services/api';
 
 export function Pontuacao() {
     const ref = useRef<any>(null)

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Button, Modal, StyleSheet, Alert, ToastAndroid } from 'react-native';
+import { View, Text, Button, StyleSheet, ToastAndroid } from 'react-native';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 

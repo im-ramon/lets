@@ -51,6 +51,5 @@ export default function Routes() {
         return <Loading />
     }
 
-    // return (isAuthenticated ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
     return ((isAuthenticated && isLocallyAuthenticated) ? <AppProvider><AuthRoutes /></AppProvider> : <AppRoutes />);
 }

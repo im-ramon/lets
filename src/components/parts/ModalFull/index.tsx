@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { Titulo } from '../Titulo'
+import { View, StyleSheet, Modal, ModalProps, KeyboardAvoidingView, Platform } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons'
 import { THEME } from '../../../theme';
 
 interface ModalFullProps extends ModalProps {
@@ -12,12 +10,7 @@ interface ModalFullProps extends ModalProps {
 
 export function ModalFull({ modalVisible, children, ...rest }: ModalFullProps) {
     return (
-        <Modal
-            {...rest}
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-        >
+        <Modal {...rest} animationType="slide" transparent={true} visible={modalVisible}>
             <View style={styles.containerModal}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} style={styles.contentModal}>

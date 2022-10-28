@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, ModalProps, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { Titulo } from '../Titulo'
+import { View, StyleSheet, Modal, ModalProps, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons'
 import { THEME } from '../../../theme';
@@ -13,12 +12,7 @@ interface ModalShortProps extends ModalProps {
 
 export function ModalShort({ modalVisible, children, handleModal, ...rest }: ModalShortProps) {
     return (
-        <Modal
-            {...rest}
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-        >
+        <Modal {...rest} animationType="slide" transparent={true} visible={modalVisible}>
             <View style={styles.containerModal}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} style={styles.contentModal}>
@@ -47,7 +41,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingBottom: 160,
         width: '90%',
-        // height: '90%',
     },
     closeButton: {
         position: 'absolute',

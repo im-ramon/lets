@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View, FlatList, Text } from 'react-native';
+import { AppContext } from '../../../../contexts/app';
 
 import { CardInfo } from '../../../parts/CardInfo';
-
-import { AppContext } from '../../../../contexts/app';
 
 import { styles } from './styles';
 import moment from 'moment';

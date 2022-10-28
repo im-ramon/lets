@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Button } from 'react-native';
-import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { View, Text, Dimensions, Image, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import ViewShot, { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import { useInterval } from 'usehooks-ts'
@@ -133,38 +133,6 @@ export function Home() {
     // -------------------------------------------------------------- Fim -------------------------------------------------------------- //
 
 
-    // Calendar picker configurations
-    const [dateLastConsumption, setDateLastConsumption] = useState<Date>(new Date());
-    const [timeLastConsumption, setTimeLastConsumption] = useState<Date>(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [showTimePicker, setShowTimePicker] = useState(false);
-
-    const onChangeDate = (event: any, selectedDate: any) => {
-        const currentDate = selectedDate;
-        setShowDatePicker(false);
-
-        if (moment(currentDate).isAfter(new Date())) {
-            Alert.alert(
-                'Escolha uma data válida.',
-                `Não são permitidas datas no futuro. \nVocê selecionou a data: ${moment(currentDate).format('DD/MM/YYYY')}`,
-                [{
-                    text: 'Fechar', style: 'cancel',
-                }]
-            )
-
-            setDateLastConsumption(new Date());
-            return
-        }
-
-        setDateLastConsumption(currentDate);
-    };
-
-    const onChangeTime = (event: any, selectedTime: any) => {
-        const currentTime = selectedTime;
-        setShowTimePicker(false);
-        setTimeLastConsumption(currentTime);
-    };
-
     // Relapse picker configurations
     const [dateRelapse, setDateRelapse] = useState(new Date());
 
@@ -179,7 +147,7 @@ export function Home() {
                     text: 'Fechar', style: 'cancel',
                 }]
             )
-            setDateLastConsumption(new Date());
+            setDateRelapse(new Date());
         } else {
             setDateRelapse(currentDate);
         }
@@ -300,8 +268,7 @@ export function Home() {
             })
                 .then(response => updateLocalDataAndStates(response.data))
                 .then(() => {
-                    setDateLastConsumption(new Date());
-                    setTimeLastConsumption(new Date())
+                    setDateRelapse(new Date());
                 })
 
         } catch (e) {

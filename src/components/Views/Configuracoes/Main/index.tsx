@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Share, Image, Linking, Alert, Switch, ActivityIndicator } from 'react-native';
 import { AuthContext } from '../../../../contexts/auth';
-import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { Titulo } from '../../../parts/Titulo';
 import { CardInfo } from '../../../parts/CardInfo';
-import { ButtonTrasnparent } from '../../../parts/ButtonTrasnparent';
 
 import { styles } from './styles';
 import { THEME } from '../../../../theme';

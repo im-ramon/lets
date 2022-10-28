@@ -1,7 +1,4 @@
-import { useState } from 'react';
-import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 
 import { THEME } from '../../../theme'
 
@@ -11,14 +8,6 @@ import { Recaidas } from './Recaidas'
 const Stack = createStackNavigator();
 
 export function Estatisticas() {
-    const generalThemeRoutes = {
-        ...DefaultTheme,
-        colors: {
-            ...DefaultTheme.colors,
-            background: THEME.COLORS.BACKGROUND_1,
-        },
-    }
-
     return (
         <Stack.Navigator
             initialRouteName='EstatisticasMain'
