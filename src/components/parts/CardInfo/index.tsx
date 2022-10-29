@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     cardConfiguracoes: {
         flexDirection: 'row',
         width: '100%',
-        borderBottomColor: THEME.COLORS.NEUTRAL_4,
+        borderBottomColor: THEME.COLORS['DARK'].NEUTRAL_4,
         borderBottomWidth: 1,
         marginTop: 8,
         paddingBottom: 8,
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     },
     cardConfiguracoesTextTitle: {
         fontFamily: THEME.FONT_FAMILY.BOLD,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.MD
     },
     cardConfiguracoesTextDescription: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         fontSize: THEME.FONT_SIZE.SM
     },
 });

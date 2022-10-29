@@ -17,7 +17,7 @@ export function ModalShort({ modalVisible, children, handleModal, ...rest }: Mod
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} style={styles.contentModal}>
                     <TouchableOpacity onPress={() => { handleModal(false) }} style={styles.closeButton}>
-                        <Ionicons name="ios-close-outline" size={28} color={THEME.COLORS.PRIMARY} />
+                        <Ionicons name="ios-close-outline" size={28} color={THEME.COLORS['DARK'].PRIMARY} />
                     </TouchableOpacity>
                     {children}
                 </KeyboardAvoidingView>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     contentModal: {
-        backgroundColor: THEME.COLORS.BACKGROUND_1,
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
         position: 'relative',
         paddingHorizontal: 16,
         paddingBottom: 160,
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     },
     closeButton: {
         position: 'absolute',
-        backgroundColor: THEME.COLORS.BACKGROUND_1,
-        borderColor: THEME.COLORS.BLACK,
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
+        borderColor: THEME.COLORS['DARK'].BLACK,
         borderWidth: 2,
         right: -12,
         top: -12,

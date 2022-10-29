@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.MD,
         fontFamily: THEME.FONT_FAMILY.REGULAR
     },

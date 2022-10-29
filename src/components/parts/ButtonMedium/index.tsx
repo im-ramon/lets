@@ -18,7 +18,7 @@ export function ButtonMedium({ value, children, color, ...rest }: ButtonProps) {
 
 const styles = StyleSheet.create({
     container: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         paddingHorizontal: 32,
         paddingVertical: 12,
         justifyContent: 'center',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,

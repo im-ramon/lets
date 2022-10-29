@@ -23,7 +23,7 @@ export function BlocoConteudo(props: BlocoProps) {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomColor: THEME.COLORS.NEUTRAL_4,
+        borderBottomColor: THEME.COLORS['DARK'].NEUTRAL_4,
         borderBottomWidth: 1,
         paddingBottom: 16,
         marginBottom: 32

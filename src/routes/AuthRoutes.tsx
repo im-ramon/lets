@@ -17,12 +17,12 @@ export default function AuthRoutes() {
             screenOptions={{
                 headerShown: false,
                 tabBarHideOnKeyboard: true,
-                tabBarActiveBackgroundColor: THEME.COLORS.PRIMARY,
-                tabBarActiveTintColor: THEME.COLORS.NEUTRAL_1,
+                tabBarActiveBackgroundColor: THEME.COLORS['DARK'].PRIMARY,
+                tabBarActiveTintColor: THEME.COLORS['DARK'].NEUTRAL_1,
                 tabBarStyle: {
-                    backgroundColor: THEME.COLORS.BACKGROUND_1,
+                    backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
                     borderTopWidth: 0,
-                    borderTopColor: THEME.COLORS.BLACK,
+                    borderTopColor: THEME.COLORS['DARK'].BLACK,
                 }
             }}>
 

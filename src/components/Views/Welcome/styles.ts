@@ -10,11 +10,11 @@ export const styles = StyleSheet.create({
         position: 'relative'
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR
     },
     strong: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.BLACK,
     },
     textBemvindo: {
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.DANCINGSCRIPT_BOLD
     },
     textApresentacao: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         textAlign: 'right',
         paddingTop: 24,
         paddingBottom: 32,
@@ -54,6 +54,6 @@ export const styles = StyleSheet.create({
     logoText: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.MD,
-        color: THEME.COLORS.TEXT
+        color: THEME.COLORS['DARK'].TEXT
     },
 })

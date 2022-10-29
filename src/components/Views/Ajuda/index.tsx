@@ -17,28 +17,28 @@ export function Ajuda() {
     return (
         <PageScrollViewContainer>
             <Titulo title='Ajuda' subtitle='Precisando de ajuda para se manter no foco?! Então os itens abaixo são para você.'>
-                <Ionicons name="help-buoy-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                <Ionicons name="help-buoy-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
             </Titulo>
 
             <View style={{ paddingTop: 16 }}>
                 <CardInfo title='Instagram' description='Conheça meu trabalho no Instagram' onPress={() => Linking.openURL('https://www.instagram.com/especialistax')}>
-                    <Ionicons name="logo-instagram" size={24} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="logo-instagram" size={24} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <CardInfo title='Site oficial' description='Acesse meu site para mais conteúdos' onPress={() => Linking.openURL('https://www.especialistax.com/')}>
-                    <Ionicons name="globe-outline" size={24} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="globe-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <CardInfo title='Meu livro' description='“Manual para uma vida DESPORNIFICADA”' onPress={() => Linking.openURL('https://www.especialistax.com/product-page/manual-para-uma-vida-despornificada')}>
-                    <Ionicons name="book-outline" size={24} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="book-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <CardInfo title='Mentoria' description='Elimine a pornografia de forma definitiva' onPress={() => Linking.openURL('https://especialista-x.com.br/cursodes')}>
-                    <Ionicons name="people-outline" size={24} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="people-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <CardInfo title='Blog' description='Mais conteúdo para você' onPress={() => Linking.openURL('https://www.especialistax.com/blog')}>
-                    <Ionicons name="reader-outline" size={24} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="reader-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <View style={styles.socialIconsArea}>

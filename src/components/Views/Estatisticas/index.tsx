@@ -24,9 +24,9 @@ export function Estatisticas() {
                     headerShown: true,
                     headerTitle: 'Motivos que te levaram a recair',
                     headerStyle: {
-                        backgroundColor: THEME.COLORS.BACKGROUND_1,
+                        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
                     },
-                    headerTintColor: THEME.COLORS.TEXT,
+                    headerTintColor: THEME.COLORS['DARK'].TEXT,
                 }}
             />
         </Stack.Navigator>

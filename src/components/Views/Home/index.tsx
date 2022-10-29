@@ -53,9 +53,9 @@ export function Home() {
     const screenWidth = Dimensions.get("window").width;
 
     const chartConfig = {
-        backgroundGradientFrom: THEME.COLORS.BACKGROUND_1,
+        backgroundGradientFrom: THEME.COLORS['DARK'].BACKGROUND_1,
         backgroundGradientFromOpacity: 0,
-        backgroundGradientTo: THEME.COLORS.BACKGROUND_1,
+        backgroundGradientTo: THEME.COLORS['DARK'].BACKGROUND_1,
         backgroundGradientToOpacity: 0.5,
         color: (opacity = 1) => `rgba(193, 81, 71, ${opacity})`,
         strokeWidth: 2, // optional, default 3
@@ -313,12 +313,12 @@ export function Home() {
 
                             {!waitingScreenshot && (
                                 <TouchableOpacity style={styles.shareButton} onPress={() => handleScreenshot()} >
-                                    <Ionicons name="ios-share-social-outline" size={24} color={THEME.COLORS.TEXT} />
+                                    <Ionicons name="ios-share-social-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />
                                 </TouchableOpacity>
                             )}
 
                             <Titulo title='Evolução' subtitle='Esse é o gráfico do seu progresso nos últimos noventa dias sem conteúdo explíto, tente mantê-lo o mais limpo possível.'>
-                                <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.PRIMARY} />
+                                <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color={THEME.COLORS['DARK'].PRIMARY} />
                             </Titulo>
 
                             <ContributionGraph
@@ -396,11 +396,11 @@ export function Home() {
                                     style={styles.graficoEvolucaoSubtitleArea}
                                 >
                                     <View style={[styles.graficoEvolucaoSubtitleItem, { marginRight: 32 }]}>
-                                        <FontAwesome5 name="square-full" size={18} color={THEME.COLORS.PRIMARY + 50} />
+                                        <FontAwesome5 name="square-full" size={18} color={THEME.COLORS['DARK'].PRIMARY + 50} />
                                         <Text style={styles.graficoEvolucaoText}>Período sem consumo</Text>
                                     </View>
                                     <View style={styles.graficoEvolucaoSubtitleItem}>
-                                        <FontAwesome5 name="square-full" size={18} color={THEME.COLORS.PRIMARY} />
+                                        <FontAwesome5 name="square-full" size={18} color={THEME.COLORS['DARK'].PRIMARY} />
                                         <Text style={styles.graficoEvolucaoText}>Recaída</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -411,7 +411,7 @@ export function Home() {
                                     style={styles.helpArea}
                                     onPress={() => setShowChartSubtitle(true)}
                                 >
-                                    <FontAwesome5 name="question-circle" size={18} color={THEME.COLORS.PRIMARY} />
+                                    <FontAwesome5 name="question-circle" size={18} color={THEME.COLORS['DARK'].PRIMARY} />
                                     <Text style={styles.helpAreaText}>Exibir legenda</Text>
                                 </TouchableOpacity>
                             )}
@@ -435,7 +435,7 @@ export function Home() {
                         </View>
                     </ViewShot>
 
-                    <ButtonMedium color={THEME.COLORS.PRIMARY} value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
+                    <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
                         <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
                     </ButtonMedium>
                 </View>
@@ -448,7 +448,7 @@ export function Home() {
 
                 <ModalShort modalVisible={showQuestionsModal} handleModal={setShowQuestionsModal}>
                     <Titulo title={'Reiniciar contador'} subtitle="Recaiu? Calma! Levanta a cabeça e vamos tentar novamente!" >
-                        <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                        <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
                     </Titulo>
 
                     <View style={styles.modalRestartContainer}>
@@ -462,7 +462,7 @@ export function Home() {
                                     onChangeText={setReiniciarMotivo}
                                     value={reiniciarMotivo}
                                     placeholder="Tédio, solidão, fotos antigas, sites..."
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                    placeholderTextColor={THEME.COLORS['DARK'].SEMANTIC_2}
                                     maxLength={formRules.maxLengthInput}
                                 />
                             </FieldAreaStyled>
@@ -477,7 +477,7 @@ export function Home() {
                                 multiline={true}
                                 numberOfLines={6}
                                 placeholder="Escreva um pouco como você se sente neste momento..."
-                                placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                placeholderTextColor={THEME.COLORS['DARK'].SEMANTIC_2}
                                 maxLength={formRules.maxLengthTextArea}
                                 textAlignVertical='top'
                             />
@@ -487,14 +487,14 @@ export function Home() {
                             </LabelStyled>
                             <View style={styles.dateTimePickerArea}>
                                 <DatePickerStyledContainer onPress={showDatepicker}>
-                                    <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                    <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS['DARK'].PRIMARY} />
                                     <Text style={styles.text}>
                                         {moment(dateRelapse).format('DD/MM/YYYY')}
                                     </Text>
                                 </DatePickerStyledContainer>
 
                                 <DatePickerStyledContainer onPress={showTimepicker}>
-                                    <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                    <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS['DARK'].PRIMARY} />
                                     <Text style={styles.text}>
                                         {moment(dateRelapse).format('HH:mm')}
                                     </Text>
@@ -505,15 +505,15 @@ export function Home() {
                     </View>
 
                     <View style={styles.buttonArea}>
-                        <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => handleRestartStopWatch(dateRelapse, reiniciarMotivo)} value='Reiniciar contador'>
-                            {isLoadingHome && <ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.SM} />}
+                        <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} onPress={() => handleRestartStopWatch(dateRelapse, reiniciarMotivo)} value='Reiniciar contador'>
+                            {isLoadingHome && <ActivityIndicator color={THEME.COLORS['DARK'].TEXT} size={THEME.FONT_SIZE.SM} />}
                         </ButtonMedium>
                     </View>
                 </ModalShort>
 
                 <ModalFull modalVisible={firstTimeInApp}>
                     <Titulo title={'Primeira vez no App?'} subtitle="Vamos fazer algumas configurações inicais." >
-                        <Ionicons name="flag-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                        <Ionicons name="flag-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
                     </Titulo>
 
                     <View style={styles.modalRestartContainer}>
@@ -525,14 +525,14 @@ export function Home() {
 
                                 <View style={styles.dateTimePickerArea}>
                                     <DatePickerStyledContainer onPress={showDatepicker}>
-                                        <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                        <Ionicons name="calendar-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS['DARK'].PRIMARY} />
                                         <Text style={styles.text}>
                                             {moment(dateRelapse).format('DD/MM/YYYY')}
                                         </Text>
                                     </DatePickerStyledContainer>
 
                                     <DatePickerStyledContainer onPress={showTimepicker}>
-                                        <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS.PRIMARY} />
+                                        <Ionicons name="time-outline" style={{ marginRight: 8 }} size={16} color={THEME.COLORS['DARK'].PRIMARY} />
                                         <Text style={styles.text}>
                                             {moment(dateRelapse).format('HH:mm')}
                                         </Text>
@@ -545,8 +545,8 @@ export function Home() {
                     </View>
 
                     <View style={styles.buttonArea}>
-                        <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => handleSetUserExternalAndLocalData()} value='Continuar'>
-                            {isLoadingHome && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                        <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} onPress={() => handleSetUserExternalAndLocalData()} value='Continuar'>
+                            {isLoadingHome && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS['DARK'].TEXT} />}
                         </ButtonMedium>
                     </View>
                 </ModalFull>

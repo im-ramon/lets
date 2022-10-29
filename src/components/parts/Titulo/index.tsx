@@ -24,13 +24,13 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.LG,
         marginVertical: 16
     },
     subtitle: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         fontSize: THEME.FONT_SIZE.SM,
         textAlign: 'justify',
     }

@@ -60,16 +60,16 @@ export function Pontuacao() {
                 title='Pontuação'
                 subtitle='Vamos tornar sua evolução mais divertida. Confira abaixo sua patente dentro no nosso ranking ;)'
             >
-                <Ionicons name="medal-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                <Ionicons name="medal-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles.buttonsHeader}>
                     <TouchableOpacity style={styles.infoButton} onPress={() => { handleScreenshot() }}>
-                        <Ionicons name="ios-share-social-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.SEMANTIC_2} />
+                        <Ionicons name="ios-share-social-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS['DARK'].SEMANTIC_2} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.infoButton} onPress={() => { setShowScoreModal(true) }}>
-                        <Ionicons name="information-circle-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.SEMANTIC_2} />
+                        <Ionicons name="information-circle-outline" size={THEME.FONT_SIZE.LG} color={THEME.COLORS['DARK'].SEMANTIC_2} />
                     </TouchableOpacity>
                 </View>
                 <ViewShot ref={ref} options={{ format: "jpg", quality: 0.9 }}>
@@ -102,9 +102,9 @@ export function Pontuacao() {
                 <View style={styles.buttonArea}>
                     <ButtonTrasnparent value='Receber pontos' onPress={() => handleAlterScore('add')}>
                         {isLoading ?
-                            (<ActivityIndicator size={25} color={THEME.COLORS.TEXT} />)
+                            (<ActivityIndicator size={25} color={THEME.COLORS['DARK'].TEXT} />)
                             :
-                            (<Ionicons name="add-circle-outline" size={24} color={THEME.COLORS.TEXT} />)
+                            (<Ionicons name="add-circle-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />)
                         }
                     </ButtonTrasnparent>
                 </View>
@@ -115,16 +115,16 @@ export function Pontuacao() {
                 modalVisible={showScoreModal}
             >
                 <Titulo title='Cálculo da pontuação' subtitle='Veja como os pontos são calculados:'>
-                    <Ionicons name="medal-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                    <Ionicons name="medal-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
                 </Titulo>
 
                 <ScrollView style={styles.scoreInformationscrollView}>
                     <Text style={styles.scoreInformationText}>
-                        <Ionicons name="checkmark-circle-outline" size={THEME.FONT_SIZE.MD} color={THEME.COLORS.SUCCESS} /> 1 dia sem consumo: <Text style={styles.bold}>+ 5 pontos</Text>
+                        <Ionicons name="checkmark-circle-outline" size={THEME.FONT_SIZE.MD} color={THEME.COLORS['DARK'].SUCCESS} /> 1 dia sem consumo: <Text style={styles.bold}>+ 5 pontos</Text>
                     </Text>
 
                     <Text style={styles.scoreInformationText}>
-                        <Ionicons name="md-sad-outline" size={THEME.FONT_SIZE.MD} color={THEME.COLORS.DANGER} /> Recaída: <Text style={styles.bold}>- 40 pontos</Text>
+                        <Ionicons name="md-sad-outline" size={THEME.FONT_SIZE.MD} color={THEME.COLORS['DARK'].DANGER} /> Recaída: <Text style={styles.bold}>- 40 pontos</Text>
                     </Text>
 
                     <Text style={styles.scoreInformationSubtitle}>

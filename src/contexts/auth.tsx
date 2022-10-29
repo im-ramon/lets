@@ -14,6 +14,8 @@ type AuthContextData = {
     loading: boolean;
     errorLogin: boolean;
     userIdOnClipboard: string;
+    themeMode: 'DARK' | 'LIGHT',
+    setThemeMode: React.Dispatch<React.SetStateAction<"DARK" | "LIGHT">>,
     setUserIdOnClipboard: React.Dispatch<React.SetStateAction<string>>;
     signIn: (info: SignInProps) => Promise<void>;
     signOut: () => Promise<void>;
@@ -61,28 +63,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [errorLogin, setErrorLogin] = useState<boolean>(false)
     const [createdUserId, setCreatedUserId] = useState<string>('')
     const [isLocalAuthenticationRequired, setIsLocalAuthenticationRequired] = useState<boolean>(false)
+    const [themeMode, setThemeMode] = useState<'DARK' | 'LIGHT'>('DARK')
 
     const isAuthenticated = !!user.name;
 
-    useEffect(() => {
-        async function getUser() {
-            const userInfo = await AsyncStorage.getItem('@lets:user_logged')
-            let hasUser: UserProps = JSON.parse(userInfo || '{}')
+    async function getUser() {
+        const userInfo = await AsyncStorage.getItem('@lets:user_logged')
+        let hasUser: UserProps = JSON.parse(userInfo || '{}')
 
-            if (Object.keys(hasUser).length > 0) {
-                setTokenToAxios(hasUser.token)
+        if (Object.keys(hasUser).length > 0) {
+            setTokenToAxios(hasUser.token)
 
-                setUser({
-                    id: hasUser.id,
-                    name: hasUser.name,
-                    token: hasUser.token
-                })
-            }
-            setLoading(false)
+            setUser({
+                id: hasUser.id,
+                name: hasUser.name,
+                token: hasUser.token
+            })
         }
-
-        getUser()
-    }, [])
+        setLoading(false)
+    }
 
     async function signIn({ id, password }: SignInProps) {
         setLoadingAuth(true)
@@ -129,7 +128,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         vibrate('click');
     }
 
-
     async function signUp({ name, password }: SignUpProps) {
         setLoadingAuth(true)
 
@@ -166,6 +164,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         await AsyncStorage.removeItem('@lets:is_local_authentication_required')
     }
 
+    async function loadThemeMode() {
+        const theme = await AsyncStorage.getItem('@lets:theme_mode')
+        if (theme == 'DARK' || theme == 'LIGHT') {
+            setThemeMode(theme)
+        } else {
+            setThemeMode('DARK')
+        }
+    }
+
     function setTokenToAxios(token: string) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
@@ -192,6 +199,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     }
 
+    useEffect(() => {
+        loadThemeMode()
+        getUser()
+    }, [])
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -202,6 +214,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             createdUserId,
             isLocalAuthenticationRequired,
             userIdOnClipboard,
+            themeMode,
+            setThemeMode,
             setUserIdOnClipboard,
             setLoading,
             setUser,

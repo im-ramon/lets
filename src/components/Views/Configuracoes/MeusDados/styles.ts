@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
         padding: 16,
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
         fontSize: THEME.FONT_SIZE.SM
     },
     subtitle: {
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
         fontSize: THEME.FONT_SIZE.DT,
         textAlign: 'right'

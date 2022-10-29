@@ -80,14 +80,14 @@ export function SingIn() {
                             <LabelStyled>Código de acesso</LabelStyled>
                             <View style={styles.inputCameraArea}>
                                 <TouchableOpacity style={styles.inputCameraButton} onPress={() => navigation.navigate('Scanner')}>
-                                    <Ionicons name="camera-outline" size={16} color={THEME.COLORS.TEXT} />
+                                    <Ionicons name="camera-outline" size={16} color={THEME.COLORS['DARK'].TEXT} />
                                 </TouchableOpacity>
                                 <InputStyled
                                     onChangeText={setUserId}
                                     value={userId}
                                     autoCompleteType='username'
                                     placeholder="Digite seu código de acesso aqui"
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                    placeholderTextColor={THEME.COLORS['DARK'].SEMANTIC_2}
                                     maxLength={formRules.maxLengthTextArea}
                                 />
                             </View>
@@ -101,13 +101,13 @@ export function SingIn() {
                                 ref={refInputPalavraPasse}
                                 autoCompleteType='password'
                                 placeholder="Digite sua palavra passe aqui"
-                                placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                placeholderTextColor={THEME.COLORS['DARK'].SEMANTIC_2}
                                 maxLength={formRules.maxLengthTextArea}
                             />
                         </FieldAreaStyled>
                         <View style={styles.buttonArea}>
-                            <ButtonMedium color={THEME.COLORS.PRIMARY} value='Entrar' onPress={() => handleLogin(userId, userPassword)}>
-                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                            <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} value='Entrar' onPress={() => handleLogin(userId, userPassword)}>
+                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS['DARK'].TEXT} />}
                             </ButtonMedium>
                         </View>
                     </FormStyled>

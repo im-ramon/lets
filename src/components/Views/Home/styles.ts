@@ -10,16 +10,16 @@ export const styles = StyleSheet.create({
         paddingVertical: 32
     },
     bloco: {
-        borderBottomColor: THEME.COLORS.NEUTRAL_4,
+        borderBottomColor: THEME.COLORS['DARK'].NEUTRAL_4,
         borderBottomWidth: 1,
         paddingBottom: 16,
         marginBottom: 24,
         width: '100%',
         position: 'relative',
-        backgroundColor: THEME.COLORS.BACKGROUND_1
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
     },
     navMenu: {
         flexDirection: 'row',
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     logoText: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.MD,
-        color: THEME.COLORS.TEXT
+        color: THEME.COLORS['DARK'].TEXT
     },
     pontosContainer: {
         justifyContent: 'center'
@@ -48,25 +48,25 @@ export const styles = StyleSheet.create({
     pontosText: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.SM,
-        color: THEME.COLORS.TEXT
+        color: THEME.COLORS['DARK'].TEXT
     },
     boasvindasTextH1: {
         fontSize: THEME.FONT_SIZE.LG,
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         marginVertical: 4,
         paddingHorizontal: 16,
     },
     boasvindasTextP: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.SM,
     },
     graficoEvolucao: {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: THEME.COLORS.BACKGROUND_1
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1
     },
     graficoEvolucaoSubtitleArea: {
         flexDirection: 'row',
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
     },
     graficoEvolucaoText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.DT,
         marginLeft: 8
     },
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     },
     helpAreaText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.DT,
         marginLeft: 4
     },
@@ -106,7 +106,7 @@ export const styles = StyleSheet.create({
     },
     contadorEvolucaoHeader: {
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.SM,
         width: '100%',
         textAlign: 'center'
@@ -115,7 +115,7 @@ export const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.MD + 2,
         paddingVertical: 8,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         marginHorizontal: 4,
     },
     chart: {
@@ -123,10 +123,10 @@ export const styles = StyleSheet.create({
     },
     contadorEvolucaoTextbold: {
         fontFamily: THEME.FONT_FAMILY.BLACK,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
     },
     contadorEvolucaoTextGrey: {
-        color: THEME.COLORS.NEUTRAL_3,
+        color: THEME.COLORS['DARK'].NEUTRAL_3,
     },
     shareButton: {
         position: 'absolute',
@@ -136,7 +136,7 @@ export const styles = StyleSheet.create({
     },
     textDedicatoria: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         textAlign: 'center',
         paddingBottom: 16
     },

@@ -17,7 +17,7 @@ export function ButtonTrasnparent({ value, children, ...rest }: ButtonProps) {
 
 const styles = StyleSheet.create({
     container: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         paddingHorizontal: 32,
         paddingVertical: 12,
         justifyContent: 'center',
@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: 250,
         borderWidth: 1,
-        borderColor: THEME.COLORS.PRIMARY,
+        borderColor: THEME.COLORS['DARK'].PRIMARY,
         marginVertical: 8
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,

@@ -15,8 +15,8 @@ export function ButtonLarge({ value, ...rest }: ButtonProps) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: THEME.COLORS.PRIMARY,
-        color: THEME.COLORS.TEXT,
+        backgroundColor: THEME.COLORS['DARK'].PRIMARY,
+        color: THEME.COLORS['DARK'].TEXT,
         width: '100%',
         paddingHorizontal: 16,
         paddingVertical: 16,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: THEME.FONT_FAMILY.BOLD,

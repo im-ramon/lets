@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
         paddingVertical: 8
     },
     text: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR
     },
     bold: {
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: THEME.FONT_SIZE.MD + 4,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
         paddingVertical: 16
     },
@@ -67,13 +67,13 @@ export const styles = StyleSheet.create({
     },
     helpText: {
         fontSize: THEME.FONT_SIZE.DT,
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         textAlign: 'right',
         paddingTop: 8,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
     },
     strong: {
-        color: THEME.COLORS.PRIMARY,
+        color: THEME.COLORS['DARK'].PRIMARY,
         fontFamily: THEME.FONT_FAMILY.BOLD
     },
     cameraContainer: {
@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 16,
-        backgroundColor: THEME.COLORS.BACKGROUND_1 + 'dd',
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1 + 'dd',
     },
     titleArea: {
         justifyContent: 'center',
@@ -91,14 +91,14 @@ export const styles = StyleSheet.create({
     },
     cameraTitle: {
         fontSize: THEME.FONT_SIZE.MD,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.BOLD,
         zIndex: 10,
     },
     cameraSubtitle: {
         fontSize: THEME.FONT_SIZE.MD,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         zIndex: 10
     },
     cameraButtonArea: {
@@ -110,11 +110,11 @@ export const styles = StyleSheet.create({
         marginBottom: 32
     },
     copyIdArea: {
-        backgroundColor: THEME.COLORS.BLACK,
+        backgroundColor: THEME.COLORS['DARK'].BLACK,
         flexDirection: 'row'
     },
     copyIdTextArea: {
-        backgroundColor: THEME.COLORS.BLACK,
+        backgroundColor: THEME.COLORS['DARK'].BLACK,
         padding: 16,
     },
     iconArea: {
@@ -123,12 +123,12 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textModal: {
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
         marginBottom: 8,
     },
     qrCodeArea: {
-        backgroundColor: THEME.COLORS.BLACK,
+        backgroundColor: THEME.COLORS['DARK'].BLACK,
         flexDirection: 'row',
         padding: 16,
         justifyContent: 'center'

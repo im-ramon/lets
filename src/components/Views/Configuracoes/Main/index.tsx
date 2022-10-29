@@ -44,25 +44,31 @@ const alertaFuncionalidadeIndisponivel = () =>
     ]);
 
 export function Main() {
-    const { isLocalAuthenticationRequired, signOut, setIsLocalAuthenticationRequired } = useContext(AuthContext)
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-
-    const toggleSwitch = async () => {
-        setIsLoading(true)
-        await AsyncStorage.setItem('@lets:is_local_authentication_required', JSON.stringify(!isLocalAuthenticationRequired))
-        setIsLocalAuthenticationRequired(previousState => !previousState)
-        setIsLoading(false)
-    };
+    const { isLocalAuthenticationRequired, signOut, setIsLocalAuthenticationRequired, themeMode, setThemeMode } = useContext(AuthContext)
 
     const navigation = useNavigation()
+
+    const [isLoadingToggleLocalAuth, setIsLoadingToggleLocalAuth] = useState<boolean>(false)
+
+    async function toggleSwitch() {
+        setIsLoadingToggleLocalAuth(true)
+        await AsyncStorage.setItem('@lets:is_local_authentication_required', JSON.stringify(!isLocalAuthenticationRequired))
+        setIsLocalAuthenticationRequired(previousState => !previousState)
+        setIsLoadingToggleLocalAuth(false)
+    };
+
+    async function toggleThemeMode(themeMode: 'DARK' | 'LIGHT') {
+        alertaFuncionalidadeIndisponivel()
+        setThemeMode(themeMode)
+        await AsyncStorage.setItem('@lets:theme_mode', themeMode)
+    };
 
     return (
         <View style={styles.container}>
             <Titulo
                 title='Configurações'
             >
-                <Ionicons name="settings-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                <Ionicons name="settings-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
@@ -71,7 +77,7 @@ export function Main() {
                     description='Visualize e altere seus dados'
                     onPress={() => navigation.navigate('MeusDados')}
                 >
-                    <Ionicons name="person-outline" size={32} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="person-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <View style={styles.CardInfoContainer}>
@@ -81,16 +87,16 @@ export function Main() {
                             title="Solicitar digital ou PIN"
                             description='Ative a solicitação de sua digital ou PIN ao entrar no App'
                         >
-                            <Ionicons name="finger-print-outline" size={32} color={THEME.COLORS.TEXT} />
+                            <Ionicons name="finger-print-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
-                        {isLoading ?
-                            (<ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.LG} />)
+                        {isLoadingToggleLocalAuth ?
+                            (<ActivityIndicator color={THEME.COLORS['DARK'].TEXT} size={THEME.FONT_SIZE.LG} />)
                             :
                             (<Switch
-                                trackColor={{ false: THEME.COLORS.NEUTRAL_4, true: THEME.COLORS.NEUTRAL_3 }}
-                                thumbColor={isLocalAuthenticationRequired ? THEME.COLORS.SUCCESS : THEME.COLORS.NEUTRAL_2}
+                                trackColor={{ false: THEME.COLORS['DARK'].NEUTRAL_4, true: THEME.COLORS['DARK'].NEUTRAL_3 }}
+                                thumbColor={isLocalAuthenticationRequired ? THEME.COLORS['DARK'].SUCCESS : THEME.COLORS['DARK'].NEUTRAL_2}
                                 ios_backgroundColor="#3e3e3e"
                                 onValueChange={toggleSwitch}
                                 value={isLocalAuthenticationRequired}
@@ -106,22 +112,22 @@ export function Main() {
                     title='Apagar meus dados'
                     description='Solicite que todos os seus dados sejam apagados permanentemente'
                 >
-                    <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS.TEXT} />
+                    <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo> 
                 */}
 
                 <View style={styles.CardInfoContainer}>
                     <View style={{ flex: 1 }}>
                         <CardInfo onPress={() => alertaFuncionalidadeIndisponivel()} title='Tema' description="Alterne entre os temas 'Light' e 'Dark'">
-                            <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS.TEXT} />
+                            <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS['DARK'].TEXT} />
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
-                        <TouchableOpacity onPress={() => alertaFuncionalidadeIndisponivel()} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonDark }}>
-                            <Ionicons name="moon-sharp" size={16} color={THEME.COLORS.NEUTRAL_1} />
+                        <TouchableOpacity onPress={() => toggleThemeMode('DARK')} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonDark, opacity: (themeMode === 'DARK' ? 1 : .25) }}>
+                            <Ionicons name="moon-sharp" size={16} color={THEME.COLORS['DARK'].NEUTRAL_1} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => alertaFuncionalidadeIndisponivel()} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonLight, opacity: .25 }}>
-                            <Ionicons name="sunny-sharp" size={16} color={THEME.COLORS.BLACK} />
+                        <TouchableOpacity onPress={() => toggleThemeMode('LIGHT')} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonLight, opacity: (themeMode === 'LIGHT' ? 1 : .25) }}>
+                            <Ionicons name="sunny-sharp" size={16} color={THEME.COLORS['DARK'].BLACK} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -131,12 +137,12 @@ export function Main() {
                     description="Compartilhe o App “Let's!” com seus amigos"
                     onPress={() => { onShare() }}
                 >
-                    <Ionicons name="people-outline" size={32} color={THEME.COLORS.TEXT} />
+                    <Ionicons name="people-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
                 </CardInfo>
 
                 <View style={{ marginTop: 32 }}>
                     <ButtonMedium
-                        color={THEME.COLORS.DANGER}
+                        color={THEME.COLORS['DARK'].DANGER}
                         value='Sair da conta'
                         onPress={() => signOut()} />
                 </View>

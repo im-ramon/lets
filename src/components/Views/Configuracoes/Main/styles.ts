@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
         width: '100%',
     },
     text: {
-        color: THEME.COLORS.TEXT
+        color: THEME.COLORS['DARK'].TEXT
     },
     cardConfiguracoes: {
         flexDirection: 'row',
@@ -41,17 +41,17 @@ export const styles = StyleSheet.create({
         width: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomColor: THEME.COLORS.NEUTRAL_4,
+        borderBottomColor: THEME.COLORS['DARK'].NEUTRAL_4,
         borderBottomWidth: 1,
     },
     cardConfiguracoesTextTitle: {
         fontFamily: THEME.FONT_FAMILY.BOLD,
-        color: THEME.COLORS.TEXT,
+        color: THEME.COLORS['DARK'].TEXT,
         fontSize: THEME.FONT_SIZE.MD
     },
     cardConfiguracoesTextDescription: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         fontSize: THEME.FONT_SIZE.SM
     },
     developerArea: {
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     },
     developerAreaText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         fontSize: THEME.FONT_SIZE.SM - 2,
         marginBottom: 4
     },
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     },
     developerLogoText: {
         fontFamily: THEME.FONT_FAMILY.REGULAR,
-        color: THEME.COLORS.SEMANTIC_2,
+        color: THEME.COLORS['DARK'].SEMANTIC_2,
         fontSize: THEME.FONT_SIZE.SM,
         lineHeight: 16,
     },
@@ -90,13 +90,13 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
-        borderColor: THEME.COLORS.NEUTRAL_4
+        borderColor: THEME.COLORS['DARK'].NEUTRAL_4
     },
     toggleThemeButtonDark: {
-        backgroundColor: THEME.COLORS.BLACK,
+        backgroundColor: THEME.COLORS['DARK'].BLACK,
         marginBottom: 8
     },
     toggleThemeButtonLight: {
-        backgroundColor: THEME.COLORS.NEUTRAL_1
+        backgroundColor: THEME.COLORS['DARK'].NEUTRAL_1
     }
 });

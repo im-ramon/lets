@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     contentModal: {
-        backgroundColor: THEME.COLORS.BACKGROUND_1,
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
         position: 'relative',
         paddingHorizontal: 16,
         paddingBottom: 160,
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     },
     closeButton: {
         position: 'absolute',
-        backgroundColor: THEME.COLORS.BACKGROUND_1,
-        borderColor: THEME.COLORS.BLACK,
+        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
+        borderColor: THEME.COLORS['DARK'].BLACK,
         borderWidth: 2,
         right: -12,
         top: -12,

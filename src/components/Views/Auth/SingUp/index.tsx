@@ -50,7 +50,7 @@ export function SingUp() {
             <PageScrollViewContainer style={styles.scrollViewContainer}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Titulo title='Cadastrar-se' subtitle='Cadastra-se e tenha acesso completo ao App. Nenhum dado pessoal precisa ser informado.'>
-                        <Ionicons name="person-add-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                        <Ionicons name="person-add-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
                     </Titulo>
                     <FormStyled style={{ marginTop: 32 }}>
                         <FieldAreaStyled>
@@ -61,7 +61,7 @@ export function SingUp() {
                                     value={nome}
                                     autoCompleteType='username'
                                     placeholder="Digite seu nome ou apelido aqui"
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                    placeholderTextColor={THEME.COLORS['DARK'].SEMANTIC_2}
                                     maxLength={formRules.maxLengthTextArea}
                                 />
                             </View>
@@ -76,7 +76,7 @@ export function SingUp() {
                                     value={palavraPasse}
                                     autoCompleteType='username'
                                     placeholder="Escolha uma palavra passe"
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                    placeholderTextColor={THEME.COLORS['DARK'].SEMANTIC_2}
                                     maxLength={64}
                                     autoCapitalize='none'
                                 />
@@ -86,8 +86,8 @@ export function SingUp() {
                         </FieldAreaStyled>
 
                         <View style={styles.buttonArea}>
-                            <ButtonMedium color={THEME.COLORS.PRIMARY} value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
-                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                            <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
+                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS['DARK'].TEXT} />}
                             </ButtonMedium>
                         </View>
                     </FormStyled>
@@ -100,18 +100,18 @@ export function SingUp() {
                 handleModal={setShowModalCreatedUser}
             >
                 <Titulo title='Cadastro realizado!'>
-                    <Ionicons name="checkmark-circle-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                    <Ionicons name="checkmark-circle-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
                 </Titulo>
 
                 <View style={styles.modalContent}>
                     <Text style={styles.textModal}>Seu ID para login é:</Text>
                     <TouchableOpacity style={styles.copyIdArea} onPress={() => copyToClipboard()}>
                         <ScrollView horizontal={true} style={styles.copyIdTextArea}>
-                            <Text style={styles.text}>{createdUserId || (<ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.PRIMARY} />)}</Text>
+                            <Text style={styles.text}>{createdUserId || (<ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS['DARK'].PRIMARY} />)}</Text>
                         </ScrollView>
                         <View style={styles.iconArea}>
                             <TouchableOpacity onPress={() => copyToClipboard()}>
-                                <Ionicons name="copy-outline" size={24} color={THEME.COLORS.TEXT} />
+                                <Ionicons name="copy-outline" size={24} color={THEME.COLORS['DARK'].TEXT} />
                             </TouchableOpacity>
                         </View>
                     </TouchableOpacity>
@@ -120,13 +120,13 @@ export function SingUp() {
                     </View>
                     <Text style={styles.textModal}>Gere um QR Code com seu ID, assim, da próxima vez que acessar o App, basta escaneá-lo:</Text>
                     <TouchableOpacity style={styles.qrCodeArea} onPress={() => { Linking.openURL(`https://chart.googleapis.com/chart?cht=qr&chs=512x512&chl=${createdUserId}`); }}>
-                        <Ionicons name="ios-qr-code-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                        <Ionicons name="ios-qr-code-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
                         <Text style={{ ...styles.text, marginLeft: 8 }}>Gerar QRCode</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonAreaModal}>
                     <ButtonLarge value='Continuar' onPress={() => signIn({ id: createdUserId, password: palavraPasse })}>
-                        {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                        {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS['DARK'].TEXT} />}
                     </ButtonLarge>
                 </View>
 
