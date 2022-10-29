@@ -78,8 +78,8 @@ export function MeusDados() {
                     </TouchableOpacity>
                     <Text style={styles.subtitle}>Clique no campo para copiar seu ID.</Text>
                 </FieldAreaStyled>
-                <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} onPress={() => salveNewName()} value='Salvar'>
-                    {isLoading && <ActivityIndicator color={THEME.COLORS['DARK'].TEXT} size={THEME.FONT_SIZE.SM} />}
+                <ButtonMedium color={THEME.COLORS.PRIMARY} onPress={() => salveNewName()} value='Salvar'>
+                    {isLoading && <ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.SM} />}
                 </ButtonMedium>
             </FormStyled>
         </View>

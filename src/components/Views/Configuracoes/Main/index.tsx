@@ -68,7 +68,7 @@ export function Main() {
             <Titulo
                 title='Configurações'
             >
-                <Ionicons name="settings-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
+                <Ionicons name="settings-outline" size={24} color={THEME.COLORS.PRIMARY} />
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
@@ -77,7 +77,7 @@ export function Main() {
                     description='Visualize e altere seus dados'
                     onPress={() => navigation.navigate('MeusDados')}
                 >
-                    <Ionicons name="person-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <Ionicons name="person-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <View style={styles.CardInfoContainer}>
@@ -87,16 +87,16 @@ export function Main() {
                             title="Solicitar digital ou PIN"
                             description='Ative a solicitação de sua digital ou PIN ao entrar no App'
                         >
-                            <Ionicons name="finger-print-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                            <Ionicons name="finger-print-outline" size={32} color={THEME.COLORS.TEXT} />
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
                         {isLoadingToggleLocalAuth ?
-                            (<ActivityIndicator color={THEME.COLORS['DARK'].TEXT} size={THEME.FONT_SIZE.LG} />)
+                            (<ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.LG} />)
                             :
                             (<Switch
-                                trackColor={{ false: THEME.COLORS['DARK'].NEUTRAL_4, true: THEME.COLORS['DARK'].NEUTRAL_3 }}
-                                thumbColor={isLocalAuthenticationRequired ? THEME.COLORS['DARK'].SUCCESS : THEME.COLORS['DARK'].NEUTRAL_2}
+                                trackColor={{ false: THEME.COLORS.NEUTRAL_4, true: THEME.COLORS.NEUTRAL_3 }}
+                                thumbColor={isLocalAuthenticationRequired ? THEME.COLORS.SUCCESS : THEME.COLORS.NEUTRAL_2}
                                 ios_backgroundColor="#3e3e3e"
                                 onValueChange={toggleSwitch}
                                 value={isLocalAuthenticationRequired}
@@ -112,22 +112,22 @@ export function Main() {
                     title='Apagar meus dados'
                     description='Solicite que todos os seus dados sejam apagados permanentemente'
                 >
-                    <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <MaterialIcons name="privacy-tip" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo> 
                 */}
 
                 <View style={styles.CardInfoContainer}>
                     <View style={{ flex: 1 }}>
                         <CardInfo onPress={() => alertaFuncionalidadeIndisponivel()} title='Tema' description="Alterne entre os temas 'Light' e 'Dark'">
-                            <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                            <MaterialCommunityIcons name="theme-light-dark" size={32} color={THEME.COLORS.TEXT} />
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
                         <TouchableOpacity onPress={() => toggleThemeMode('DARK')} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonDark, opacity: (themeMode === 'DARK' ? 1 : .25) }}>
-                            <Ionicons name="moon-sharp" size={16} color={THEME.COLORS['DARK'].NEUTRAL_1} />
+                            <Ionicons name="moon-sharp" size={16} color={THEME.COLORS.NEUTRAL_1} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => toggleThemeMode('LIGHT')} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonLight, opacity: (themeMode === 'LIGHT' ? 1 : .25) }}>
-                            <Ionicons name="sunny-sharp" size={16} color={THEME.COLORS['DARK'].BLACK} />
+                            <Ionicons name="sunny-sharp" size={16} color={THEME.COLORS.BLACK} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -137,12 +137,12 @@ export function Main() {
                     description="Compartilhe o App “Let's!” com seus amigos"
                     onPress={() => { onShare() }}
                 >
-                    <Ionicons name="people-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <Ionicons name="people-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <View style={{ marginTop: 32 }}>
                     <ButtonMedium
-                        color={THEME.COLORS['DARK'].DANGER}
+                        color={THEME.COLORS.DANGER}
                         value='Sair da conta'
                         onPress={() => signOut()} />
                 </View>

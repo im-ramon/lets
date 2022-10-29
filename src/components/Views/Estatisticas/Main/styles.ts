@@ -15,6 +15,6 @@ export const styles = StyleSheet.create({
         paddingTop: 16
     },
     text: {
-        color: THEME.COLORS['DARK'].TEXT
+        color: THEME.COLORS.TEXT
     },
 });

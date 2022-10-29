@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
-        color: THEME.COLORS['DARK'].TEXT
+        color: THEME.COLORS.TEXT
     },
     socialIconsArea: {
         marginTop: 64,
@@ -21,6 +21,6 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     socialIconsIcon: {
-        color: THEME.COLORS['DARK'].PRIMARY,
+        color: THEME.COLORS.PRIMARY,
     }
 });

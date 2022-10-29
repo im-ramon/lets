@@ -31,7 +31,7 @@ export default function App() {
         ...DefaultTheme,
         colors: {
             ...DefaultTheme.colors,
-            background: THEME.COLORS['DARK'].BACKGROUND_1,
+            background: THEME.COLORS.BACKGROUND_1,
         },
     }
 

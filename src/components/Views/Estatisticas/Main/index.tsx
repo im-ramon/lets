@@ -28,7 +28,7 @@ export function EstatisticasMain() {
                 title='Estatísticas'
                 subtitle='Aqui estão suas estatísticas desde o começo da jornada para romper com hábito de consumo de conteúdo explícito.'
             >
-                <Ionicons name="stats-chart-outline" size={24} color={THEME.COLORS['DARK'].PRIMARY} />
+                <Ionicons name="stats-chart-outline" size={24} color={THEME.COLORS.PRIMARY} />
             </Titulo>
 
             <ScrollView style={styles.scrollViewContainer}>
@@ -36,21 +36,21 @@ export function EstatisticasMain() {
                     title='Maior tempo sem consumo'
                     description={formatRecordNoConsumption()}
                 >
-                    <MaterialCommunityIcons name="arm-flex-outline" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <MaterialCommunityIcons name="arm-flex-outline" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <CardInfo
                     title='Última recaída'
                     description={moment(lastConsumption).format("DD/MM/YYYY [às] HH:mm:ss")}
                 >
-                    <AntDesign name="exclamation" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <AntDesign name="exclamation" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <CardInfo
                     title='Número total de recaídas'
                     description={totalRelapse}
                 >
-                    <MaterialCommunityIcons name="restart-alert" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <MaterialCommunityIcons name="restart-alert" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
 
                 <CardInfo
@@ -58,7 +58,7 @@ export function EstatisticasMain() {
                     description='Toque para visualizar'
                     onPress={() => navigation.navigate('Recaidas')}
                 >
-                    <AntDesign name="questioncircleo" size={32} color={THEME.COLORS['DARK'].TEXT} />
+                    <AntDesign name="questioncircleo" size={32} color={THEME.COLORS.TEXT} />
                 </CardInfo>
             </ScrollView>
         </View>

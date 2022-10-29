@@ -18,10 +18,10 @@ export const styles = StyleSheet.create({
     content: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1,
+        backgroundColor: THEME.COLORS.BACKGROUND_1,
     },
     text: {
-        color: THEME.COLORS['DARK'].TEXT,
+        color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR
     },
     bold: {
@@ -38,19 +38,19 @@ export const styles = StyleSheet.create({
     },
     patenteScreenshotStyle: {
         borderWidth: 4,
-        borderColor: THEME.COLORS['DARK'].PRIMARY
+        borderColor: THEME.COLORS.PRIMARY
     },
     patentSlug: {
-        color: THEME.COLORS['DARK'].TEXT,
+        color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.XL,
         marginTop: 32,
         paddingHorizontal: 8,
         borderBottomWidth: 1,
-        borderBottomColor: THEME.COLORS['DARK'].PRIMARY
+        borderBottomColor: THEME.COLORS.PRIMARY
     },
     patenteDescription: {
-        color: THEME.COLORS['DARK'].SEMANTIC_2,
+        color: THEME.COLORS.SEMANTIC_2,
         fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
         fontSize: THEME.FONT_SIZE.MD,
         marginTop: 8,
@@ -89,13 +89,13 @@ export const styles = StyleSheet.create({
     },
     scoreInformationText: {
         fontSize: THEME.FONT_SIZE.MD,
-        color: THEME.COLORS['DARK'].TEXT,
+        color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
     },
     scoreInformationSubtitle: {
         marginTop: 32,
         fontSize: THEME.FONT_SIZE.SM,
-        color: THEME.COLORS['DARK'].TEXT,
+        color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.REGULAR,
     }
 });

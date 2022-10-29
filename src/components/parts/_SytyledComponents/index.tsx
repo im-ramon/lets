@@ -8,43 +8,43 @@ export const FieldAreaStyled = styled.View`
     `
 
 export const InputStyled = styled.TextInput`
-  background-color: ${THEME.COLORS['DARK'].BACKGROUND_2};
+  background-color: ${THEME.COLORS.BACKGROUND_2};
   border-bottom-width: 1px;
-  border-bottom-color: ${THEME.COLORS['DARK'].PRIMARY};
+  border-bottom-color: ${THEME.COLORS.PRIMARY};
   font-family: ${THEME.FONT_FAMILY.REGULAR};
   height: 40px;
   padding-left: 8px;
   padding-right: 32px;
-  color: ${THEME.COLORS['DARK'].TEXT};
+  color: ${THEME.COLORS.TEXT};
 `
 export const DatePickerStyledContainer = styled.TouchableOpacity`
-  background-color: ${THEME.COLORS['DARK'].BACKGROUND_2};
+  background-color: ${THEME.COLORS.BACKGROUND_2};
   width: 46%;
   border-bottom-width: 1px;
-  border-bottom-color: ${THEME.COLORS['DARK'].PRIMARY};
+  border-bottom-color: ${THEME.COLORS.PRIMARY};
   font-family: ${THEME.FONT_FAMILY.REGULAR};
   height: 40px;
   padding-left: 8px;
   padding-right: 32px;
   align-items: center;
   flex-direction: row;
-  color: ${THEME.COLORS['DARK'].TEXT};
+  color: ${THEME.COLORS.TEXT};
 `
 
 export const TextAreaStyled = styled.TextInput`
-  background-color: ${THEME.COLORS['DARK'].BACKGROUND_2};
+  background-color: ${THEME.COLORS.BACKGROUND_2};
   border-bottom-width: 1px;
-  border-bottom-color: ${THEME.COLORS['DARK'].PRIMARY};
+  border-bottom-color: ${THEME.COLORS.PRIMARY};
   font-family: ${THEME.FONT_FAMILY.REGULAR};
   height: 40px;
   padding-left: 8px;
   padding-right: 8px;
-  color: ${THEME.COLORS['DARK'].TEXT};
+  color: ${THEME.COLORS.TEXT};
   height: 250px;
 `
 
 export const LabelStyled = styled.Text`
-    color: ${THEME.COLORS['DARK'].TEXT};
+    color: ${THEME.COLORS.TEXT};
     margin-bottom: 8px;
     font-family: ${THEME.FONT_FAMILY.REGULAR};
     padding-left: 8px;

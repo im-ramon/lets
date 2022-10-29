@@ -10,7 +10,7 @@ export function Loading() {
                 <Text style={styles.text}>
                     <Text style={styles.strong}>Let's!</Text> <Text style={styles.pipe}>|</Text> Especialista X</Text>
             </View>
-            <ActivityIndicator color={THEME.COLORS['DARK'].PRIMARY} size={32} />
+            <ActivityIndicator color={THEME.COLORS.PRIMARY} size={32} />
         </View>
     )
 }
@@ -20,17 +20,17 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: THEME.COLORS['DARK'].BACKGROUND_1
+        backgroundColor: THEME.COLORS.BACKGROUND_1
     },
     text: {
         fontSize: THEME.FONT_SIZE.MD,
-        color: THEME.COLORS['DARK'].TEXT
+        color: THEME.COLORS.TEXT
     },
     strong: {
         fontWeight: 'bold',
     },
     pipe: {
-        color: THEME.COLORS['DARK'].NEUTRAL_2
+        color: THEME.COLORS.NEUTRAL_2
     },
     logoArea: {
         padding: 8,

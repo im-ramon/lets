@@ -72,7 +72,7 @@ export function Scanner() {
 
                 {scanned && <Button title={'Escanear novamente'} onPress={() => setScanned(false)} />}
                 <View style={styles.cameraButtonArea}>
-                    <ButtonMedium color={THEME.COLORS['DARK'].PRIMARY} value='Voltar' onPress={() => navigation.navigate('SingIn')} />
+                    <ButtonMedium color={THEME.COLORS.PRIMARY} value='Voltar' onPress={() => navigation.navigate('SingIn')} />
                 </View>
             </View>
         </View>
