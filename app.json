@@ -1,45 +1,45 @@
 {
-    "expo": {
-        "name": "Let's!",
-        "slug": "lets",
-        "version": "0.0.2",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "dark",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#171717"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "notification": {
-            "icon": "./assets/icon.png"
-        },
-        "ios": {
-            "bundleIdentifier": "com.app.lets",
-            "supportsTablet": true
-        },
-        "android": {
-            "package": "com.app.lets",
-            "googleServicesFile": "./google-services.json",
-            "versionCode": 1,
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#171717"
-            }
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "6d121f95-4647-4778-b3f1-1bbdd88e19f3"
-            }
-        }
+  "expo": {
+    "name": "Let's!",
+    "slug": "lets",
+    "version": "0.0.2",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#171717"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "notification": {
+      "icon": "./assets/icon.png"
+    },
+    "ios": {
+      "bundleIdentifier": "com.app.lets",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.app.lets",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#171717"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "789e86fe-e7cc-42eb-b05e-28ace38b1c4e"
+      }
     }
+  }
 }
