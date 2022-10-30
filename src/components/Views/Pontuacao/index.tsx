@@ -13,6 +13,7 @@ import { styles } from './styles';
 import { THEME } from '../../../theme';
 import niveis from '../../../utils/ranking';
 import consoleFeedback from '../../../utils/consoleConfig';
+import { MotiImage, useAnimationState } from 'moti/build';
 
 export function Pontuacao() {
     const ref = useRef<any>(null)
@@ -23,6 +24,14 @@ export function Pontuacao() {
     const [showBorderOnScreenshot, setShowBorderOnScreenshot] = useState<boolean>(false)
     const [showScoreModal, setShowScoreModal] = useState<boolean>(false)
 
+    const toggleAnimate = useAnimationState({
+        first: {
+            translateY: -128
+        },
+        secound: {
+            translateY: 0
+        }
+    })
 
     function handleScreenshot() {
         setShowBorderOnScreenshot(true)
@@ -37,7 +46,20 @@ export function Pontuacao() {
 
     function checkNivel() {
         const infoNivelNow = niveis.filter(el => el.pontos <= score).slice(-1)[0]
-        setNivelNow(infoNivelNow.nivel)
+
+        if (nivelNow != infoNivelNow.nivel) {
+
+            toggleAnimate.transitionTo('secound')
+
+            setTimeout(() => {
+                toggleAnimate.transitionTo('first')
+                setNivelNow(infoNivelNow.nivel)
+            }, 50);
+
+            setTimeout(() => {
+                toggleAnimate.transitionTo('secound')
+            }, 700);
+        }
     }
 
     function searchDiffPointsToNextLevel() {
@@ -77,7 +99,8 @@ export function Pontuacao() {
                         <View
                             style={styles.patenteArea}
                         >
-                            <Image
+                            <MotiImage
+                                state={toggleAnimate}
                                 source={niveis[nivelNow].img}
                                 style={styles.patenteImage}
                             />
