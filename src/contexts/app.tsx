@@ -17,6 +17,7 @@ type AppContextData = {
     firstTimeInApp: boolean;
     isLoading: boolean;
     isLoadingData: boolean;
+    lastScoreUpdate: string;
     setLastConsumption: React.Dispatch<React.SetStateAction<string>>;
     setRecordNoConsumption: React.Dispatch<React.SetStateAction<number>>;
     setTotalRelapse: React.Dispatch<React.SetStateAction<number>>;
@@ -231,6 +232,7 @@ export function AppProvider({ children }: AppProviderProps) {
             firstTimeInApp,
             isLoading,
             isLoadingData,
+            lastScoreUpdate,
             updateLocalDataAndStates,
             handleAlterScore,
             setLastConsumption,

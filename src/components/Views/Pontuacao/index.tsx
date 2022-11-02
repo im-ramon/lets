@@ -14,10 +14,13 @@ import { THEME } from '../../../theme';
 import niveis from '../../../utils/ranking';
 import consoleFeedback from '../../../utils/consoleConfig';
 import { MotiImage, useAnimationState } from 'moti/build';
+import moment from 'moment';
 
 export function Pontuacao() {
     const ref = useRef<any>(null)
-    const { score, handleAlterScore, isLoading } = useContext(AppContext)
+    const { score, isLoading, lastScoreUpdate, handleAlterScore } = useContext(AppContext)
+
+    const wasThisRequestOneDayAfterTheLastRequest = moment().isAfter(lastScoreUpdate, 'day');
 
     const [nivelNow, setNivelNow] = useState<number>(0)
     const [diffPointsToNextLevel, setDiffPointsToNextLevel] = useState<number>(0)
@@ -123,7 +126,7 @@ export function Pontuacao() {
                 </View>
 
                 <View style={styles.buttonArea}>
-                    <ButtonTrasnparent value='Receber pontos' onPress={() => handleAlterScore('add')}>
+                    <ButtonTrasnparent value='Receber pontos' badge={wasThisRequestOneDayAfterTheLastRequest ? '1' : null} onPress={() => handleAlterScore('add')}>
                         {isLoading ?
                             (<ActivityIndicator size={25} color={THEME.COLORS.TEXT} />)
                             :
