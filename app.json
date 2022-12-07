@@ -1,8 +1,8 @@
 {
     "expo": {
-        "name": "Let's!",
+        "name": "Let's",
         "slug": "lets",
-        "version": "0.0.2",
+        "version": "0.0.5",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "dark",
@@ -27,7 +27,7 @@
         "android": {
             "package": "com.app.lets",
             "googleServicesFile": "./google-services.json",
-            "versionCode": 1,
+            "versionCode": 5,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#171717"

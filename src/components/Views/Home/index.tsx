@@ -296,7 +296,7 @@ export function Home() {
                             style={styles.logoContainer}
                         >
                             <Image source={logo} style={styles.logoImg} />
-                            <Text style={styles.logoText}>Let's!</Text>
+                            <Text style={styles.logoText}>Let's</Text>
                         </TouchableOpacity>
 
                         <View style={styles.pontosContainer}>
@@ -345,7 +345,7 @@ export function Home() {
                                 </TouchableOpacity>
                             )}
 
-                            <Titulo title='Evolução' subtitle='Esse é o gráfico do seu progresso nos últimos noventa dias sem conteúdo explíto, tente mantê-lo o mais limpo possível.'>
+                            <Titulo title='Evolução' subtitle='Esse é o gráfico do seu progresso nos últimos noventa dias sem conteúdo explícito, tente mantê-lo o mais limpo possível.'>
                                 <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.PRIMARY} />
                             </Titulo>
 
@@ -501,8 +501,10 @@ export function Home() {
 
                 <ModalDedication header='Dedicatória' modalVisible={showDedicationModal} handleModal={handleDedication}>
                     <Text style={styles.textDedicatoria}>
-                        Esse App é um presente de um fã que admira muito o seu trabalho.
+                        Esse App é um presente de um fã que admira muito o seu trabalho. Espero que você possa continuar ajudando pessoas a livrarem-se desse vício, libertando-as, revivescendo suas relações e aproximando-as ou reaproximando-as de Deus.
                     </Text>
+                    <Text style={styles.textDedicatoria}>Que Deus continue te abençoando grandemente!</Text>
+                    <Text style={styles.textDedicatoria}>Te desejo sucesso!</Text>
                 </ModalDedication>
 
                 <ModalShort modalVisible={showQuestionsModal} handleModal={setShowQuestionsModal}>

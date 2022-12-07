@@ -18,7 +18,7 @@ const onShare = async () => {
     try {
         const result = await Share.share({
             message:
-                'Ei, achei esse App maneiro para ajudar a se livrar do consumo de conteúdo explício. Vou te mandar o link: LINKAQUI!!!!!',
+                'Oi, já viu o App da Leticia Balducci (especialistax)? Vou te mandar o link: https://play.google.com/store/apps/details?id=com.app.lets',
         });
         if (result.action === Share.sharedAction) {
             if (result.activityType) {
@@ -134,7 +134,7 @@ export function Main() {
 
                 <CardInfo
                     title='Convidar amigos'
-                    description="Compartilhe o App “Let's!” com seus amigos"
+                    description="Compartilhe o App “Let's” com seus amigos"
                     onPress={() => { onShare() }}
                 >
                     <Ionicons name="people-outline" size={32} color={THEME.COLORS.TEXT} />

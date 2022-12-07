@@ -63,6 +63,8 @@ export function SingIn() {
         signIn({ id, password })
     }
 
+    const regexValidatorPassword = /[^a-z0-9]/gi;
+
     useEffect(() => {
         fetchIfIsFirstTimeInApp();
     }, []);
@@ -73,11 +75,11 @@ export function SingIn() {
                 <View style={styles.content}>
                     <View style={styles.logoArea}>
                         <Image source={logo} style={styles.logoImg}></Image>
-                        <Text style={styles.logoText}><Text style={styles.bold}>Let's!</Text> | Especialista X</Text>
+                        <Text style={styles.logoText}><Text style={styles.bold}>Let's</Text> | Especialista X</Text>
                     </View>
                     <FormStyled>
                         <FieldAreaStyled>
-                            <LabelStyled>Código de acesso</LabelStyled>
+                            <LabelStyled>ID do usuário</LabelStyled>
                             <View style={styles.inputCameraArea}>
                                 <TouchableOpacity style={styles.inputCameraButton} onPress={() => navigation.navigate('Scanner')}>
                                     <Ionicons name="camera-outline" size={16} color={THEME.COLORS.TEXT} />
@@ -96,7 +98,7 @@ export function SingIn() {
                         <FieldAreaStyled>
                             <LabelStyled>Palavra passe</LabelStyled>
                             <InputStyled
-                                onChangeText={(value: string) => setUserPassword(validaPalavraPasse(value))}
+                                onChangeText={(value: string) => setUserPassword(value.replace(regexValidatorPassword, ''))}
                                 value={userPassword}
                                 ref={refInputPalavraPasse}
                                 autoCompleteType='password'

@@ -24,7 +24,7 @@ export function Welcome({ handleModal }: ModalWelcomeProps) {
 
             <View style={styles.logoContainer}>
                 <Image source={logo} style={styles.logoImg} />
-                <Text style={styles.logoText}>Let's!</Text>
+                <Text style={styles.logoText}>Let's</Text>
             </View>
 
             <View style={styles.main}>
@@ -34,7 +34,7 @@ export function Welcome({ handleModal }: ModalWelcomeProps) {
                 >
                     <Text style={[styles.text, styles.textBemvindo]}>Bem-vindo!</Text>
                     <Text style={[styles.text, styles.textApresentacao]}>
-                        Para quem ainda não me conhece, sou <Text style={styles.strong}>Letícia Balducci</Text>, especialista em sexualidade humana. O <Text style={styles.strong}>Let's!</Text> foi desenvolvido para te ajudar no rompimento com o hábito de consumo de conteúdo explícito. Clique em “continuar” e entraremos juntos nessa batalha para te livrar, definitivamente, desse mau hábito.
+                        Para quem ainda não me conhece, sou <Text style={styles.strong}>Letícia Balducci</Text>, especialista em sexualidade humana. O <Text style={styles.strong}>Let's</Text> foi desenvolvido para te ajudar no rompimento com o hábito de consumo de conteúdo explícito. Clique em “continuar” e entraremos juntos nessa batalha para te livrar, definitivamente, desse mau hábito.
                     </Text>
                     <ButtonLarge value="Continuar" onPress={() => handleModal(false)} />
                 </LinearGradient>

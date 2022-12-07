@@ -8,7 +8,7 @@ export function Loading() {
             <View style={styles.logoArea}>
                 <Image source={logo} style={styles.logo} />
                 <Text style={styles.text}>
-                    <Text style={styles.strong}>Let's!</Text> <Text style={styles.pipe}>|</Text> Especialista X</Text>
+                    <Text style={styles.strong}>Let's</Text> <Text style={styles.pipe}>|</Text> Especialista X</Text>
             </View>
             <ActivityIndicator color={THEME.COLORS.PRIMARY} size={32} />
         </View>

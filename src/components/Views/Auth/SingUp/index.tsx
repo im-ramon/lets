@@ -36,8 +36,9 @@ export function SingUp() {
             });
             return;
         }
+
+        await signUp({ name, password });
         setShowModalCreatedUser(true)
-        await signUp({ name, password })
     }
 
     async function copyToClipboard() {
