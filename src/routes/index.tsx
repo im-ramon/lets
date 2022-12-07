@@ -28,7 +28,7 @@ export default function Routes() {
     async function checkLocalAuthentication() {
         const response = await LocalAuthentication.authenticateAsync({
             cancelLabel: 'Cancelar',
-            promptMessage: "Autorizar acesso ao App Let's!"
+            promptMessage: "Autorizar acesso ao App Let's"
         })
 
         response.success ? setIsLocallyAuthenticated(true) : setIsLocallyAuthenticated(false)

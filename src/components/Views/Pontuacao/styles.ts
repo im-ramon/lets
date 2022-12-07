@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.BOLD
     },
     patenteArea: {
-        paddingTop: 32,
+        paddingTop: 16,
         alignItems: 'center',
         marginBottom: 16
     },

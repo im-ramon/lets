@@ -27,7 +27,7 @@ import { THEME } from '../../../theme';
 import { formRules } from '../../../utils/formRules';
 import { Loading } from '../Loading';
 import consoleFeedback from '../../../utils/consoleConfig';
-
+import { MotiView } from 'moti';
 
 // Skiping no erro de tipagem no gráfico
 const handleToolTip: any = {}
@@ -296,7 +296,7 @@ export function Home() {
                             style={styles.logoContainer}
                         >
                             <Image source={logo} style={styles.logoImg} />
-                            <Text style={styles.logoText}>Let's!</Text>
+                            <Text style={styles.logoText}>Let's</Text>
                         </TouchableOpacity>
 
                         <View style={styles.pontosContainer}>
@@ -304,12 +304,40 @@ export function Home() {
                         </View>
                     </View>
 
-                    <View style={styles.bloco}>
+                    <MotiView
+                        from={{
+                            opacity: 0,
+                            translateY: -10
+                        }}
+                        animate={{
+                            opacity: 1,
+                            translateY: 0
+                        }}
+                        transition={{
+                            type: 'timing',
+                            duration: 700,
+                        }}
+                        style={styles.bloco}>
                         <Text style={styles.boasvindasTextH1}>Olá, {userNameFormated}!</Text>
-                    </View>
+                    </MotiView>
 
                     <ViewShot style={{ ...styles.bloco, ...styles.viewShotStyle }} ref={ref} options={{ format: "jpg", quality: 0.9 }}>
-                        <View style={[styles.graficoEvolucao, styles.bloco]}>
+                        <MotiView
+                            style={[styles.graficoEvolucao, styles.bloco]}
+                            from={{
+                                opacity: 0,
+                                translateY: -10
+                            }}
+                            animate={{
+                                opacity: 1,
+                                translateY: 0
+                            }}
+                            transition={{
+                                type: 'timing',
+                                duration: 700,
+                                delay: 700
+                            }}
+                        >
 
                             {!waitingScreenshot && (
                                 <TouchableOpacity style={styles.shareButton} onPress={() => handleScreenshot()} >
@@ -317,7 +345,7 @@ export function Home() {
                                 </TouchableOpacity>
                             )}
 
-                            <Titulo title='Evolução' subtitle='Esse é o gráfico do seu progresso nos últimos noventa dias sem conteúdo explíto, tente mantê-lo o mais limpo possível.'>
+                            <Titulo title='Evolução' subtitle='Esse é o gráfico do seu progresso nos últimos noventa dias sem conteúdo explícito, tente mantê-lo o mais limpo possível.'>
                                 <FontAwesome5 name="chart-line" size={THEME.FONT_SIZE.LG} color={THEME.COLORS.PRIMARY} />
                             </Titulo>
 
@@ -416,9 +444,24 @@ export function Home() {
                                 </TouchableOpacity>
                             )}
 
-                        </View>
+                        </MotiView>
 
-                        <View style={[styles.contadorEvolucao, styles.bloco]}>
+                        <MotiView
+                            from={{
+                                opacity: 0,
+                                translateY: -10
+                            }}
+                            animate={{
+                                opacity: 1,
+                                translateY: 0
+                            }}
+                            transition={{
+                                type: 'timing',
+                                duration: 700,
+                                delay: 1400
+                            }}
+                            style={[styles.contadorEvolucao, styles.bloco]}
+                        >
                             <TouchableOpacity onPress={() => { setRandomMensageStopwatch() }} style={styles.contadorEvolucaoHeader}>
                                 <Text style={styles.contadorEvolucaoHeader}>Tempo {mensageStopwatch}</Text>
                             </TouchableOpacity>
@@ -432,18 +475,36 @@ export function Home() {
                                 <Text style={styles.contadorEvolucaoTextbold}> {timerData.minutos}</Text> m <Text style={styles.contadorEvolucaoTextGrey}>:</Text>
                                 <Text style={styles.contadorEvolucaoTextbold}> {timerData.segundos}</Text> s <Text style={styles.contadorEvolucaoTextGrey}></Text>
                             </Text>
-                        </View>
+                        </MotiView>
                     </ViewShot>
 
-                    <ButtonMedium color={THEME.COLORS.PRIMARY} value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
-                        <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
-                    </ButtonMedium>
+                    <MotiView
+                        from={{
+                            opacity: 0,
+                            translateX: -70
+                        }}
+                        animate={{
+                            opacity: 1,
+                            translateX: 0
+                        }}
+                        transition={{
+                            type: 'timing',
+                            duration: 700,
+                            delay: 1400
+                        }}
+                    >
+                        <ButtonMedium color={THEME.COLORS.PRIMARY} value='Reiniciar contador' onPress={() => setShowQuestionsModal(true)}>
+                            <MaterialCommunityIcons name="calendar-refresh-outline" size={24} color="white" />
+                        </ButtonMedium>
+                    </MotiView>
                 </View>
 
                 <ModalDedication header='Dedicatória' modalVisible={showDedicationModal} handleModal={handleDedication}>
                     <Text style={styles.textDedicatoria}>
-                        Esse App é um presente de um fã que admira muito o seu trabalho.
+                        Esse App é um presente de um fã que admira muito o seu trabalho. Espero que você possa continuar ajudando pessoas a livrarem-se desse vício, libertando-as, revivescendo suas relações e aproximando-as ou reaproximando-as de Deus.
                     </Text>
+                    <Text style={styles.textDedicatoria}>Que Deus continue te abençoando grandemente!</Text>
+                    <Text style={styles.textDedicatoria}>Te desejo sucesso!</Text>
                 </ModalDedication>
 
                 <ModalShort modalVisible={showQuestionsModal} handleModal={setShowQuestionsModal}>

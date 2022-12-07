@@ -36,8 +36,9 @@ export function SingUp() {
             });
             return;
         }
+
+        await signUp({ name, password });
         setShowModalCreatedUser(true)
-        await signUp({ name, password })
     }
 
     async function copyToClipboard() {
@@ -46,54 +47,53 @@ export function SingUp() {
     };
 
     return (
-        <PageContainerView>
-            <PageScrollViewContainer style={styles.scrollViewContainer}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <Titulo title='Cadastrar-se' subtitle='Cadastra-se e tenha acesso completo ao App. Nenhum dado pessoal precisa ser informado.'>
-                        <Ionicons name="person-add-outline" size={24} color={THEME.COLORS.PRIMARY} />
-                    </Titulo>
-                    <FormStyled style={{ marginTop: 32 }}>
-                        <FieldAreaStyled>
-                            <LabelStyled>Nome ou apelido</LabelStyled>
-                            <View style={styles.inputCameraArea}>
-                                <InputStyled
-                                    onChangeText={setNome}
-                                    value={nome}
-                                    autoCompleteType='username'
-                                    placeholder="Digite seu nome ou apelido aqui"
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
-                                    maxLength={formRules.maxLengthTextArea}
-                                />
-                            </View>
-                            <Text style={styles.helpText}>Essa informação não será divulgada, mas se preferir, escolha um apelido, não precisa informar seu nome verdadeiro.</Text>
-                        </FieldAreaStyled>
-
-                        <FieldAreaStyled>
-                            <LabelStyled>Palavra passe</LabelStyled>
-                            <View style={styles.inputCameraArea}>
-                                <InputStyled
-                                    onChangeText={(value: string) => setPalavraPasse(value.replace(regexValidatorPassword, ''))}
-                                    value={palavraPasse}
-                                    autoCompleteType='username'
-                                    placeholder="Escolha uma palavra passe"
-                                    placeholderTextColor={THEME.COLORS.SEMANTIC_2}
-                                    maxLength={64}
-                                    autoCapitalize='none'
-                                />
-                            </View>
-                            <Text style={styles.helpText}>Digite apenas letras e números. Caracteres especiais não são permitidos</Text>
-                            <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE:</Text> na versão atual do aplicativo, <Text style={styles.bold}>não há como recuperar ou redefinir a palavra passe</Text>, portanto, escolha uma palavra passe que possa lembra-se com facilidade.</Text>
-                        </FieldAreaStyled>
-
-                        <View style={styles.buttonArea}>
-                            <ButtonMedium color={THEME.COLORS.PRIMARY} value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
-                                {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
-                            </ButtonMedium>
+        <PageScrollViewContainer>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Titulo title='Cadastrar-se' subtitle='Cadastra-se e tenha acesso completo ao App. Nenhum dado pessoal precisa ser informado.'>
+                    <Ionicons name="person-add-outline" size={24} color={THEME.COLORS.PRIMARY} />
+                </Titulo>
+                <FormStyled style={{ marginTop: 32 }}>
+                    <FieldAreaStyled>
+                        <LabelStyled>Nome ou apelido</LabelStyled>
+                        <View style={styles.inputCameraArea}>
+                            <InputStyled
+                                onChangeText={setNome}
+                                value={nome}
+                                autoCompleteType='username'
+                                placeholder="Digite seu nome ou apelido aqui"
+                                placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                maxLength={formRules.maxLengthTextArea}
+                            />
                         </View>
-                    </FormStyled>
+                        <Text style={styles.helpText}>Essa informação não será divulgada, mas se preferir, escolha um apelido, não precisa informar seu nome verdadeiro.</Text>
+                    </FieldAreaStyled>
 
-                </ScrollView>
-            </PageScrollViewContainer>
+                    <FieldAreaStyled>
+                        <LabelStyled>Palavra passe</LabelStyled>
+                        <View style={styles.inputCameraArea}>
+                            <InputStyled
+                                onChangeText={(value: string) => setPalavraPasse(value.replace(regexValidatorPassword, ''))}
+                                value={palavraPasse}
+                                autoCompleteType='username'
+                                placeholder="Escolha uma palavra passe"
+                                placeholderTextColor={THEME.COLORS.SEMANTIC_2}
+                                maxLength={64}
+                                autoCapitalize='none'
+                            />
+                        </View>
+                        <Text style={styles.helpText}>Digite apenas letras e números. Caracteres especiais não são permitidos</Text>
+                        <Text style={styles.helpText}><Text style={styles.strong}>IMPORTANTE:</Text> na versão atual do aplicativo, <Text style={styles.bold}>não há como recuperar ou redefinir a palavra passe</Text>, portanto, escolha uma palavra passe que possa lembra-se com facilidade.</Text>
+                    </FieldAreaStyled>
+
+                    <View style={styles.buttonArea}>
+                        <ButtonMedium color={THEME.COLORS.PRIMARY} value='Cadastrar' onPress={() => handleSignUp(nome, palavraPasse)}>
+                            {loadingAuth && <ActivityIndicator size={THEME.FONT_SIZE.SM} color={THEME.COLORS.TEXT} />}
+                        </ButtonMedium>
+                    </View>
+                </FormStyled>
+
+            </ScrollView>
+
 
             <ModalShort
                 modalVisible={!!createdUserId && showModalCreatedUser}
@@ -131,6 +131,6 @@ export function SingUp() {
                 </View>
 
             </ModalShort>
-        </PageContainerView>
+        </PageScrollViewContainer>
     );
 }

@@ -18,7 +18,7 @@ const onShare = async () => {
     try {
         const result = await Share.share({
             message:
-                'Ei, achei esse App maneiro para ajudar a se livrar do consumo de conteúdo explício. Vou te mandar o link: LINKAQUI!!!!!',
+                'Oi, já viu o App da Leticia Balducci (especialistax)? Vou te mandar o link: https://play.google.com/store/apps/details?id=com.app.lets',
         });
         if (result.action === Share.sharedAction) {
             if (result.activityType) {
@@ -44,18 +44,24 @@ const alertaFuncionalidadeIndisponivel = () =>
     ]);
 
 export function Main() {
-    const { isLocalAuthenticationRequired, signOut, setIsLocalAuthenticationRequired } = useContext(AuthContext)
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-
-    const toggleSwitch = async () => {
-        setIsLoading(true)
-        await AsyncStorage.setItem('@lets:is_local_authentication_required', JSON.stringify(!isLocalAuthenticationRequired))
-        setIsLocalAuthenticationRequired(previousState => !previousState)
-        setIsLoading(false)
-    };
+    const { isLocalAuthenticationRequired, signOut, setIsLocalAuthenticationRequired, themeMode, setThemeMode } = useContext(AuthContext)
 
     const navigation = useNavigation()
+
+    const [isLoadingToggleLocalAuth, setIsLoadingToggleLocalAuth] = useState<boolean>(false)
+
+    async function toggleSwitch() {
+        setIsLoadingToggleLocalAuth(true)
+        await AsyncStorage.setItem('@lets:is_local_authentication_required', JSON.stringify(!isLocalAuthenticationRequired))
+        setIsLocalAuthenticationRequired(previousState => !previousState)
+        setIsLoadingToggleLocalAuth(false)
+    };
+
+    async function toggleThemeMode(themeMode: 'DARK' | 'LIGHT') {
+        alertaFuncionalidadeIndisponivel()
+        setThemeMode(themeMode)
+        await AsyncStorage.setItem('@lets:theme_mode', themeMode)
+    };
 
     return (
         <View style={styles.container}>
@@ -85,7 +91,7 @@ export function Main() {
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
-                        {isLoading ?
+                        {isLoadingToggleLocalAuth ?
                             (<ActivityIndicator color={THEME.COLORS.TEXT} size={THEME.FONT_SIZE.LG} />)
                             :
                             (<Switch
@@ -117,10 +123,10 @@ export function Main() {
                         </CardInfo>
                     </View>
                     <View style={styles.switchContainer}>
-                        <TouchableOpacity onPress={() => alertaFuncionalidadeIndisponivel()} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonDark }}>
+                        <TouchableOpacity onPress={() => toggleThemeMode('DARK')} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonDark, opacity: (themeMode === 'DARK' ? 1 : .25) }}>
                             <Ionicons name="moon-sharp" size={16} color={THEME.COLORS.NEUTRAL_1} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => alertaFuncionalidadeIndisponivel()} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonLight, opacity: .25 }}>
+                        <TouchableOpacity onPress={() => toggleThemeMode('LIGHT')} style={{ ...styles.toggleThemeButton, ...styles.toggleThemeButtonLight, opacity: (themeMode === 'LIGHT' ? 1 : .25) }}>
                             <Ionicons name="sunny-sharp" size={16} color={THEME.COLORS.BLACK} />
                         </TouchableOpacity>
                     </View>
@@ -128,7 +134,7 @@ export function Main() {
 
                 <CardInfo
                     title='Convidar amigos'
-                    description="Compartilhe o App “Let's!” com seus amigos"
+                    description="Compartilhe o App “Let's” com seus amigos"
                     onPress={() => { onShare() }}
                 >
                     <Ionicons name="people-outline" size={32} color={THEME.COLORS.TEXT} />
